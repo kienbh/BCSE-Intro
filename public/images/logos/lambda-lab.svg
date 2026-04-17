@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e1b2e"/>
+      <stop offset="100%" stop-color="#0f0e1a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f4d47a"/>
+      <stop offset="55%" stop-color="#d4a017"/>
+      <stop offset="100%" stop-color="#a87a10"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="22" fill="url(#bg)"/>
+  <rect x="2" y="2" width="124" height="124" rx="20" fill="none" stroke="url(#gold)" stroke-width="1.5" opacity="0.45"/>
+  <text x="64" y="82"
+        text-anchor="middle"
+        font-family="'Cormorant Garamond','EB Garamond','Times New Roman',serif"
+        font-weight="700"
+        font-size="84"
+        fill="url(#gold)">λ</text>
+  <text x="64" y="108"
+        text-anchor="middle"
+        font-family="'Inter',system-ui,sans-serif"
+        font-weight="600"
+        font-size="14"
+        letter-spacing="4"
+        fill="#e8e4d8">LAB</text>
+</svg>

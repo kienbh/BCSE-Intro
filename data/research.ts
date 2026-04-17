@@ -48,7 +48,7 @@ export const lambdaLab = {
   fullName: 'Lambda Lab',
   tagline: 'Nơi ý tưởng liên ngành, đa ngành kết nối và giao thoa nhau.',
   url: 'https://sv03.bcse-vju.com',
-  logo: '/images/logos/lambda-lab.png',
+  logo: '/images/logos/lambda-lab.svg',
 };
 
 export const researchAreas: ResearchArea[] = [
