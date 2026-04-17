@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  ::selection {
+    @apply bg-sky-500/30 text-white;
+  }
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 rounded-full hover:bg-slate-600;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400;
+  }
+  .glass {
+    @apply bg-slate-800/60 backdrop-blur-xl border border-white/[0.06];
+  }
+  .glass-hover {
+    @apply hover:bg-slate-800/80 hover:border-white/[0.12] transition-all duration-300;
+  }
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+}
+
+/* =========================================================================
+   LIGHT MODE — overrides via html.light cascade (no refactor of slate-*)
+   ========================================================================= */
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+html.light ::-webkit-scrollbar-track { background-color: #e2e8f0; }
+html.light ::-webkit-scrollbar-thumb { background-color: #94a3b8; }
+html.light ::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
+html.light ::selection { background-color: rgba(14, 165, 233, 0.3); color: #0f172a; }
+
+/* Page backgrounds */
+html.light .bg-slate-950 { background-color: #f8fafc !important; }
+html.light .bg-slate-900 { background-color: #f1f5f9 !important; }
+html.light .bg-slate-900\/50 { background-color: rgba(241, 245, 249, 0.7) !important; }
+html.light .bg-slate-900\/80 { background-color: rgba(248, 250, 252, 0.9) !important; }
+html.light .bg-slate-900\/95 { background-color: rgba(255, 255, 255, 0.92) !important; }
+html.light .bg-slate-900\/98 { background-color: rgba(255, 255, 255, 0.98) !important; }
+html.light .bg-slate-800\/40 { background-color: rgba(226, 232, 240, 0.6) !important; }
+html.light .bg-slate-800\/60 { background-color: rgba(226, 232, 240, 0.7) !important; }
+html.light .bg-slate-800\/80 { background-color: rgba(226, 232, 240, 0.85) !important; }
+
+/* Section gradient overlays */
+html.light .from-slate-950 { --tw-gradient-from: #f8fafc var(--tw-gradient-from-position) !important; }
+html.light .via-slate-900 { --tw-gradient-via: #f1f5f9 var(--tw-gradient-via-position) !important; }
+html.light .to-slate-950 { --tw-gradient-to: #f8fafc var(--tw-gradient-to-position) !important; }
+
+/* Text */
+html.light .text-white { color: #0f172a !important; }
+html.light .text-slate-100 { color: #0f172a !important; }
+html.light .text-slate-200 { color: #1e293b !important; }
+html.light .text-slate-300 { color: #334155 !important; }
+html.light .text-slate-400 { color: #475569 !important; }
+html.light .text-slate-500 { color: #64748b !important; }
+html.light .text-slate-600 { color: #94a3b8 !important; }
+
+/* Accent text stays */
+html.light .text-sky-400 { color: #0284c7 !important; }
+html.light .text-sky-300 { color: #0369a1 !important; }
+
+/* Borders on white overlays */
+html.light .border-white\/\[0\.02\] { border-color: rgba(15, 23, 42, 0.04) !important; }
+html.light .border-white\/\[0\.04\] { border-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .border-white\/\[0\.06\] { border-color: rgba(15, 23, 42, 0.1) !important; }
+html.light .border-white\/\[0\.08\] { border-color: rgba(15, 23, 42, 0.12) !important; }
+html.light .border-white\/\[0\.12\] { border-color: rgba(15, 23, 42, 0.16) !important; }
+html.light .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
+html.light .border-white\/20 { border-color: rgba(15, 23, 42, 0.22) !important; }
+
+/* White overlay backgrounds */
+html.light .bg-white\/\[0\.02\] { background-color: rgba(15, 23, 42, 0.03) !important; }
+html.light .bg-white\/\[0\.04\] { background-color: rgba(15, 23, 42, 0.04) !important; }
+html.light .bg-white\/5 { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .bg-white\/10 { background-color: rgba(15, 23, 42, 0.08) !important; }
+
+/* Navbar/CTA hover */
+html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
+html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
+html.light .hover\:text-white:hover { color: #0f172a !important; }
+html.light .hover\:border-white\/\[0\.12\]:hover { border-color: rgba(15, 23, 42, 0.16) !important; }
+
+/* Glass utility */
+html.light .glass { background-color: rgba(255, 255, 255, 0.7) !important; border-color: rgba(15, 23, 42, 0.08) !important; }
