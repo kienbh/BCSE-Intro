@@ -23,7 +23,7 @@ export default function ServicesContent() {
               const isActive = service.status === 'active';
 
               return (
-                <div key={service.id} className="p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06] hover:border-sky-500/20 transition-colors">
+                <div key={service.id} id={service.id} className="scroll-mt-24 p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06] hover:border-sky-500/20 transition-colors">
                   <div className="flex items-start gap-4">
                     <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 flex-shrink-0">
                       <Icon className="w-6 h-6 text-sky-400" />

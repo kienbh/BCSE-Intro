@@ -148,6 +148,21 @@ export const dict = {
     // Page: Services
     'services.pageTitle': 'Cổng dịch vụ trực tuyến',
     'services.pageSubtitle': 'Hệ sinh thái số phục vụ giảng viên và sinh viên BCSE',
+
+    // Career opportunities
+    'careers.title': 'Cơ hội việc làm',
+    'careers.subtitle': 'Sinh viên BCSE có thể đi chuyên sâu 1 định hướng hoặc mở rộng liên ngành — mở ra cơ hội trong các hướng tích hợp công nghệ',
+    'careers.stat.salary': 'Mức lương khởi điểm',
+    'careers.stat.internship': 'Tỷ lệ thực tập',
+    'careers.stat.employment': 'Có việc sau tốt nghiệp',
+    'careers.stat.partners': 'Doanh nghiệp đối tác',
+    'careers.byTrack': 'Vị trí công việc theo định hướng',
+    'careers.byTrackNote': 'Chuyên sâu theo 1 trong 5 định hướng — sinh viên đảm nhiệm các vị trí chuyên môn tương ứng.',
+    'careers.integrated': 'Các hướng tích hợp công nghệ',
+    'careers.integratedNote': 'Kết hợp định hướng lõi với học phần tự chọn liên ngành, sinh viên có thể tham gia các lĩnh vực giao thoa — nơi CNTT tạo giá trị khác biệt cho các ngành khác.',
+    'careers.portalTitle': 'Cổng Thực tập & Nghề nghiệp',
+    'careers.portalDesc': 'Kết nối doanh nghiệp và sinh viên — đăng ký thực tập, cập nhật vị trí tuyển dụng thực tập sinh và nhân sự.',
+    'careers.portalBtn': 'Truy cập cổng',
   },
   en: {
     // Nav
@@ -284,6 +299,20 @@ export const dict = {
 
     'services.pageTitle': 'Online services portal',
     'services.pageSubtitle': 'Digital ecosystem for BCSE faculty and students',
+
+    'careers.title': 'Career opportunities',
+    'careers.subtitle': 'BCSE students can specialize deeply in one track or expand across disciplines — opening doors to integrated-technology domains',
+    'careers.stat.salary': 'Starting salary',
+    'careers.stat.internship': 'Internship rate',
+    'careers.stat.employment': 'Employed after graduation',
+    'careers.stat.partners': 'Partner companies',
+    'careers.byTrack': 'Job roles by specialization',
+    'careers.byTrackNote': 'Going deep on one of the 5 tracks qualifies students for the corresponding specialist roles.',
+    'careers.integrated': 'Integrated-technology directions',
+    'careers.integratedNote': 'By combining a core specialization with cross-discipline electives, students can enter intersection fields where IT creates differentiated value for other industries.',
+    'careers.portalTitle': 'Internship & Career Portal',
+    'careers.portalDesc': 'Connecting companies with students — internship applications, job openings for interns and full-time roles.',
+    'careers.portalBtn': 'Visit portal',
   },
   ja: {
     // Nav
@@ -414,6 +443,20 @@ export const dict = {
 
     'services.pageTitle': 'オンラインサービスポータル',
     'services.pageSubtitle': 'BCSE 教員と学生のためのデジタルエコシステム',
+
+    'careers.title': 'キャリア機会',
+    'careers.subtitle': 'BCSE の学生は 1 つの専攻を深く追求するも、分野横断で広げるも自由 — 技術融合領域への道が開かれます',
+    'careers.stat.salary': '初任給',
+    'careers.stat.internship': 'インターン率',
+    'careers.stat.employment': '卒業後就職率',
+    'careers.stat.partners': '提携企業数',
+    'careers.byTrack': '専攻別の職種',
+    'careers.byTrackNote': '5 つの専攻のうち 1 つを深く学ぶことで、該当の専門職に就くことができます。',
+    'careers.integrated': '技術融合の方向性',
+    'careers.integratedNote': 'コア専攻と学際的選択科目を組み合わせることで、IT が他分野に価値を生む交差領域での活躍が可能になります。',
+    'careers.portalTitle': 'インターンシップ・キャリアポータル',
+    'careers.portalDesc': '企業と学生をつなぐ — インターンシップ応募、インターン生・正社員の求人情報。',
+    'careers.portalBtn': 'ポータルへ',
   },
 } as const;
 

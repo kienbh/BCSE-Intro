@@ -8,6 +8,7 @@ import ResearchPreview from '@/components/home/ResearchPreview';
 import FacultyPreview from '@/components/home/FacultyPreview';
 import ServicesPortal from '@/components/home/ServicesPortal';
 import StudentProjectsSection from '@/components/home/StudentProjectsSection';
+import CareerOpportunitiesSection from '@/components/home/CareerOpportunitiesSection';
 import CTASection from '@/components/home/CTASection';
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
       <FacultyPreview />
       <ServicesPortal />
       <StudentProjectsSection />
+      <CareerOpportunitiesSection />
       <CTASection />
     </>
   );
