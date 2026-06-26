@@ -6,6 +6,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./data/**/*.{js,ts}",
   ],
   theme: {
     extend: {
@@ -23,7 +24,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+        sans: ['Be Vietnam Pro', 'Inter', 'Noto Sans JP', 'sans-serif'],
+        serif: ['Fraunces', 'Georgia', 'serif'],
         display: ['Orbitron', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },

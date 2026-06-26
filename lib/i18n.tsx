@@ -27,12 +27,13 @@ export const dict = {
 
     // Philosophy
     'philosophy.title': 'Triết lý đào tạo',
+    'philosophy.motto': 'Công nghệ tiên tiến – Giáo dục khai phóng – Đổi mới sáng tạo hướng đến phát triển bền vững',
     'philosophy.p1.title': 'Khai phóng',
     'philosophy.p1.desc': 'Đào tạo con người toàn diện, tự do học thuật. Sinh viên được khuyến khích tư duy phản biện, sáng tạo, không giới hạn trong kỹ thuật.',
     'philosophy.p2.title': 'Phát triển bền vững',
     'philosophy.p2.desc': 'Nghiên cứu và ứng dụng công nghệ vì cộng đồng. Từ nông nghiệp thông minh đến y tế, giáo dục — công nghệ phục vụ con người.',
     'philosophy.p3.title': 'Khoa học liên ngành',
-    'philosophy.p3.desc': 'Kết hợp CNTT với nông nghiệp, y tế, giáo dục, tài chính, tin sinh học. Triết lý này ngày càng đúng đắn trong kỷ nguyên AI.',
+    'philosophy.p3.desc': 'Kết hợp KH-KTMT với nông nghiệp, y tế, giáo dục, tài chính, tin sinh học. Triết lý này ngày càng đúng đắn trong kỷ nguyên AI.',
     'philosophy.quote': 'Hiện tại xã hội đang thay đổi rất nhanh. Trong hoàn cảnh xã hội như vậy, con người nhiều khi phải "đi biển không có la bàn". Muốn vậy thì "tầm nhìn xa" của con người rất quan trọng. Vì vậy, việc xây dựng kiến thức cốt lõi vững chắc là một yêu cầu rất quan trọng trong việc đào tạo của các trường đại học.',
     'philosophy.quoteAuthor': 'GS.TS. Furuta Motoo',
     'philosophy.quoteTitle': 'Nguyên Hiệu trưởng VJU',
@@ -51,8 +52,8 @@ export const dict = {
     'curriculum.subtitle': '152 tín chỉ, 4 năm — 2 năm nền tảng + 2 năm chuyên ngành',
 
     // Research
-    'section.research': 'Nghiên cứu khoa học',
-    'research.subtitle': 'NCKH từ năm nhất — Lambda Lab & các nhóm nghiên cứu',
+    'section.research': 'Nghiên cứu & Dự án học phần',
+    'research.subtitle': 'Học theo dự án thực tế và NCKH từ năm nhất — 3 phòng lab nghiên cứu: λ Lambda, Δ Demeter, Υ Hygieia',
 
     // Facilities
     'section.facilities': 'Cơ sở vật chất',
@@ -63,8 +64,8 @@ export const dict = {
     'faculty.subtitle': 'Giảng viên có trình độ cao, tốt nghiệp tiến sĩ tại các nước phát triển',
 
     // Services
-    'section.services': 'Dịch vụ sinh viên',
-    'services.subtitle': 'Hệ sinh thái số phục vụ học tập, nghiên cứu và đời sống',
+    'section.services': 'BCSE Portal',
+    'services.subtitle': 'Hệ sinh thái số phục vụ học tập, nghiên cứu và đời sống của BCSE',
 
     // Projects
     'section.projects': 'Dự án sinh viên',
@@ -132,7 +133,7 @@ export const dict = {
     'research.blog': 'News & Blog',
     'research.blogSubtitle': 'Cập nhật hoạt động lab, kết quả nghiên cứu, demo, sự kiện.',
     'research.sProjects': 'NCKH Sinh viên',
-    'research.sProjectsSubtitle': 'Các đề tài sinh viên BCSE đang thực hiện tại Lambda Lab',
+    'research.sProjectsSubtitle': 'Các đề tài sinh viên BCSE đang thực hiện tại các phòng lab nghiên cứu',
     'research.viewAll': 'Xem tất cả tại',
     'research.noResults': 'Không có kết quả phù hợp.',
     'research.noPosts': 'Không có bài viết phù hợp.',
@@ -146,8 +147,8 @@ export const dict = {
     'faculty.badgeJP': 'Giảng viên Nhật Bản',
 
     // Page: Services
-    'services.pageTitle': 'Cổng dịch vụ trực tuyến',
-    'services.pageSubtitle': 'Hệ sinh thái số phục vụ giảng viên và sinh viên BCSE',
+    'services.pageTitle': 'BCSE Portal',
+    'services.pageSubtitle': 'Cổng dịch vụ số phục vụ giảng viên và sinh viên BCSE',
 
     // Career opportunities
     'careers.title': 'Cơ hội việc làm',
@@ -186,12 +187,13 @@ export const dict = {
 
     // Philosophy
     'philosophy.title': 'Educational philosophy',
+    'philosophy.motto': 'Advanced Technology – Liberal Arts Education – Innovation for Sustainable Development',
     'philosophy.p1.title': 'Liberal Arts',
     'philosophy.p1.desc': 'Well-rounded education with academic freedom. Students are encouraged to think critically and creatively — beyond the boundaries of engineering.',
     'philosophy.p2.title': 'Sustainable Development',
     'philosophy.p2.desc': 'Research and apply technology for the community — from smart agriculture to healthcare and education. Technology serves people.',
     'philosophy.p3.title': 'Interdisciplinary Science',
-    'philosophy.p3.desc': 'Combining IT with agriculture, healthcare, education, finance, bioinformatics. This philosophy proves ever more relevant in the AI era.',
+    'philosophy.p3.desc': 'Combining CS-CE with agriculture, healthcare, education, finance, bioinformatics. This philosophy proves ever more relevant in the AI era.',
     'philosophy.quote': 'Society is changing very fast. In such circumstances, people often have to "sail without a compass". Thus a person\'s "long-range vision" is critical — which is why building a solid core knowledge base is an essential mission of universities.',
     'philosophy.quoteAuthor': 'Prof. Furuta Motoo, Ph.D.',
     'philosophy.quoteTitle': 'Former President, VJU',
@@ -210,8 +212,8 @@ export const dict = {
     'curriculum.subtitle': '152 credits, 4 years — 2 years of foundation + 2 years of specialization',
 
     // Research
-    'section.research': 'Research',
-    'research.subtitle': 'Research from year 1 — Lambda Lab & research groups',
+    'section.research': 'Research & Course Projects',
+    'research.subtitle': 'Project-based learning & research from year 1 — 3 active labs: λ Lambda, Δ Demeter, Υ Hygieia',
 
     // Facilities
     'section.facilities': 'Facilities',
@@ -222,8 +224,8 @@ export const dict = {
     'faculty.subtitle': 'Highly qualified lecturers with PhDs from developed countries',
 
     // Services
-    'section.services': 'Student services',
-    'services.subtitle': 'A digital ecosystem for learning, research and student life',
+    'section.services': 'BCSE Portal',
+    'services.subtitle': 'A digital ecosystem for BCSE learning, research and student life',
 
     'section.projects': 'Student projects',
 
@@ -285,7 +287,7 @@ export const dict = {
     'research.blog': 'News & Blog',
     'research.blogSubtitle': 'Lab activity, research results, demos and events.',
     'research.sProjects': 'Student research (NCKH)',
-    'research.sProjectsSubtitle': 'BCSE student projects at Lambda Lab',
+    'research.sProjectsSubtitle': 'BCSE student projects at the research labs',
     'research.viewAll': 'View all at',
     'research.noResults': 'No matching results.',
     'research.noPosts': 'No matching posts.',
@@ -297,8 +299,8 @@ export const dict = {
     'faculty.affiliated': 'Affiliated faculty',
     'faculty.badgeJP': 'Japanese faculty',
 
-    'services.pageTitle': 'Online services portal',
-    'services.pageSubtitle': 'Digital ecosystem for BCSE faculty and students',
+    'services.pageTitle': 'BCSE Portal',
+    'services.pageSubtitle': 'Digital services portal for BCSE faculty and students',
 
     'careers.title': 'Career opportunities',
     'careers.subtitle': 'BCSE students can specialize deeply in one track or expand across disciplines — opening doors to integrated-technology domains',
@@ -336,12 +338,13 @@ export const dict = {
 
     // Philosophy
     'philosophy.title': '教育理念',
+    'philosophy.motto': '先端技術 – リベラルアーツ教育 – 持続可能な発展のためのイノベーション',
     'philosophy.p1.title': 'リベラルアーツ',
     'philosophy.p1.desc': '学問の自由を重んじた全人教育。工学の枠を超えて、批判的思考と創造性を育みます。',
     'philosophy.p2.title': '持続可能な発展',
     'philosophy.p2.desc': 'スマート農業から医療、教育まで——技術を社会のために応用し、人間に貢献する研究を推進します。',
     'philosophy.p3.title': '学際科学',
-    'philosophy.p3.desc': 'IT と農業、医療、教育、金融、バイオインフォマティクスを融合。AI 時代にますます重要性が増す理念です。',
+    'philosophy.p3.desc': 'CS・CE と農業、医療、教育、金融、バイオインフォマティクスを融合。AI 時代にますます重要性が増す理念です。',
     'philosophy.quote': '現代社会は急速に変化しています。そのような状況下で、人は時に「羅針盤なしで航海する」ことを迫られます。だからこそ人間の「長期的視野」が重要であり、強固な核となる知識を築くことが大学教育の要となるのです。',
     'philosophy.quoteAuthor': '古田 元夫 博士',
     'philosophy.quoteTitle': 'VJU 前学長',
@@ -359,8 +362,8 @@ export const dict = {
     'section.curriculum': 'カリキュラム',
     'curriculum.subtitle': '152 単位、4 年間 — 2 年の基礎 + 2 年の専門',
 
-    'section.research': '研究',
-    'research.subtitle': '1 年次から研究 — Lambda Lab と研究グループ',
+    'section.research': '研究・授業プロジェクト',
+    'research.subtitle': '1 年次からのプロジェクト型学習と研究 — 3 研究室稼働中: λ Lambda、Δ Demeter、Υ Hygieia',
 
     'section.facilities': '施設',
     'facilities.subtitle': 'JICA 全額支援 — 設計から製造まで',
@@ -368,8 +371,8 @@ export const dict = {
     'section.faculty': '教員',
     'faculty.subtitle': '先進国で博士号を取得した高水準の教員陣',
 
-    'section.services': '学生サービス',
-    'services.subtitle': '学び、研究、学生生活を支えるデジタルエコシステム',
+    'section.services': 'BCSE Portal',
+    'services.subtitle': 'BCSE の学び・研究・学生生活を支えるデジタルエコシステム',
 
     'section.projects': '学生プロジェクト',
 
@@ -429,7 +432,7 @@ export const dict = {
     'research.blog': 'News & Blog',
     'research.blogSubtitle': 'ラボ活動、研究成果、デモ、イベントの最新情報。',
     'research.sProjects': '学生研究 (NCKH)',
-    'research.sProjectsSubtitle': 'Lambda Lab で進行中の BCSE 学生プロジェクト',
+    'research.sProjectsSubtitle': '各研究室で進行中の BCSE 学生プロジェクト',
     'research.viewAll': '詳細はこちら',
     'research.noResults': '該当する結果はありません。',
     'research.noPosts': '該当する投稿はありません。',
@@ -441,8 +444,8 @@ export const dict = {
     'faculty.affiliated': '非常勤・客員教員',
     'faculty.badgeJP': '日本人教員',
 
-    'services.pageTitle': 'オンラインサービスポータル',
-    'services.pageSubtitle': 'BCSE 教員と学生のためのデジタルエコシステム',
+    'services.pageTitle': 'BCSE Portal',
+    'services.pageSubtitle': 'BCSE 教員と学生のためのデジタルサービスポータル',
 
     'careers.title': 'キャリア機会',
     'careers.subtitle': 'BCSE の学生は 1 つの専攻を深く追求するも、分野横断で広げるも自由 — 技術融合領域への道が開かれます',

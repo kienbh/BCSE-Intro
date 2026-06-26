@@ -42,14 +42,41 @@ export interface NckhProject {
   tags: string[];
 }
 
-// Lambda Lab info
+// Research Labs
 export const lambdaLab = {
   name: 'λ Lab',
+  letter: 'λ',
   fullName: 'Lambda Lab',
   tagline: 'Nơi ý tưởng liên ngành, đa ngành kết nối và giao thoa nhau.',
   url: 'https://sv03.bcse-vju.com',
   logo: '/images/logos/lambda-lab.svg',
+  color: 'indigo' as const,
+  focus: ['Computer Vision', 'Robotics', 'EEG & BCI', 'Sensory AI', 'Cloud Computing', 'IC Design'],
 };
+
+export const deltaLab = {
+  name: 'Δ Lab',
+  letter: 'Δ',
+  fullName: 'Demeter Lab',
+  tagline: 'Nông nghiệp thông minh, chất lượng thực phẩm và cảm biến môi trường dựa trên AI.',
+  url: 'https://sv17.bcse-vju.com',
+  logo: '/images/logos/demeter-lab.svg',
+  color: 'emerald' as const,
+  focus: ['Smart Agriculture', 'Food Quality AI', 'Agri-Robotics', 'Environmental Sensing'],
+};
+
+export const hygieiaLab = {
+  name: 'Υ Lab',
+  letter: 'Υ',
+  fullName: 'Hygieia Lab',
+  tagline: 'Công nghệ y tế, giám sát sức khỏe và phân tích tín hiệu sinh học.',
+  url: 'https://sv19.bcse-vju.com',
+  logo: '/images/logos/hygieia-lab.svg',
+  color: 'rose' as const,
+  focus: ['Health Monitoring', 'Medical AI', 'Biosignal Analysis', 'Wellness Tech'],
+};
+
+export const allLabs = [lambdaLab, deltaLab, hygieiaLab] as const;
 
 export const researchAreas: ResearchArea[] = [
   {

@@ -7,6 +7,7 @@ import { trackCareers, integratedDirections, careerStats } from '@/data/careers'
 import { getIcon } from '@/lib/utils';
 import { ArrowRight, Briefcase, TrendingUp, Users, Building2 } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 const colorMap: Record<string, { bg: string; text: string; border: string }> = {
   sky:     { bg: 'bg-sky-500/10',     text: 'text-sky-400',     border: 'border-sky-500/20' },
@@ -18,7 +19,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
 };
 
 export default function CareerOpportunitiesSection() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <section id="careers" className="section-padding">
       <div className="container-max">
@@ -31,10 +32,10 @@ export default function CareerOpportunitiesSection() {
         <ScrollReveal>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
             {[
-              { icon: TrendingUp, label: t('careers.stat.salary'),       value: careerStats.avgStartingSalary },
-              { icon: Briefcase,  label: t('careers.stat.internship'),   value: careerStats.internshipRate },
-              { icon: Users,      label: t('careers.stat.employment'),   value: careerStats.postGradEmployment },
-              { icon: Building2,  label: t('careers.stat.partners'),     value: careerStats.partnerCompanies },
+              { icon: TrendingUp, label: t('careers.stat.salary'),       value: pickLocalized(careerStats.avgStartingSalary, lang) },
+              { icon: Briefcase,  label: t('careers.stat.internship'),   value: pickLocalized(careerStats.internshipRate, lang) },
+              { icon: Users,      label: t('careers.stat.employment'),   value: pickLocalized(careerStats.postGradEmployment, lang) },
+              { icon: Building2,  label: t('careers.stat.partners'),     value: pickLocalized(careerStats.partnerCompanies, lang) },
             ].map((s, i) => (
               <div key={i} className="p-4 rounded-xl bg-slate-800/40 border border-white/[0.06] text-center">
                 <s.icon className="w-5 h-5 text-sky-400 mx-auto mb-2" />
@@ -52,7 +53,7 @@ export default function CareerOpportunitiesSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
             {trackCareers.map((tr) => (
               <div key={tr.specId} className="p-5 rounded-xl bg-slate-800/40 border border-white/[0.06] hover:border-sky-500/20 transition-colors">
-                <h4 className="text-sm font-bold text-white mb-3">{tr.name}</h4>
+                <h4 className="text-sm font-bold text-white mb-3">{pickLocalized(tr.name, lang)}</h4>
                 <div className="flex flex-wrap gap-1.5">
                   {tr.roles.map((r) => (
                     <span key={r} className="text-[11px] px-2.5 py-1 rounded-full bg-sky-500/10 text-sky-300 border border-sky-500/20">
@@ -78,9 +79,9 @@ export default function CareerOpportunitiesSection() {
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${c.bg} mb-3`}>
                     <Icon className={`w-5 h-5 ${c.text}`} />
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-0.5">{dir.name}</h4>
+                  <h4 className="text-sm font-bold text-white mb-0.5">{pickLocalized(dir.name, lang)}</h4>
                   <p className={`text-[11px] font-mono ${c.text} mb-2`}>{dir.nameEN}</p>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{dir.description}</p>
+                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{pickLocalized(dir.description, lang)}</p>
                   <div className="flex flex-wrap gap-1">
                     {dir.roles.map((r) => (
                       <span key={r} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-400">{r}</span>

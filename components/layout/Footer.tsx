@@ -5,9 +5,10 @@ import { contactInfo } from '@/data/contact';
 import { navItems } from '@/data/navigation';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 export default function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <footer className="bg-slate-900 border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -15,9 +16,9 @@ export default function Footer() {
           <div>
             <span className="font-display font-bold text-xl text-sky-400">BCSE</span>
             <p className="text-sm text-slate-400 mt-3 leading-relaxed">
-              {contactInfo.program}
+              {pickLocalized(contactInfo.program, lang)}
             </p>
-            <p className="text-sm text-slate-500 mt-2">{contactInfo.university}</p>
+            <p className="text-sm text-slate-500 mt-2">{pickLocalized(contactInfo.university, lang)}</p>
           </div>
 
           <div>
@@ -35,13 +36,13 @@ export default function Footer() {
 
           <div>
             <h3 className="text-sm font-semibold text-white mb-4">{t('footer.campus')}</h3>
-            {contactInfo.campuses.map((campus) => (
-              <div key={campus.name} className="mb-4">
+            {contactInfo.campuses.map((campus, idx) => (
+              <div key={idx} className="mb-4">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="text-sm text-white">{campus.name}</p>
-                    <p className="text-xs text-slate-500">{campus.address}</p>
+                    <p className="text-sm text-white">{pickLocalized(campus.name, lang)}</p>
+                    <p className="text-xs text-slate-500">{pickLocalized(campus.address, lang)}</p>
                   </div>
                 </div>
               </div>

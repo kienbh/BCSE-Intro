@@ -19,7 +19,14 @@ export default function FacilitiesContent() {
           <div className="space-y-8 mb-16">
             {rooms.map((room) => (
               <div key={room.id} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
-                <ImagePlaceholder src={room.image} alt={room.name} iconName="Monitor" className="w-full md:w-64 h-48 rounded-xl object-cover flex-shrink-0" />
+                <div className="flex h-48 w-full flex-shrink-0 items-center justify-center rounded-xl bg-slate-950/55 p-3 md:w-64">
+                  <ImagePlaceholder
+                    src={room.image}
+                    alt={room.name}
+                    iconName="Monitor"
+                    className="max-h-full w-full rounded-lg object-contain"
+                  />
+                </div>
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-white">{room.name}</h3>
                   <p className="text-sm text-sky-400 mb-2">
@@ -40,12 +47,12 @@ export default function FacilitiesContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {equipmentCategories.map((cat) => (
               <div key={cat.id} className="p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
-                <div className="relative w-full aspect-[16/10] rounded-xl mb-4 overflow-hidden bg-slate-900/60">
+                <div className="relative w-full aspect-[16/10] rounded-xl mb-4 overflow-hidden bg-slate-950/55 p-4">
                   <ImagePlaceholder
                     src={cat.image}
                     alt={cat.name}
                     iconName="Wrench"
-                    className="absolute inset-0 w-full h-full object-contain"
+                    className="h-full w-full object-contain"
                   />
                 </div>
                 <h4 className="text-base font-bold text-white mb-1">{cat.name}</h4>

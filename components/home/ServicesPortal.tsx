@@ -7,9 +7,10 @@ import GlassCard from '@/components/ui/GlassCard';
 import { ExternalLink } from 'lucide-react';
 import { getIcon } from '@/lib/utils';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 export default function ServicesPortal() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <section className="section-padding">
       <div className="container-max">
@@ -24,6 +25,9 @@ export default function ServicesPortal() {
               const Icon = getIcon(service.icon);
               const isActive = service.status === 'active';
               const isComingSoon = service.status === 'coming-soon';
+              const name = pickLocalized(service.name, lang);
+              const description = pickLocalized(service.description, lang);
+              const features = pickLocalized(service.features, lang);
 
               return (
                 <GlassCard key={service.id} hover={isActive}>
@@ -43,10 +47,10 @@ export default function ServicesPortal() {
                       </span>
                     )}
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">{service.name}</h3>
-                  <p className="text-xs text-slate-500 mb-3">{service.description}</p>
+                  <h3 className="text-sm font-bold text-white mb-1">{name}</h3>
+                  <p className="text-xs text-slate-500 mb-3">{description}</p>
                   <ul className="space-y-1 mb-4">
-                    {service.features.slice(0, 3).map((f) => (
+                    {features.slice(0, 3).map((f) => (
                       <li key={f} className="text-[11px] text-slate-600 flex items-center gap-1.5">
                         <span className="w-1 h-1 rounded-full bg-sky-500/40" />
                         {f}

@@ -1,6 +1,17 @@
 import type { Localized } from '@/lib/localized';
 
-export type ServiceCategory = 'lab' | 'learning' | 'admin' | 'research' | 'community';
+export type ServiceCategory = 'lab' | 'learning' | 'admin' | 'research' | 'career' | 'community' | 'compete';
+
+/** Optional per-card accent — overrides CATEGORY_META visuals. */
+export interface ServiceAccent {
+  bg: string;          // icon container background tint
+  ring: string;        // icon container ring
+  text: string;        // icon color
+  bar: string;         // (optional use) section bar
+  hoverBorder: string; // card hover border
+  bullet: string;      // feature bullet color
+  titleClass?: string; // optional title text-color override (default white)
+}
 
 export interface ServiceItem {
   id: string;
@@ -11,6 +22,8 @@ export interface ServiceItem {
   icon: string;
   status: 'active' | 'coming-soon' | 'internal';
   category: ServiceCategory;
+  /** Per-card accent override (e.g. for flagship lab cards). */
+  accent?: ServiceAccent;
 }
 
 type CategoryMeta = {
@@ -53,16 +66,28 @@ export const CATEGORY_META: Record<ServiceCategory, CategoryMeta> = {
     chipActive: 'bg-amber-500 border-amber-500', bullet: 'bg-amber-500/60',
   },
   research: {
-    vi: 'Nghiên cứu & Khóa luận', en: 'Research & Thesis', ja: '研究・卒論',
+    vi: 'Nghiên cứu', en: 'Research', ja: '研究',
     bg: 'bg-violet-500/10', ring: 'ring-violet-500/30', text: 'text-violet-300',
     bar: 'bg-violet-500', hoverBorder: 'hover:border-violet-500/40',
     chipActive: 'bg-violet-500 border-violet-500', bullet: 'bg-violet-500/60',
   },
+  career: {
+    vi: 'Thực tập / Khóa luận & Nghề nghiệp', en: 'Internship, Thesis & Career', ja: 'インターン・卒論・キャリア',
+    bg: 'bg-cyan-500/10', ring: 'ring-cyan-500/30', text: 'text-cyan-300',
+    bar: 'bg-cyan-500', hoverBorder: 'hover:border-cyan-500/40',
+    chipActive: 'bg-cyan-500 border-cyan-500', bullet: 'bg-cyan-500/60',
+  },
   community: {
-    vi: 'Cộng đồng & Nghề nghiệp', en: 'Community & Career', ja: 'コミュニティ・キャリア',
+    vi: 'Cộng đồng & Sức khỏe', en: 'Community & Wellbeing', ja: 'コミュニティ・ウェルビーイング',
     bg: 'bg-rose-500/10', ring: 'ring-rose-500/30', text: 'text-rose-300',
     bar: 'bg-rose-500', hoverBorder: 'hover:border-rose-500/40',
     chipActive: 'bg-rose-500 border-rose-500', bullet: 'bg-rose-500/60',
+  },
+  compete: {
+    vi: 'Thử thách & Cuộc thi', en: 'Challenges & Competitions', ja: 'チャレンジ・コンテスト',
+    bg: 'bg-orange-500/10', ring: 'ring-orange-500/30', text: 'text-orange-300',
+    bar: 'bg-orange-500', hoverBorder: 'hover:border-orange-500/40',
+    chipActive: 'bg-orange-500 border-orange-500', bullet: 'bg-orange-500/60',
   },
 };
 
@@ -103,18 +128,21 @@ export const services: ServiceItem[] = [
     },
     features: {
       vi: [
+        'Đăng nhập 1 lần qua BCSE Identity (SSO)',
         'FPGA Kria KV260 · Jetson Orin · Raspberry Pi 5',
         'Phân quyền theo lớp + special access cho khóa luận',
         'Web terminal SSH ngay trên trình duyệt',
         'Smart-plug power-cycle khi kit treo',
       ],
       en: [
+        'Single sign-on via BCSE Identity',
         'FPGA Kria KV260 · Jetson Orin · Raspberry Pi 5',
         'Class-based access + special access for thesis',
         'Browser-based SSH terminal',
         'Smart-plug power-cycle when a kit hangs',
       ],
       ja: [
+        'BCSE Identity で 1 度の SSO ログイン',
         'FPGA Kria KV260・Jetson Orin・Raspberry Pi 5',
         'クラス単位の権限付与 + 卒研向け特別アクセス',
         'ブラウザ上の SSH ターミナル',
@@ -151,9 +179,9 @@ export const services: ServiceItem[] = [
   {
     id: 'lambda-lab',
     name: {
-      vi: 'Lambda Lab — Nghiên cứu',
-      en: 'Lambda Lab — Research',
-      ja: 'Lambda Lab — 研究',
+      vi: 'λ Lab — Lambda Lab · AIoT',
+      en: 'λ Lab — Lambda Lab · AIoT',
+      ja: 'λ Lab — Lambda Lab · AIoT',
     },
     description: {
       vi: 'Cổng thông tin nghiên cứu khoa học BCSE. Đề tài, publications, cơ hội tham gia NCKH.',
@@ -169,6 +197,15 @@ export const services: ServiceItem[] = [
     icon: 'FlaskConical',
     status: 'active',
     category: 'research',
+    // λ Lab flagship accent — tím than (dark purple) supporting; title giữ trắng
+    accent: {
+      bg: 'bg-violet-900/30',
+      ring: 'ring-violet-700/45',
+      text: 'text-violet-300',
+      bar: 'bg-violet-700',
+      hoverBorder: 'hover:border-violet-600/55',
+      bullet: 'bg-violet-400/70',
+    },
   },
   {
     id: 'e-service',
@@ -212,7 +249,7 @@ export const services: ServiceItem[] = [
     url: 'https://sv05.bcse-vju.com',
     icon: 'LayoutDashboard',
     status: 'active',
-    category: 'admin',
+    category: 'lab',
   },
   {
     id: 'wellbeing-chat',
@@ -289,25 +326,25 @@ export const services: ServiceItem[] = [
     category: 'learning',
   },
   {
-    id: 'learning-dashboard',
+    id: 'bcse-tracker',
     name: {
-      vi: 'Dashboard theo dõi học tập sinh viên BCSE',
-      en: 'BCSE Student Learning Dashboard',
-      ja: 'BCSE 学習トラッキング・ダッシュボード',
+      vi: 'BCSE Tracker',
+      en: 'BCSE Tracker',
+      ja: 'BCSE トラッカー',
     },
     description: {
-      vi: 'Theo dõi tình trạng học tập từng sinh viên, phân tích và dự đoán xu hướng chuyên môn phù hợp, khuyến nghị lộ trình cá thể hóa.',
-      en: 'Track each student\'s academic status, analyse and predict suitable specialisation trends, and recommend personalised paths.',
-      ja: '学生ごとの学習状況を可視化し、適性分析と専攻傾向の予測、個別学習ルートの提案を行います。',
+      vi: 'Cổng theo dõi học tập của cố vấn BCSE — rà soát 152 TC theo CTĐT, cảnh báo nguy cơ tốt nghiệp muộn, dự đoán định hướng chuyên sâu, tư vấn đăng ký kỳ tới và xuất phiếu cố vấn PDF.',
+      en: "BCSE advisor dashboard — track 152-credit graduation requirements, flag at-risk students, predict specialisation tracks, recommend next-semester courses, and export PDF advising reports.",
+      ja: 'BCSE 学習指導員向けダッシュボード — 152単位の卒業要件を可視化し、リスク学生を検出、専攻適性を予測、次学期の履修提案と PDF 指導報告書を出力。',
     },
     features: {
-      vi: ['Phân tích năng lực cá nhân', 'Dự đoán xu hướng chuyên môn', 'Lộ trình học tập cá thể hóa', 'Dashboard sinh viên'],
-      en: ['Personal capability analytics', 'Specialisation trend prediction', 'Personalised learning paths', 'Student dashboard'],
-      ja: ['個人能力の分析', '専攻傾向の予測', '個別学習ロードマップ', '学生ダッシュボード'],
+      vi: ['Rà soát tích lũy 152 TC', 'Cảnh báo rủi ro tốt nghiệp', 'Dự đoán định hướng chuyên sâu', 'Xuất phiếu cố vấn PDF'],
+      en: ['152-credit graduation audit', 'Graduation risk radar', 'Specialisation track predictor', 'PDF advising reports'],
+      ja: ['152単位修得監査', '卒業リスク検出', '専攻適性予測', 'PDF 指導報告書'],
     },
-    url: '#',
+    url: 'https://sv18.bcse-vju.com/',
     icon: 'LineChart',
-    status: 'coming-soon',
+    status: 'active',
     category: 'learning',
   },
   {
@@ -367,7 +404,7 @@ export const services: ServiceItem[] = [
     url: 'https://sv09.bcse-vju.com',
     icon: 'Briefcase',
     status: 'active',
-    category: 'community',
+    category: 'career',
   },
   {
     id: 'e-office',
@@ -426,7 +463,7 @@ export const services: ServiceItem[] = [
     url: 'https://sv13.bcse-vju.com',
     icon: 'GraduationCap',
     status: 'active',
-    category: 'research',
+    category: 'career',
   },
   {
     id: 'code-arena',
@@ -466,6 +503,43 @@ export const services: ServiceItem[] = [
     category: 'learning',
   },
   {
+    id: 'bcse-guild',
+    name: {
+      vi: 'BCSE Guild — Cổng cộng tác sinh viên',
+      en: 'BCSE Guild — Internal Talent Marketplace',
+      ja: 'BCSE Guild — 学内タレントマーケットプレイス',
+    },
+    description: {
+      vi: 'Sinh viên ứng tuyển công việc trong trường (TA, RA, lab assistant, dự án nội bộ). Hoàn thành quest tích XP, lên rank D→S; giúp đỡ đàn em mới mở khoá rank cao.',
+      en: 'Internal jobs marketplace for BCSE students (TA, RA, lab assistant, internal projects). Complete quests to earn XP and rank up D→S; helping juniors is required to unlock higher ranks.',
+      ja: '学生が学内業務（TA・RA・ラボ補助・内部プロジェクト）に応募できる学内マーケットプレイス。クエスト完了で XP を獲得しランクアップ（D→S）。後輩支援が高ランク解放の条件。',
+    },
+    features: {
+      vi: [
+        'Quest board theo rank D→S, lọc theo Học vụ / Dịch vụ / Hợp tác / Help Request',
+        'XP & rank gating: quest cao cần helping quota',
+        'Reflection bắt buộc cho quest rank ≥ B',
+        'Help Request peer-to-peer: cả helper & người được giúp đều viết paragraph',
+      ],
+      en: [
+        'Quest board by rank D→S, filtered by Academic / Service / Collab / Help Request',
+        'XP & rank gating: high-rank quests require helping quota',
+        'Reflection required for rank ≥ B quests',
+        'Peer-to-peer help requests with two-side paragraph reflection',
+      ],
+      ja: [
+        'ランク別 D→S のクエストボード、学業／サービス／協働／ヘルプリクエストで絞り込み',
+        'XP・ランクゲート：上位クエストには支援実績が必要',
+        'ランク B 以上は reflection 必須',
+        'ピアヘルプ：両当事者がパラグラフを記述',
+      ],
+    },
+    url: 'https://sv15.bcse-vju.com',
+    icon: 'Swords',
+    status: 'active',
+    category: 'compete',
+  },
+  {
     id: 'japan-talent-showcase',
     name: {
       vi: 'BCSE Talent Showcase — Thực tập & Việc làm tại Nhật Bản',
@@ -501,5 +575,208 @@ export const services: ServiceItem[] = [
     icon: 'Sparkles',
     status: 'coming-soon',
     category: 'community',
+  },
+  {
+    id: 'agri-robotics-lab',
+    name: {
+      vi: 'Δ Lab — Delta Lab · Agri-Robotics',
+      en: 'Δ Lab — Delta Lab · Agri-Robotics',
+      ja: 'Δ Lab — Delta Lab · Agri-Robotics',
+    },
+    description: {
+      vi: 'Phòng thí nghiệm Agri-Robotics tích hợp Smart Agriculture × Robotics × AIoT — nhà kính thông minh, robot canh tác, drone NDVI, computer vision và nền tảng dữ liệu cho nông nghiệp Việt Nam.',
+      en: 'Integrated Agri-Robotics laboratory bringing Smart Agriculture × Robotics × AIoT together — smart greenhouses, field robots, NDVI drones, computer vision and a data platform for Vietnamese agriculture.',
+      ja: 'スマート農業 × ロボティクス × AIoT を統合する Agri-Robotics 研究室 — スマート温室、フィールドロボット、NDVI ドローン、コンピュータビジョン、農業データプラットフォーム。',
+    },
+    features: {
+      vi: [
+        'Smart Greenhouse & CEA — nhà kính 200m² research facility',
+        'Agricultural Robotics — Delta-X phân loại, robot diệt cỏ laser',
+        'UAV/UGV & AgriVision — drone NDVI, phát hiện sâu bệnh edge AI',
+        'Data Platform & DSS — dashboard cloud, app cho nông hộ',
+      ],
+      en: [
+        'Smart Greenhouse & CEA — 200 m² research facility',
+        'Agricultural Robotics — Delta-X sorting, laser weeding robots',
+        'UAV/UGV & AgriVision — NDVI drones, edge-AI pest detection',
+        'Data Platform & DSS — cloud dashboard, farmer mobile app',
+      ],
+      ja: [
+        'スマート温室 & CEA — 200 m² の研究施設',
+        '農業ロボティクス — Delta-X 選別、レーザー除草ロボット',
+        'UAV/UGV と AgriVision — NDVI ドローン、エッジ AI 病害虫検出',
+        'データプラットフォーム & DSS — クラウドダッシュボードと農家向けアプリ',
+      ],
+    },
+    url: 'https://sv17.bcse-vju.com',
+    icon: 'Sprout',
+    status: 'active',
+    category: 'research',
+    // Δ Lab flagship accent — xanh lá cây (forest green) supporting; title giữ trắng
+    accent: {
+      bg: 'bg-emerald-700/25',
+      ring: 'ring-emerald-500/45',
+      text: 'text-emerald-300',
+      bar: 'bg-emerald-500',
+      hoverBorder: 'hover:border-emerald-500/55',
+      bullet: 'bg-emerald-400/70',
+    },
+  },
+  {
+    id: 'hygieia-lab',
+    name: {
+      vi: 'Υ Lab — Hygieia Lab · BCSE-FTH',
+      en: 'Υ Lab — Hygieia Lab · BCSE-FTH',
+      ja: 'Υ Lab — Hygieia Lab · BCSE-FTH',
+    },
+    description: {
+      vi: 'Phòng thí nghiệm liên ngành Công nghệ Thực phẩm × Sức khỏe × Wellbeing số — mắt xích thứ ba khép chuỗi "farm-to-fork-to-health" cùng λ Lab và Δ Lab. Đặt theo Hygieia, nữ thần Sức khỏe Hy Lạp.',
+      en: 'Interdisciplinary lab for Food Technology × Health × Digital Wellbeing — the third link completing the "farm-to-fork-to-health" chain with λ Lab and Δ Lab. Named after Hygieia, Greek goddess of health.',
+      ja: '食品技術 × 健康 × デジタルウェルビーイングの学際研究室 — λ Lab・Δ Lab とともに「farm-to-fork-to-health」の連鎖を完成させる第三の環。健康の女神ヒュギエイアにちなむ。',
+    },
+    features: {
+      vi: [
+        'Food Technology & Smart Nutrition — dinh dưỡng cá nhân hóa',
+        'Digital Food Analytics — e-nose/e-tongue, CV chấm chất lượng',
+        'Health Informatics & Digital Biomarkers — wearable, tín hiệu sinh học (EEG)',
+        'Biomedical Devices · Mental Wellbeing · Bio-Cyber liên ngành',
+      ],
+      en: [
+        'Food Technology & Smart Nutrition — precision nutrition',
+        'Digital Food Analytics — e-nose/e-tongue, CV quality grading',
+        'Health Informatics & Digital Biomarkers — wearables, biosignals (EEG)',
+        'Biomedical Devices · Mental Wellbeing · Bio-Cyber interdisciplinary',
+      ],
+      ja: [
+        '食品技術・スマート栄養 — 個別化栄養',
+        'デジタル食品分析 — e-nose/e-tongue、CV 品質評価',
+        'ヘルスインフォマティクス・デジタルバイオマーカー — ウェアラブル、生体信号 (EEG)',
+        '医用機器・メンタルウェルビーイング・バイオサイバー学際',
+      ],
+    },
+    url: 'https://sv19.bcse-vju.com',
+    icon: 'HeartPulse',
+    status: 'active',
+    category: 'research',
+    // Υ Lab flagship accent — coral (Hygieia signature) supporting; title giữ trắng
+    accent: {
+      bg: 'bg-rose-900/25',
+      ring: 'ring-rose-600/45',
+      text: 'text-rose-300',
+      bar: 'bg-rose-500',
+      hoverBorder: 'hover:border-rose-500/55',
+      bullet: 'bg-rose-400/70',
+    },
+  },
+  {
+    id: 'lambda-codex',
+    name: {
+      vi: 'Lambda Codex — Tri thức mở & Dự án nội bộ',
+      en: 'Lambda Codex — Open Knowledge & Internal Projects',
+      ja: 'Lambda Codex — オープン知識・内部プロジェクト',
+    },
+    description: {
+      vi: 'Kho tri thức mở của Lambda Lab: lưu trữ & chia sẻ các khóa học chuyên môn (lập trình, xử lý tín hiệu, nhúng, in 3D, Drone, EEG, Nông nghiệp…), giới thiệu dự án nội bộ và hướng dẫn academic writing để sinh viên tự học và cùng phát triển.',
+      en: 'Lambda Lab\'s open knowledge base: curated courses (programming, signal processing, embedded, 3D printing, drones, EEG, agriculture…), internal project showcases, and academic writing guides for student self-study and community growth.',
+      ja: 'Lambda Lab のオープンナレッジハブ：専門コース（プログラミング、信号処理、組込み、3D プリント、ドローン、EEG、農業など）、内部プロジェクト紹介、アカデミックライティング指南をまとめ、学生の自学と相互成長を支援。',
+    },
+    features: {
+      vi: [
+        'Khóa học chuyên môn nội bộ theo chủ đề',
+        'Showcase dự án & code mẫu của lab',
+        'Hướng dẫn academic writing & paper review',
+        'Cộng đồng tự học và chia sẻ kiến thức',
+      ],
+      en: [
+        'Internal courses organised by topic',
+        'Project showcases & sample code from the lab',
+        'Academic writing & paper review guides',
+        'Self-study and knowledge-sharing community',
+      ],
+      ja: [
+        'テーマ別の内部コース',
+        'ラボのプロジェクト・サンプルコード公開',
+        'アカデミックライティング・論文レビュー指南',
+        '自学・知識共有のコミュニティ',
+      ],
+    },
+    url: 'https://sv16.bcse-vju.com',
+    icon: 'Library',
+    status: 'active',
+    category: 'research',
+  },
+  {
+    id: 'bcse-competition-hub',
+    name: {
+      vi: 'BCSE Competition Hub — Điểm hẹn cuộc thi',
+      en: 'BCSE Competition Hub — Student Competitions',
+      ja: 'BCSE Competition Hub — 学生コンテスト・ハブ',
+    },
+    description: {
+      vi: 'Cổng tổng hợp và kết nối các cuộc thi dành cho sinh viên BCSE — từ cấp khoa, cấp trường đến cấp quốc gia và quốc tế. Một nơi duy nhất để khám phá cuộc thi, đọc thể lệ, tìm đồng đội và ghi dấu thành tích.',
+      en: 'A unified hub aggregating competitions for BCSE students — from department, university, national to international level. Discover contests, read rules, find teammates and showcase achievements in one place.',
+      ja: 'BCSE 学生向けコンテストを学科・学内・全国・国際レベルまで一元化するハブ。コンテストの発見、規定の確認、チーム結成、実績の記録を一カ所で。',
+    },
+    features: {
+      vi: [
+        'Khám phá cuộc thi theo lĩnh vực & cấp độ',
+        'Trang chuẩn hóa: thể lệ · mốc thời gian · giải thưởng',
+        'Tìm đồng đội theo kỹ năng',
+        'Ghi dấu thành tích vào hồ sơ cá nhân',
+      ],
+      en: [
+        'Discover competitions by field & level',
+        'Standardised page: rules · timeline · prizes',
+        'Find teammates by skill',
+        'Track achievements in your profile',
+      ],
+      ja: [
+        '分野・レベル別にコンテストを探索',
+        '規定・日程・賞金を統一フォーマットで表示',
+        'スキル別にチームメンバーを検索',
+        '個人プロフィールに実績を記録',
+      ],
+    },
+    url: '#',
+    icon: 'Trophy',
+    status: 'coming-soon',
+    category: 'compete',
+  },
+  {
+    id: 'koe-listening',
+    name: {
+      vi: 'Koe (声) — Cổng lắng nghe ẩn danh BCSE',
+      en: 'Koe (声) — BCSE Anonymous Feedback Portal',
+      ja: 'Koe (声) — BCSE 匿名フィードバックポータル',
+    },
+    description: {
+      vi: 'Cổng tiếp thu ý kiến của sinh viên và giảng viên BCSE theo dạng confession — đăng nhập bằng email VJU nhưng ẩn danh tính. Tiếp nhận góp ý về học vụ, dịch vụ, môi trường, chương trình; tổng hợp hàng năm để cải tiến BCSE.',
+      en: 'A confession-style feedback portal for BCSE students and faculty — sign in with your VJU email, but your identity stays hidden. Collects feedback on academics, services, environment and curriculum; aggregated annually to improve BCSE.',
+      ja: 'BCSE 学生・教員向けの匿名フィードバックポータル（コンフェッション形式）。VJU メールでログインしますが、氏名は非公開。学業・サービス・環境・カリキュラムへの意見を収集し、毎年集計して BCSE を改善します。',
+    },
+    features: {
+      vi: [
+        'Đăng nhập bằng email VJU — ẩn danh tính',
+        'Góp ý đa chủ đề: học vụ · dịch vụ · môi trường · chương trình',
+        'Không công khai — chỉ ban quản trị tiếp nhận',
+        'Tổng hợp thống kê hàng năm để cải tiến',
+      ],
+      en: [
+        'Sign in with VJU email — identity stays hidden',
+        'Multi-topic feedback: academics · services · environment · curriculum',
+        'Private — read only by the administration',
+        'Annual statistical roll-up to drive improvements',
+      ],
+      ja: [
+        'VJU メールでログイン — 氏名は非公開',
+        '多分野の意見：学業・サービス・環境・カリキュラム',
+        '非公開：管理部のみが閲覧',
+        '年次統計として集計し改善に活用',
+      ],
+    },
+    url: 'https://sv20.bcse-vju.com',
+    icon: 'Ear',
+    status: 'coming-soon',
+    category: 'learning',
   },
 ];

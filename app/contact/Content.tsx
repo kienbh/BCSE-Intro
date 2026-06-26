@@ -4,16 +4,17 @@ import { contactInfo, admissionInfo } from '@/data/contact';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Mail, MapPin, Globe, Phone, GraduationCap } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 export default function ContactContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <div className="pt-20">
       <section className="section-padding">
         <div className="container-max">
           <SectionTitle
             title={t('contact.title')}
-            subtitle={contactInfo.university}
+            subtitle={pickLocalized(contactInfo.university, lang)}
           />
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -49,14 +50,14 @@ export default function ContactContent() {
                 </div>
               </div>
 
-              {contactInfo.campuses.map((campus) => (
-                <div key={campus.name} className="p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
+              {contactInfo.campuses.map((campus, idx) => (
+                <div key={idx} className="p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
                   <div className="flex items-start gap-3">
                     <MapPin className="w-5 h-5 text-sky-400 mt-0.5" />
                     <div>
-                      <h4 className="text-sm font-bold text-white">{campus.name}</h4>
-                      <p className="text-xs text-slate-400 mt-1">{campus.address}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{campus.rooms}</p>
+                      <h4 className="text-sm font-bold text-white">{pickLocalized(campus.name, lang)}</h4>
+                      <p className="text-xs text-slate-400 mt-1">{pickLocalized(campus.address, lang)}</p>
+                      <p className="text-xs text-slate-500 mt-0.5">{pickLocalized(campus.rooms, lang)}</p>
                     </div>
                   </div>
                 </div>

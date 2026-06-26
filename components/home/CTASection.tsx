@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { Mail, Phone, MapPin, GraduationCap } from 'lucide-react';
 import { contactInfo, admissionInfo } from '@/data/contact';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 export default function CTASection() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <section className="py-24 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-sky-600/20 to-indigo-600/20" />
@@ -21,9 +22,9 @@ export default function CTASection() {
             {t('cta.subtitle')}
           </p>
           <p className="text-sm text-slate-500">
-            Mã trường <span className="text-white font-mono">{contactInfo.schoolCode}</span> &bull;
-            Mã ngành <span className="text-white font-mono">{contactInfo.programCode}</span> &bull;
-            Chỉ tiêu {admissionInfo.quota} SV ({admissionInfo.year})
+            {t('contact.schoolCode')} <span className="text-white font-mono">{contactInfo.schoolCode}</span> &bull;
+            {' '}{t('contact.programCode')} <span className="text-white font-mono">{contactInfo.programCode}</span> &bull;
+            {' '}{t('contact.quota')} {admissionInfo.quota} {t('contact.students')} ({admissionInfo.year})
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
@@ -52,7 +53,7 @@ export default function CTASection() {
             </div>
             <p className="text-sm text-slate-300">{contactInfo.phones.hotline1} <span className="text-slate-500 text-xs">(Zalo)</span></p>
             <p className="text-sm text-slate-300">{contactInfo.phones.hotline2}</p>
-            <p className="text-xs text-slate-500 mt-2">Tổng đài: {contactInfo.phones.main}</p>
+            <p className="text-xs text-slate-500 mt-2">{t('contact.switchboard')}: {contactInfo.phones.main}</p>
           </div>
 
           <div className="p-5 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
@@ -63,17 +64,17 @@ export default function CTASection() {
             <a href={`mailto:${contactInfo.emails.admission}`} className="block text-sm text-slate-300 hover:text-sky-400 transition-colors truncate">
               {contactInfo.emails.admission}
             </a>
-            <p className="text-[10px] text-slate-500 mt-2 truncate">Email tuyển sinh</p>
+            <p className="text-[10px] text-slate-500 mt-2 truncate">{t('contact.emailAdm')}</p>
           </div>
 
-          {contactInfo.campuses.map((campus) => (
-            <div key={campus.name} className="p-5 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
+          {contactInfo.campuses.map((campus, idx) => (
+            <div key={idx} className="p-5 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
               <div className="flex items-center gap-2 mb-3">
                 <MapPin className="w-4 h-4 text-sky-400" />
-                <h3 className="text-xs font-semibold text-white uppercase tracking-wide">{campus.name}</h3>
+                <h3 className="text-xs font-semibold text-white uppercase tracking-wide">{pickLocalized(campus.name, lang)}</h3>
               </div>
-              <p className="text-xs text-slate-400 leading-relaxed">{campus.address}</p>
-              <p className="text-xs text-slate-500 mt-2">{campus.rooms}</p>
+              <p className="text-xs text-slate-400 leading-relaxed">{pickLocalized(campus.address, lang)}</p>
+              <p className="text-xs text-slate-500 mt-2">{pickLocalized(campus.rooms, lang)}</p>
             </div>
           ))}
         </div>

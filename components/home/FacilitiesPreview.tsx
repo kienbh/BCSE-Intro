@@ -29,12 +29,14 @@ export default function FacilitiesPreview() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             {rooms.map((room) => (
               <div key={room.id} className="group relative rounded-2xl overflow-hidden border border-white/[0.06] bg-slate-800/40">
-                <ImagePlaceholder
-                  src={room.image}
-                  alt={room.name}
-                  iconName="Monitor"
-                  className="w-full h-48 object-cover"
-                />
+                <div className="flex h-48 items-center justify-center bg-slate-950/55 p-3">
+                  <ImagePlaceholder
+                    src={room.image}
+                    alt={room.name}
+                    iconName="Monitor"
+                    className="max-h-full w-full rounded-xl object-contain"
+                  />
+                </div>
                 <div className="p-5">
                   <h3 className="text-sm font-bold text-white">{room.name}</h3>
                   <p className="text-xs text-sky-400 mb-2">{[room.location, room.building].filter(Boolean).join(' — ')}</p>
@@ -75,9 +77,26 @@ export default function FacilitiesPreview() {
           </div>
         </ScrollReveal>
 
-        <div className="text-center mt-10">
-          <Link href="/facilities" className="inline-flex items-center gap-2 text-sm text-sky-400 hover:text-sky-300 transition-colors">
-            Khám phá cơ sở vật chất <ArrowRight className="w-4 h-4" />
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/facilities"
+            className="live-cta group inline-flex items-center gap-3 rounded-xl bg-gradient-to-r from-amber-300 via-amber-400 to-orange-500 px-6 py-3 text-sm font-bold text-slate-950 shadow-[0_14px_40px_rgba(245,158,11,0.24)] transition-all hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_18px_55px_rgba(245,158,11,0.34)]"
+          >
+            Khám phá cơ sở vật chất
+            <svg width="0" height="0" aria-hidden="true" focusable="false">
+              <linearGradient id="facilities-arrow-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0f172a">
+                  <animate attributeName="stop-color" values="#0f172a;#0369a1;#0f172a" dur="2.2s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="50%" stopColor="#0284c7">
+                  <animate attributeName="stop-color" values="#0284c7;#fef3c7;#0284c7" dur="2.2s" repeatCount="indefinite" />
+                </stop>
+                <stop offset="100%" stopColor="#0f172a">
+                  <animate attributeName="stop-color" values="#0f172a;#f59e0b;#0f172a" dur="2.2s" repeatCount="indefinite" />
+                </stop>
+              </linearGradient>
+            </svg>
+            <ArrowRight className="live-cta-arrow w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

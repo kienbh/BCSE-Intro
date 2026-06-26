@@ -1,20 +1,64 @@
-export const contactInfo = {
-  program: 'Chương trình Cử nhân Khoa học và Kỹ thuật Máy tính (BCSE)',
+import type { Localized } from '@/lib/localized';
+
+export const contactInfo: {
+  program: Localized<string>;
+  programEN: string;
+  programCode: string;
+  schoolCode: string;
+  university: Localized<string>;
+  campuses: Array<{ name: Localized<string>; address: Localized<string>; rooms: Localized<string> }>;
+  phones: { main: string; admissionExt: string; hotline1: string; hotline2: string };
+  directorName: string;
+  directorTitle: Localized<string>;
+  emails: { director: string; admission: string; info: string; cooperation: string };
+  website: string;
+  admissionUrl: string;
+  social: { facebook: string; github: string; youtube: string };
+} = {
+  program: {
+    vi: 'Chương trình Cử nhân Khoa học và Kỹ thuật Máy tính (BCSE)',
+    en: 'Bachelor of Computer Science and Engineering (BCSE)',
+    ja: 'コンピュータサイエンス・工学 学士課程 (BCSE)',
+  },
   programEN: 'Bachelor of Computer Science and Engineering (Honors Program)',
   programCode: '7480204QTD',
   schoolCode: 'VJU',
-  university: 'Đại học Việt Nhật (VJU) — Đại học Quốc gia Hà Nội',
+  university: {
+    vi: 'Đại học Việt Nhật (VJU) — Đại học Quốc gia Hà Nội',
+    en: 'Vietnam Japan University (VJU) — Vietnam National University, Hanoi',
+    ja: 'ベトナム日本大学 (VJU) — ベトナム国家大学 ハノイ校',
+  },
 
   campuses: [
     {
-      name: 'Cơ sở Mỹ Đình',
-      address: 'Tầng 5, Nhà điều hành, Phố Lưu Hữu Phước, Phường Cầu Diễn, Quận Nam Từ Liêm, Hà Nội',
-      rooms: 'Phòng 502',
+      name: {
+        vi: 'Cơ sở Mỹ Đình',
+        en: 'My Dinh Campus',
+        ja: 'ミーディン・キャンパス',
+      },
+      address: {
+        vi: 'Tầng 5, Nhà điều hành, Phố Lưu Hữu Phước, Phường Cầu Diễn, Quận Nam Từ Liêm, Hà Nội',
+        en: '5F, Administrative Building, Luu Huu Phuoc Street, Cau Dien Ward, Nam Tu Liem District, Hanoi',
+        ja: 'ハノイ市ナムトゥーリエム区カウディエン町ルーフー・フォック通り、管理棟 5 階',
+      },
+      rooms: { vi: 'Phòng 502', en: 'Room 502', ja: '502 号室' },
     },
     {
-      name: 'Cơ sở Hòa Lạc',
-      address: 'GĐ3 + QGHN04, Khu CNC Hòa Lạc, Thạch Thất, Hà Nội',
-      rooms: 'Phòng 3204, BCSE Workshop',
+      name: {
+        vi: 'Cơ sở Hòa Lạc',
+        en: 'Hoa Lac Campus',
+        ja: 'ホアラック・キャンパス',
+      },
+      address: {
+        vi: 'GĐ3 + QGHN04, Khu CNC Hòa Lạc, Thạch Thất, Hà Nội',
+        en: 'Building GD3 + QGHN04, Hoa Lac High-Tech Park, Thach That District, Hanoi',
+        ja: 'ハノイ市タックタット区ホアラック・ハイテクパーク、GD3 + QGHN04 棟',
+      },
+      rooms: {
+        vi: 'Phòng 3204, BCSE Workshop',
+        en: 'Room 3204, BCSE Workshop',
+        ja: '3204 号室、BCSE ワークショップ',
+      },
     },
   ],
 
@@ -26,7 +70,11 @@ export const contactInfo = {
   },
 
   directorName: 'TS. Bùi Huy Kiên',
-  directorTitle: 'Giám đốc chương trình',
+  directorTitle: {
+    vi: 'Giám đốc chương trình',
+    en: 'Program Director',
+    ja: 'プログラム・ディレクター',
+  },
 
   emails: {
     director: 'bh.kien@vju.ac.vn',

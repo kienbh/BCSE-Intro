@@ -5,6 +5,7 @@ import { specializations } from '@/data/specializations';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Briefcase, GraduationCap, BookOpen, Star } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { pickLocalized } from '@/lib/localized';
 
 const colorClasses: Record<string, { border: string; accent: string; bg: string }> = {
   sky: { border: 'border-sky-500/30', accent: 'text-sky-400', bg: 'bg-sky-500/10' },
@@ -14,7 +15,7 @@ const colorClasses: Record<string, { border: string; accent: string; bg: string 
 };
 
 export default function CurriculumContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   return (
     <div className="pt-20">
       <section className="section-padding">
@@ -126,9 +127,9 @@ export default function CurriculumContent() {
               const textColor = { required: 'text-slate-200', elective: 'text-slate-300', practice: 'text-slate-300' } as const;
               return (
                 <div key={spec.id} className="p-5 rounded-xl bg-slate-800/40 border border-white/[0.06]">
-                  <h4 className="text-sm font-bold text-white mb-1">{spec.name}</h4>
+                  <h4 className="text-sm font-bold text-white mb-1">{pickLocalized(spec.name, lang)}</h4>
                   <p className="text-xs text-sky-400 font-mono mb-2">{spec.nameEN}</p>
-                  <p className="text-xs text-slate-500 mb-3">{spec.description}</p>
+                  <p className="text-xs text-slate-500 mb-3">{pickLocalized(spec.description, lang)}</p>
                   <div className="flex flex-wrap gap-1 mb-4">
                     {spec.careers.map((c) => (
                       <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-500">{c}</span>

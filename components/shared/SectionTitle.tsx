@@ -3,17 +3,37 @@
 interface SectionTitleProps {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
+  align?: 'center' | 'left';
   className?: string;
 }
 
-export default function SectionTitle({ title, subtitle, className = '' }: SectionTitleProps) {
+export default function SectionTitle({
+  title,
+  subtitle,
+  eyebrow,
+  align = 'center',
+  className = '',
+}: SectionTitleProps) {
+  const isCenter = align === 'center';
   return (
-    <div className={`text-center mb-16 ${className}`}>
-      <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h2>
-      {subtitle && (
-        <p className="text-lg text-slate-400 max-w-2xl mx-auto">{subtitle}</p>
+    <div className={`mb-16 ${isCenter ? 'text-center' : ''} ${className}`}>
+      {eyebrow && (
+        <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-slate-500 mb-3">
+          {eyebrow}
+        </p>
       )}
-      <div className="mt-4 mx-auto w-24 h-1 bg-gradient-to-r from-sky-500 to-indigo-500 rounded-full" />
+      {/* Fraunces serif — academic editorial, không còn generic Inter Bold */}
+      <h2 className="text-3xl md:text-4xl font-serif font-semibold text-white mb-4 tracking-tight leading-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className={`text-base text-slate-400 leading-relaxed ${isCenter ? 'max-w-2xl mx-auto' : 'max-w-2xl'}`}>
+          {subtitle}
+        </p>
+      )}
+      {/* Amber → sky gradient line — bỏ thick bar, dùng thin line mờ dần */}
+      <div className={`mt-5 h-px rounded-full bg-gradient-to-r from-amber-500/60 via-sky-500/30 to-transparent ${isCenter ? 'w-28 mx-auto' : 'w-16'}`} />
     </div>
   );
 }

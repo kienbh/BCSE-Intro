@@ -1,3 +1,5 @@
+import type { Localized } from '@/lib/localized';
+
 export type CourseType = 'required' | 'elective' | 'practice';
 
 export interface SpecCourse {
@@ -9,9 +11,9 @@ export interface SpecCourse {
 
 export interface Specialization {
   id: string;
-  name: string;
+  name: Localized<string>;
   nameEN: string;
-  description: string;
+  description: Localized<string>;
   icon: string;
   color: string;
   logo: string;
@@ -23,9 +25,13 @@ export interface Specialization {
 export const specializations: Specialization[] = [
   {
     id: 'software-engineering',
-    name: 'Công nghệ phần mềm',
+    name: { vi: 'Công nghệ phần mềm', en: 'Software Engineering', ja: 'ソフトウェアエンジニアリング' },
     nameEN: 'Software Engineering',
-    description: 'Phát triển phần mềm, web/mobile, kiến trúc hệ thống, DevOps, cloud computing.',
+    description: {
+      vi: 'Phát triển phần mềm, web/mobile, kiến trúc hệ thống, DevOps, cloud computing.',
+      en: 'Software development, web/mobile apps, system architecture, DevOps, cloud computing.',
+      ja: 'ソフトウェア開発、Web/モバイル、システムアーキテクチャ、DevOps、クラウド。',
+    },
     icon: 'Code',
     color: 'sky',
     logo: '',
@@ -54,9 +60,13 @@ export const specializations: Specialization[] = [
   },
   {
     id: 'data-science-ai',
-    name: 'Khoa học dữ liệu & AI',
+    name: { vi: 'Khoa học dữ liệu & AI', en: 'Data Science & AI', ja: 'データサイエンス・AI' },
     nameEN: 'Data Science and AI',
-    description: 'Machine Learning, Deep Learning, Computer Vision, NLP, xử lý dữ liệu lớn.',
+    description: {
+      vi: 'Machine Learning, Deep Learning, Computer Vision, NLP, xử lý dữ liệu lớn.',
+      en: 'Machine Learning, Deep Learning, Computer Vision, NLP, big-data processing.',
+      ja: '機械学習、ディープラーニング、コンピュータビジョン、NLP、ビッグデータ処理。',
+    },
     icon: 'Brain',
     color: 'purple',
     logo: '',
@@ -82,9 +92,13 @@ export const specializations: Specialization[] = [
   },
   {
     id: 'embedded-iot',
-    name: 'Hệ thống nhúng & IoT',
+    name: { vi: 'Hệ thống nhúng & IoT', en: 'Embedded Systems & IoT', ja: '組込みシステム・IoT' },
     nameEN: 'Embedded Systems and IoT',
-    description: 'Lập trình nhúng, IoT, robotics, automation, edge computing.',
+    description: {
+      vi: 'Lập trình nhúng, IoT, robotics, automation, edge computing.',
+      en: 'Embedded programming, IoT, robotics, automation, edge computing.',
+      ja: '組込みプログラミング、IoT、ロボティクス、オートメーション、エッジコンピューティング。',
+    },
     icon: 'CircuitBoard',
     color: 'emerald',
     logo: '',
@@ -108,9 +122,13 @@ export const specializations: Specialization[] = [
   },
   {
     id: 'integrated-circuit',
-    name: 'Thiết kế vi mạch',
+    name: { vi: 'Thiết kế vi mạch', en: 'Integrated Circuit Design', ja: '集積回路設計' },
     nameEN: 'Integrated Circuit Design',
-    description: 'Thiết kế vi mạch tích hợp, SoC, FPGA, xử lý tín hiệu số.',
+    description: {
+      vi: 'Thiết kế vi mạch tích hợp, SoC, FPGA, xử lý tín hiệu số.',
+      en: 'Integrated circuit design, SoC, FPGA, digital signal processing.',
+      ja: '集積回路設計、SoC、FPGA、デジタル信号処理。',
+    },
     icon: 'Cpu',
     color: 'red',
     logo: '',
@@ -130,9 +148,13 @@ export const specializations: Specialization[] = [
   },
   {
     id: 'financial-technology',
-    name: 'Công nghệ tài chính',
+    name: { vi: 'Công nghệ tài chính', en: 'Financial Technology', ja: 'フィンテック' },
     nameEN: 'Financial Technology',
-    description: 'Ứng dụng công nghệ trong tài chính, blockchain, fintech.',
+    description: {
+      vi: 'Ứng dụng công nghệ trong tài chính, blockchain, fintech.',
+      en: 'Applying technology to finance — blockchain and fintech.',
+      ja: '金融分野への技術応用、ブロックチェーン、フィンテック。',
+    },
     icon: 'Landmark',
     color: 'amber',
     logo: '',

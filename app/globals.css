@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 @layer base {
   html {
@@ -11,9 +11,21 @@
   body {
     @apply bg-slate-950 text-slate-100 font-sans antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+    text-rendering: geometricPrecision;
+  }
+  /* Film grain — breaks flat "AI site" monotone, adds organic texture */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
   }
   ::selection {
-    @apply bg-sky-500/30 text-white;
+    @apply bg-amber-500/30 text-white;
   }
   ::-webkit-scrollbar {
     @apply w-2;
@@ -28,7 +40,73 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-indigo-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-sky-400;
+  }
+  .text-gradient-amber {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-amber-500;
+  }
+  .text-gradient-emerald {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-teal-400;
+  }
+  .text-gradient-rose {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-rose-400 to-pink-400;
+  }
+  .hero-title-gradient {
+    background-image:
+      linear-gradient(115deg, #ffffff 0%, #dbeafe 28%, #fbbf24 52%, #67e8f9 74%, #ffffff 100%);
+    background-size: 140% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 18px 70px rgba(14, 165, 233, 0.18);
+  }
+  .gold-shine-text {
+    display: inline-block;
+    position: relative;
+    background-image:
+      linear-gradient(100deg, #f8fbff 0%, #f8fbff 38%, #fff4cc 45%, #f2c45c 50%, #fff6d6 55%, #f8fbff 62%, #f8fbff 100%);
+    background-size: 340% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow:
+      0 10px 38px rgba(255, 255, 255, 0.12),
+      0 22px 90px rgba(251, 191, 36, 0.06);
+    animation: goldTextGlint 16s ease-in-out infinite;
+    will-change: background-position;
+  }
+  .gold-shine-text::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 18% 38%, rgba(255,255,255,0.95) 0 0.9%, transparent 2.4%),
+      radial-gradient(circle at 46% 18%, rgba(255,238,170,0.9) 0 0.8%, transparent 2.2%),
+      radial-gradient(circle at 67% 58%, rgba(255,255,255,0.85) 0 0.75%, transparent 2%),
+      radial-gradient(circle at 86% 34%, rgba(251,191,36,0.8) 0 0.75%, transparent 2.1%);
+    background-size: 180% 180%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    pointer-events: none;
+    animation:
+      goldSparkleDrift 9s linear infinite,
+      goldSparkleTwinkle 3.6s ease-in-out infinite;
+  }
+  @keyframes goldTextGlint {
+    0% { background-position: 150% 50%; }
+    100% { background-position: -150% 50%; }
+  }
+  @keyframes goldSparkleDrift {
+    0% { background-position: 120% 50%; }
+    100% { background-position: -80% 50%; }
+  }
+  @keyframes goldSparkleTwinkle {
+    0%, 28%, 100% { opacity: 0; filter: brightness(1); }
+    42% { opacity: 0.55; filter: brightness(1.25); }
+    56% { opacity: 0.18; filter: brightness(1); }
+    70% { opacity: 0.42; filter: brightness(1.18); }
   }
   .glass {
     @apply bg-slate-800/60 backdrop-blur-xl border border-white/[0.06];
@@ -41,6 +119,112 @@
   }
   .container-max {
     @apply max-w-7xl mx-auto;
+  }
+  /* Noise texture overlay — adds organic grain, breaks flat monotone feel */
+  .noise {
+    position: relative;
+  }
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* Lab-specific section tints */
+  .lab-indigo-tint {
+    background: radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.06), transparent 60%);
+  }
+  .lab-emerald-tint {
+    background: radial-gradient(ellipse at top left, rgba(16, 185, 129, 0.06), transparent 60%);
+  }
+  .lab-rose-tint {
+    background: radial-gradient(ellipse at top left, rgba(244, 63, 94, 0.06), transparent 60%);
+  }
+  .live-cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .live-cta::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(251, 191, 36, 0.55), rgba(56, 189, 248, 0.3), rgba(251, 191, 36, 0.55));
+    background-size: 220% 100%;
+    filter: blur(14px);
+    opacity: 0.55;
+    animation: liveCtaAura 3.2s ease-in-out infinite;
+  }
+  .live-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(105deg, transparent 0%, transparent 34%, rgba(255, 255, 255, 0.42) 46%, transparent 58%, transparent 100%);
+    transform: translateX(-120%);
+    animation: liveCtaShine 2.8s cubic-bezier(.22,1,.36,1) infinite;
+    pointer-events: none;
+  }
+  .live-cta-arrow {
+    animation: liveCtaArrow 1.35s ease-in-out infinite;
+    color: transparent;
+    stroke: url(#facilities-arrow-gradient);
+  }
+  .hero-scroll-cue {
+    position: absolute;
+    bottom: 22px;
+    left: 50%;
+    z-index: 10;
+    display: flex;
+    transform: translateX(-50%);
+    flex-direction: column;
+    align-items: center;
+    gap: 9px;
+    color: rgba(255, 255, 255, 0.42);
+  }
+  .hero-scroll-cue span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .hero-scroll-cue i {
+    position: relative;
+    height: 38px;
+    width: 1px;
+    overflow: hidden;
+    background: linear-gradient(rgba(255, 255, 255, 0.52), transparent);
+  }
+  .hero-scroll-cue i::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 42%;
+    width: 100%;
+    background: linear-gradient(#fbbf24, #67e8f9);
+    animation: heroScrollCue 1.85s cubic-bezier(.22,1,.36,1) infinite;
+  }
+  @keyframes heroScrollCue {
+    0% { transform: translateY(-120%); }
+    100% { transform: translateY(250%); }
+  }
+  @keyframes liveCtaShine {
+    0%, 38% { transform: translateX(-120%); }
+    72%, 100% { transform: translateX(120%); }
+  }
+  @keyframes liveCtaAura {
+    0%, 100% { opacity: 0.38; background-position: 0% 50%; }
+    50% { opacity: 0.72; background-position: 100% 50%; }
+  }
+  @keyframes liveCtaArrow {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
   }
 }
 
@@ -108,3 +292,20 @@ html.light .hover\:border-white\/\[0\.12\]:hover { border-color: rgba(15, 23, 42
 
 /* Glass utility */
 html.light .glass { background-color: rgba(255, 255, 255, 0.7) !important; border-color: rgba(15, 23, 42, 0.08) !important; }
+
+/* Research page: keep light mode neutral and readable; color stays as accent only. */
+html.light .research-card,
+html.light .research-lab-card {
+  background: rgba(255, 255, 255, 0.86) !important;
+  border-color: rgba(15, 23, 42, 0.1) !important;
+  box-shadow: 0 12px 34px rgba(15, 23, 42, 0.06);
+}
+html.light .research-lab-card.bg-gradient-to-br {
+  background-image: none !important;
+}
+html.light .research-visual {
+  background-color: rgba(248, 250, 252, 0.94) !important;
+}
+html.light .research-visual::after {
+  opacity: 0.25;
+}
