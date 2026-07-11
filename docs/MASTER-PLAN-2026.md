@@ -39,11 +39,13 @@ Chi tiết từng hạng mục dưới đây.
 
 ---
 
-### N0 — Đo lường toàn hệ thống
-- **Mục tiêu:** mọi app active có analytics; sau 4 tuần có bảng WAU thật; dashboard 1 trang cho GĐ chương trình.
-- **Công việc:** dựng Umami self-host; gắn tracking script; lập dashboard tổng.
-- **Các bước:** (1) dựng Umami trên VM còn tài nguyên (sv16–20) + domain + tunnel; (2) gắn script vào từng app active — mỗi app 5 phút; (3) sau 2–4 tuần xuất báo cáo WAU đầu tiên; (4) đưa link dashboard lên SV08 (chỉ admin thấy).
-- **Ý nghĩa:** là hạng mục **mở khóa mọi hạng mục khác** — triage, evergreen, career đều cần biết ai đang dùng gì. Không có N0, kế hoạch này quay lại vòng lặp xây-theo-cảm-giác.
+### N0 — Đo lường toàn hệ thống → **sv05 = BCSE Ops Center** *(cập nhật 2026-07-11)*
+- **Quyết định:** chuyển sv05 (Lab Command Center — dữ liệu chưa thật) thành **dashboard giám sát toàn hệ sinh thái**, hợp nhất với N0. Đúng "winner class" (công cụ vận hành nội bộ, như Tracker). App cũ không xóa — giữ nguyên process/data, chỉ repoint nginx.
+- **Mục tiêu:** mọi app active có analytics + uptime monitor; sau 4 tuần có bảng WAU thật; thầy có 1 trang mở mỗi sáng.
+- **Công việc:** Uptime Kuma (root sv05 — sống/chết, response time, cảnh báo) + Umami (analytics.bcse-vju.com — WAU từng cổng) chạy Docker trên VM105; sau này thêm tầng 2 custom (Proxmox metrics, SSL expiry, chuẩn `/api/health` từng app theo mẫu sv10).
+- **Các bước:** (1) chạy `Server Management/sv05-ops-center/deploy_ops_center.py` *(bộ deploy đã chuẩn bị sẵn, chờ quyền SSH)*; (2) tạo admin Kuma + `seed_kuma_monitors.py` nạp 15 monitor; (3) thầy thêm ingress `analytics.bcse-vju.com → 192.168.2.105:3005` trên CF dashboard (1 lần); (4) gắn Umami script từng app, bắt đầu SV08; (5) sau 2–4 tuần xuất báo cáo WAU đầu tiên.
+- **Việc phát sinh gom vào N0:** dọn/xác minh sv01 (đang serve app lạ "My Google AI Studio App" — 3D Lab Manager thật ở sv10); cập nhật sổ hạ tầng skill server-management đang lệch thực tế.
+- **Ý nghĩa:** là hạng mục **mở khóa mọi hạng mục khác** — triage, evergreen, career đều cần biết ai đang dùng gì. Không có N0, kế hoạch này quay lại vòng lặp xây-theo-cảm-giác. Đặt nó trên sv05 còn cứu luôn một app "muốn làm nhưng không ổn" bằng cách cho nó dữ liệu thật.
 
 ### N1 — SV08 tái cấu trúc theo hành trình 4 năm
 - **Mục tiêu:** trang dịch vụ đổi từ grid phẳng 7 category → 5 chặng hành trình (Năm 1 / Năm 2 / Năm 3 / Năm cuối / Xuyên suốt); app FREEZE chuyển vào mục riêng "sắp trở lại", không xóa.
