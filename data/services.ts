@@ -276,29 +276,9 @@ export const services: ServiceItem[] = [
     journey: ['all'],
   },
   {
-    id: 'lab-management',
-    name: {
-      vi: 'Quản lý phòng Lab',
-      en: 'Lab Operations Dashboard',
-      ja: 'ラボ運営ダッシュボード',
-    },
-    description: {
-      vi: 'Giám sát realtime phòng máy tính, thiết bị, camera, mượn trả thiết bị.',
-      en: 'Real-time monitoring of computer rooms, equipment, cameras, and device lending.',
-      ja: 'PC ルーム、機器、カメラ、機材貸出のリアルタイム監視。',
-    },
-    features: {
-      vi: ['63 PC realtime', 'Camera 4 khu vực', 'Mượn/trả thiết bị', 'Thống kê sử dụng'],
-      en: ['63 PCs in real time', 'Cameras across 4 zones', 'Equipment lending & return', 'Usage statistics'],
-      ja: ['PC 63 台のリアルタイム表示', '4 エリアのカメラ', '機器の貸出・返却', '利用統計'],
-    },
-    url: 'https://sv05.bcse-vju.com',
-    icon: 'LayoutDashboard',
-    status: 'active',
-    category: 'lab',
-    journey: ['all'],
-  },
-  {
+    // sv05 (Lab Command Center) đã được tái sử dụng thành BCSE Ops Center — dashboard giám sát
+    // hệ thống NỘI BỘ cho giám đốc (Uptime Kuma + Umami, sau SSO Google VJU), không phải dịch vụ
+    // sinh viên → gỡ khỏi danh mục công khai (2026-07-11). Xem docs/MASTER-PLAN-2026 N0.
     id: 'wellbeing-chat',
     name: {
       vi: 'Kokoro — Sức khỏe tinh thần & Đồng hành',

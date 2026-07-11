@@ -43,7 +43,15 @@ Chi tiết từng hạng mục dưới đây.
 - **Quyết định:** chuyển sv05 (Lab Command Center — dữ liệu chưa thật) thành **dashboard giám sát toàn hệ sinh thái**, hợp nhất với N0. Đúng "winner class" (công cụ vận hành nội bộ, như Tracker). App cũ không xóa — giữ nguyên process/data, chỉ repoint nginx.
 - **Mục tiêu:** mọi app active có analytics + uptime monitor; sau 4 tuần có bảng WAU thật; thầy có 1 trang mở mỗi sáng.
 - **Công việc:** Uptime Kuma (root sv05 — sống/chết, response time, cảnh báo) + Umami (analytics.bcse-vju.com — WAU từng cổng) chạy Docker trên VM105; sau này thêm tầng 2 custom (Proxmox metrics, SSL expiry, chuẩn `/api/health` từng app theo mẫu sv10).
-- **Các bước:** (1) chạy `Server Management/sv05-ops-center/deploy_ops_center.py` *(bộ deploy đã chuẩn bị sẵn, chờ quyền SSH)*; (2) tạo admin Kuma + `seed_kuma_monitors.py` nạp 15 monitor; (3) thầy thêm ingress `analytics.bcse-vju.com → 192.168.2.105:3005` trên CF dashboard (1 lần); (4) gắn Umami script từng app, bắt đầu SV08; (5) sau 2–4 tuần xuất báo cáo WAU đầu tiên.
+- **Trạng thái (2026-07-11 — ĐÃ TRIỂN KHAI):**
+  - ✅ VM105 reimage sạch; Uptime Kuma + Umami chạy Docker `/opt/ops-center`.
+  - ✅ **Một cửa SSO Google VJU** (bcse-id client `sv05-ops-center`, allowlist chỉ giám đốc) bọc toàn bộ; Kuma tắt login nội bộ (`disableAuth`).
+  - ✅ Uptime Kuma giám sát **16 cổng** (15 app + bcse-id SSO), root `sv05.bcse-vju.com`.
+  - ✅ Umami tracker công khai tại `sv05.bcse-vju.com/script.js`, collect `/api/send` (verify 200 + session). Dashboard Umami truy cập qua SSH tunnel (không expose để tránh đụng root với Kuma; image prebuilt không hỗ trợ BASE_PATH nên bỏ subpath).
+  - ✅ 15 website tạo sẵn trong Umami (`Server Management/sv05-ops-center/umami_websites.json`).
+  - ✅ **SV08 đã gắn snippet + deploy live** → bắt đầu đo WAU.
+  - ✅ Card sv05 "63 PC realtime" (mô tả app đã wipe) đã gỡ khỏi danh mục công khai.
+- **Còn lại:** (1) gắn snippet Umami vào 14 app còn lại (mỗi app 1 dòng `<script>` + redeploy — làm dần); (2) sau 2–4 tuần xuất báo cáo WAU đầu tiên → triage KEEP/FREEZE (GĐ0.2); (3) tùy chọn: mở dashboard Umami cho giám đốc xem (hostname riêng hoặc build custom image BASE_PATH).
 - **Việc phát sinh gom vào N0:** dọn/xác minh sv01 (đang serve app lạ "My Google AI Studio App" — 3D Lab Manager thật ở sv10); cập nhật sổ hạ tầng skill server-management đang lệch thực tế.
 - **Ý nghĩa:** là hạng mục **mở khóa mọi hạng mục khác** — triage, evergreen, career đều cần biết ai đang dùng gì. Không có N0, kế hoạch này quay lại vòng lặp xây-theo-cảm-giác. Đặt nó trên sv05 còn cứu luôn một app "muốn làm nhưng không ổn" bằng cách cho nó dữ liệu thật.
 
