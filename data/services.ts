@@ -2,6 +2,45 @@ import type { Localized } from '@/lib/localized';
 
 export type ServiceCategory = 'lab' | 'learning' | 'admin' | 'research' | 'career' | 'community' | 'compete';
 
+/**
+ * Chặng hành trình sinh viên 4 năm (xem docs/MASTER-PLAN-2026.md §1).
+ * 'all' = dịch vụ xuyên suốt, không gắn riêng năm nào.
+ */
+export type JourneyStage = 'y1' | 'y2' | 'y3' | 'final' | 'all';
+
+export const JOURNEY_META: Record<JourneyStage, { vi: string; en: string; ja: string; order: number }> = {
+  y1: {
+    vi: 'Năm 1 — Hòa nhập & nền tảng',
+    en: 'Year 1 — Onboarding & Foundations',
+    ja: '1年次 — 適応・基礎',
+    order: 1,
+  },
+  y2: {
+    vi: 'Năm 2 — Chuyên ngành cốt lõi',
+    en: 'Year 2 — Core Major',
+    ja: '2年次 — 専門基幹',
+    order: 2,
+  },
+  y3: {
+    vi: 'Năm 3 — Chuyên sâu & thực chiến',
+    en: 'Year 3 — Specialisation & Practice',
+    ja: '3年次 — 専門深化・実践',
+    order: 3,
+  },
+  final: {
+    vi: 'Năm cuối — Thực tập, khóa luận & nghề nghiệp',
+    en: 'Final Year — Internship, Thesis & Career',
+    ja: '最終年次 — インターン・卒論・キャリア',
+    order: 4,
+  },
+  all: {
+    vi: 'Xuyên suốt 4 năm',
+    en: 'Throughout All 4 Years',
+    ja: '4年間を通じて',
+    order: 5,
+  },
+};
+
 /** Optional per-card accent — overrides CATEGORY_META visuals. */
 export interface ServiceAccent {
   bg: string;          // icon container background tint
@@ -22,6 +61,8 @@ export interface ServiceItem {
   icon: string;
   status: 'active' | 'coming-soon' | 'internal';
   category: ServiceCategory;
+  /** Chặng hành trình SV mà dịch vụ phục vụ chính (1 dịch vụ có thể thuộc nhiều chặng). */
+  journey: JourneyStage[];
   /** Per-card accent override (e.g. for flagship lab cards). */
   accent?: ServiceAccent;
 }
@@ -113,6 +154,7 @@ export const services: ServiceItem[] = [
     icon: 'Printer',
     status: 'active',
     category: 'lab',
+    journey: ['y2', 'y3'],
   },
   {
     id: 'hardware-lab-portal',
@@ -153,6 +195,7 @@ export const services: ServiceItem[] = [
     icon: 'Cpu',
     status: 'active',
     category: 'lab',
+    journey: ['y2', 'final'],
   },
   {
     id: 'ai-advisor',
@@ -175,6 +218,7 @@ export const services: ServiceItem[] = [
     icon: 'Bot',
     status: 'active',
     category: 'learning',
+    journey: ['y1'],
   },
   {
     id: 'lambda-lab',
@@ -197,6 +241,7 @@ export const services: ServiceItem[] = [
     icon: 'FlaskConical',
     status: 'active',
     category: 'research',
+    journey: ['y3'],
     // λ Lab flagship accent — tím than (dark purple) supporting; title giữ trắng
     accent: {
       bg: 'bg-violet-900/30',
@@ -228,6 +273,7 @@ export const services: ServiceItem[] = [
     icon: 'FileCheck',
     status: 'active',
     category: 'admin',
+    journey: ['all'],
   },
   {
     id: 'lab-management',
@@ -250,6 +296,7 @@ export const services: ServiceItem[] = [
     icon: 'LayoutDashboard',
     status: 'active',
     category: 'lab',
+    journey: ['all'],
   },
   {
     id: 'wellbeing-chat',
@@ -287,6 +334,7 @@ export const services: ServiceItem[] = [
     icon: 'Heart',
     status: 'active',
     category: 'community',
+    journey: ['all'],
   },
   {
     id: 'self-learning',
@@ -324,6 +372,7 @@ export const services: ServiceItem[] = [
     icon: 'BookOpen',
     status: 'coming-soon',
     category: 'learning',
+    journey: ['y1'],
   },
   {
     id: 'bcse-tracker',
@@ -346,6 +395,7 @@ export const services: ServiceItem[] = [
     icon: 'LineChart',
     status: 'active',
     category: 'learning',
+    journey: ['all'],
   },
   {
     id: 'bcse-club',
@@ -368,6 +418,7 @@ export const services: ServiceItem[] = [
     icon: 'Users',
     status: 'coming-soon',
     category: 'community',
+    journey: ['all'],
   },
   {
     id: 'career-portal',
@@ -405,6 +456,7 @@ export const services: ServiceItem[] = [
     icon: 'Briefcase',
     status: 'active',
     category: 'career',
+    journey: ['final'],
   },
   {
     id: 'e-office',
@@ -427,6 +479,7 @@ export const services: ServiceItem[] = [
     icon: 'Building',
     status: 'coming-soon',
     category: 'admin',
+    journey: ['all'],
   },
   {
     id: 'thesis-review',
@@ -464,6 +517,7 @@ export const services: ServiceItem[] = [
     icon: 'GraduationCap',
     status: 'active',
     category: 'career',
+    journey: ['final'],
   },
   {
     id: 'code-arena',
@@ -501,6 +555,7 @@ export const services: ServiceItem[] = [
     icon: 'Code2',
     status: 'active',
     category: 'learning',
+    journey: ['y1', 'y2'],
   },
   {
     id: 'bcse-guild',
@@ -538,6 +593,7 @@ export const services: ServiceItem[] = [
     icon: 'Swords',
     status: 'active',
     category: 'compete',
+    journey: ['y2', 'y3'],
   },
   {
     id: 'japan-talent-showcase',
@@ -575,6 +631,7 @@ export const services: ServiceItem[] = [
     icon: 'Sparkles',
     status: 'coming-soon',
     category: 'community',
+    journey: ['final'],
   },
   {
     id: 'agri-robotics-lab',
@@ -612,6 +669,7 @@ export const services: ServiceItem[] = [
     icon: 'Sprout',
     status: 'active',
     category: 'research',
+    journey: ['y3'],
     // Δ Lab flagship accent — xanh lá cây (forest green) supporting; title giữ trắng
     accent: {
       bg: 'bg-emerald-700/25',
@@ -658,6 +716,7 @@ export const services: ServiceItem[] = [
     icon: 'HeartPulse',
     status: 'active',
     category: 'research',
+    journey: ['y3'],
     // Υ Lab flagship accent — coral (Hygieia signature) supporting; title giữ trắng
     accent: {
       bg: 'bg-rose-900/25',
@@ -704,6 +763,7 @@ export const services: ServiceItem[] = [
     icon: 'Library',
     status: 'active',
     category: 'research',
+    journey: ['y2', 'y3'],
   },
   {
     id: 'bcse-competition-hub',
@@ -741,6 +801,7 @@ export const services: ServiceItem[] = [
     icon: 'Trophy',
     status: 'coming-soon',
     category: 'compete',
+    journey: ['y2', 'y3'],
   },
   {
     id: 'koe-listening',
@@ -778,5 +839,6 @@ export const services: ServiceItem[] = [
     icon: 'Ear',
     status: 'coming-soon',
     category: 'learning',
+    journey: ['all'],
   },
 ];
