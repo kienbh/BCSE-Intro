@@ -28,6 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        {/* Umami analytics — BCSE Ops Center (sv05). Đo WAU cho GĐ0 (docs/MASTER-PLAN-2026 N0). */}
+        <script
+          defer
+          src="https://sv05.bcse-vju.com/script.js"
+          data-website-id="51db80fc-9006-4619-9899-0cde73524a33"
+        />
       </head>
       <body>
         <LanguageProvider>
