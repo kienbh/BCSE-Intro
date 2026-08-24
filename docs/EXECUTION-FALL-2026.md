@@ -54,8 +54,14 @@
 - [ ] B7 · Sửa remote: e-service-be/e-services về kienbh; tách remote lambda-lab-platform; thêm remote review-hub
 - [ ] B8 · Deployer chuẩn hóa: 1 script + `vm_inventory.json` thay ~40 biến thể (ghi SHA vào server khi deploy)
 - [ ] B9 · Rotate password VM (sau B8; lịch sử GitHub nhánh archive có password cũ)
-- [ ] B10 · Dọn sv01 (đang serve app lạ) + xác minh sv11, sv20
+- [ ] B10 · Dọn sv01 (đang serve app lạ) ~~+ xác minh sv11, sv20~~ ✅ đã xác minh 24/8: sv11=Review Hub, sv20=Lambda Codex Campus LMS
 - [ ] B11 · Đồng bộ skill server-management với thực tế (đã biết drift)
+- [ ] **B12 · Gom & giải phóng máy chủ** (khảo sát 24/8 — điều kiện tiên quyết: repo tương ứng đã có git backup ở B1–B6):
+  - B12.1 · 3 portal lab (sv03·17·19) → export tĩnh, host chung 1 nơi (Cloudflare Pages hoặc 1 VM nhỏ) → giải phóng 2–3 VM. Domain giữ nguyên, app FREEZE trong git.
+  - B12.2 · Gộp sv16 (Codex) vào sv20 (Codex Campus — cùng brand): nội dung distilled thành section trong LMS → giải phóng VM116.
+  - B12.3 · Dời Aura Brew khỏi sv07 (dự án cá nhân — sang hosting riêng/ngoài dải BCSE) → giải phóng VM107.
+  - B12.4 · Format sv01 (app lạ) → giải phóng VM101.
+  - B12.5 · Tái sử dụng VM giải phóng: ưu tiên (a) **VM staging + CI runner** cho 5 app Core (hiện deploy thẳng prod!), (b) VM backup tập trung (pg_dump + Drive sync), (c) dự phòng scale sv20 LMS. KHÔNG build app SV mới trước triage tháng 10.
 
 ## SPRING 2027 — phác trước, chi tiết hóa sau triage tháng 10
 - Tấm gương số trên bcse-id (portfolio sống từ dữ liệu Arena/booking/NCKH/KLTN)
