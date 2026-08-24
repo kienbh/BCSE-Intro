@@ -8,7 +8,8 @@
 
 ## TUẦN 1 (25–31/8) — Nền đo & an toàn
 
-- [ ] **D1 · SSH probe sv09** — so file trên server (192.168.2.150) với local `bcse-internship-careerpath`, tìm hotfix chỉ-có-trên-server (sv09 có nhiều `fix_*.py` nhất). *DoD: báo cáo drift; nếu server ahead → pull về local + commit; 34 file dirty của sv09 được commit sạch.*
+- [x] **D1 · SSH probe sv09** — so file trên server (192.168.2.150) với local `bcse-internship-careerpath`, tìm hotfix chỉ-có-trên-server (sv09 có nhiều `fix_*.py` nhất). *DoD: báo cáo drift; nếu server ahead → pull về local + commit; 34 file dirty của sv09 được commit sạch.*
+  - ✅ D1 (24/8) — Server ahead thật: kéo về 26 file (ecosystem.config.js, 21 logo doanh nghiệp, 4 tool script). 3 file khác nội dung: local đúng cả 3 (verify DB prod dùng `proposedLecturerName` — migration local chuẩn; layout.tsx local có Umami chờ D2; t1-packages local có filter mới chưa deploy). Repo sv09 commit + push sạch (`kienbh/bcse-internship-careerpath` master). Auth sv09 = SSH key `bcse_master_ed25519`, KHÔNG phải password.
 - [ ] **D2 · Umami sv09** — snippet đã chèn sẵn trong layout.tsx từ trước; verify + deploy bằng script đã sửa IP/path. *DoD: mở sv09 thấy `script.js` 200 + `api/send` 200.*
 - [ ] **D3 · Umami sv13 + sv18** — chèn snippet (sv13: Next layout; sv18: `dashboard_assets/*.html` + login.html), deploy, verify. *DoD: cả 2 đo được WAU.*
 - [ ] **D4 · Umami sv12 + sv14** — sv12: reset password VM112 qua Proxmox (đã drift) → cập nhật `vm_inventory.json` → deploy; sv14: chèn + deploy. *DoD: 5/5 Core có analytics. N0 CHỐT SỔ.*
