@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(~/.claude/skills/server-management/**)",
+      "PowerShell($d = \"C:\\\\Users\\\\Admin\\\\Desktop\\\\files\\\\Hygieia_lab Food-Health\"; \"INDEX lines: \" + \\(Get-Content \"$d\\\\index.html\" | Measure-Object -Line\\).Lines; \"--- pages ---\"; if \\(Test-Path \"$d\\\\pages\"\\) { Get-ChildItem \"$d\\\\pages\" | Select-Object Name } else { \"no pages dir\" }; \"--- assets/css ---\"; if \\(Test-Path \"$d\\\\assets\\\\css\"\\) { Get-ChildItem \"$d\\\\assets\\\\css\" | Select-Object Name } else { \"no css dir\" }; \"--- assets/images ---\"; if \\(Test-Path \"$d\\\\assets\\\\images\"\\) { Get-ChildItem \"$d\\\\assets\\\\images\" | Select-Object Name } else { \"no images dir\" })"
+    ]
+  }
+}
