@@ -56,7 +56,7 @@
 ### Backlog A — đầu việc chính trong kỳ (theo thứ tự)
 - [ ] A1 · Arena gắn điểm thành phần môn thầy dạy Fall 2026 (phổ biến trong đề cương — 🧑‍🏫) + bộ đề tuần
 - [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
-- [ ] A3 · Mobile pass lần lượt: sv14 → sv18 → sv09 → sv13 → sv12 (mỗi app 1 phiên)
+- [~] A3 · Mobile pass lần lượt: sv14 → sv18 → sv09 → sv13 → sv12 (mỗi app 1 phiên) — ✅ **sweep tìm lỗi cả 5 cổng xong (25/8)**: báo cáo `docs/PORTAL-REVIEW-FALL-2026.md` (0 tràn ngang; sv14 🔴 auth/refresh 404; sv09/sv18 🟡 lỗi script CF inject; sv12 🟡 nav mobile; sv13 ✅ sạch). Còn: các phiên SỬA theo thứ tự trong báo cáo.
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
 - [~] A5 · `/api/health` trả git SHA: ✅ LIVE cả 5/5 Core (verify public 27/8; sv18 miễn auth cho health; sha="unknown" đến khi B8 ghi VERSION lúc deploy) — còn: panel so sánh local↔origin↔server trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
