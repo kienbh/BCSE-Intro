@@ -54,15 +54,15 @@
 > ✅ **A8 · BCSE Pulse CÔNG KHAI — XONG (25/8, LIVE, v2 sau duyệt UI):** `https://sv05.bcse-vju.com/` (root 302 → `/pulse/`). Thầy duyệt qua 3 mẫu (`pulse/mockups/`) → chốt **Clean SaaS** + 3 chỉnh: trục tung, filter Ngày/Tuần/Tháng/Năm, cột "Mức hoạt động 7d" **4 màu có nhãn** (Sôi động ≥100 / Ổn định 20–99 / Trầm lắng 1–19 / Im ắng 0) thay sparkline ping. Nguồn liệu: (1) Kuma status page `bcse` 16 monitor — trạng thái/ping/uptime; (2) `pulse.json` cron `7 * * * *` VM105 — series ngày/tuần/tháng/năm + delta tuần trước từ Umami; (3) **endpoint mới `bcse-id /api/stats/cohort`** (chỉ số tổng hợp, không định danh) → card "Tham gia theo khóa" (25/8: K2023 dẫn đầu 13 SV). nginx: `/pulse/*` `/status/*` `/api/status-page/*` `/assets/*` public — `/overview` `/dashboard` vẫn sau SSO. Redeploy: `sv05-ops-center/deploy_pulse_public.py` (sv05) + `deploy_bcse_id_cohort_stats.py` (VM108). Verify 25/8: 541 views (+163%)/97 phiên 7d, 16/16 up.
 
 > 🔜 **HANDOFF 25/8 (cuối ngày) — phiên mới đọc mục này trước:**
-> 1. **sv08 trang chủ rút gọn** — code xong 2 vòng (teaser 6 app + mobile "ít chữ": 34 → 22.4 màn, desktop nguyên trạng), ĐÃ COMMIT, **CHƯA deploy** — 🧑‍🏫 thầy hẹn "check sau mobile". Demo: `cd bcse-intro/out && python -m http.server 8788` → mở `127.0.0.1:8788`. Duyệt xong chạy `deploy_bcse_intro.py`.
-> 2. **Phiên sv14** (thầy đã OK PR): branch `fix/auth-refresh-endpoint` (bcse vLab) — cần PG test DB (local KHÔNG có Docker → dựng PG tạm trên VM có docker hoặc host khác), chạy `pytest backend/tests/test_auth_refresh.py`, merge, deploy backend.
-> 3. Các fix sẵn chờ deploy: sv12 nav hamburger (oop-grader main — pytest + `deploy/sv12_deploy.py`); sv09 tắt Rocket Loader + sv18 CSP beacon (🧑‍🏫 CF dashboard, ~10' — xem PORTAL-REVIEW).
+> 1. ✅ **sv08 trang chủ rút gọn DEPLOY LIVE** (25/8 tối) — thầy duyệt demo → `deploy_bcse_intro.py` (build trên server, nginx reload, HTTP 200) → verify công khai markers `line-clamp-3` ×3 + `hidden sm:block` ×36 trên sv08.bcse-vju.com. **HANDOFF 25/8 SẠCH HOÀN TOÀN (mục 1-2-3 đều ✅).**
+> 2. **Phiên sv14** ✅ XONG (25/8, deploy live): test 5/5 pass (PG+Redis test tạm bằng Docker ngay trên SV14, dọn sạch) → merge ff vào `feat/M6.5-vps-gpu-metrics` (`fd552dc`, push; kèm pin pytest 7.4.4 + pytest-asyncio 0.21.2 — bản ≥0.23 vỡ event loop với conftest) → mini-deploy auth.py + rebuild backend → verify công khai `POST https://sv14.bcse-vju.com/api/auth/refresh` = **401 NO_REFRESH_TOKEN** (hết 404). 🔴 A3 sv14 ĐÓNG. Gotcha đã trả học phí: (a) auth.py trên server là bản CRLF — drift-check phải chuẩn hóa line-ending; (b) lệnh dài qua paramiko phải nohup `</dev/null` + poll log, không thì build kẹt ghi vào kênh SSH chết thành tiến trình ma; (c) pattern chạy test trên SV14: `run_sv14_authtest.py` (scratchpad 25/8).
+> 3. ✅ sv09 + sv18 XONG (25/8 tối, qua **CF API** — không cần dashboard, pattern: `cf_fix_sv09_sv18.py` + `cf_fix_round2.py` scratchpad): sv18 tắt auto-install CF Web Analytics; sv09 thủ phạm là email_obfuscation (Rocket Loader vốn đã off) → tắt, verify sạch. ✅ sv12 hamburger DEPLOY XONG (25/8 tối: pytest 145 pass → sv12_deploy.py → verify `#mobile-nav` công khai). **A3 ĐÓNG SỔ: 5/5 Core sạch lỗi sweep.**
 > 4. Ghi nhớ mới: quy tắc "mobile ít chữ" (memory `mobile-design-it-chu`); RAM 99% panel PVE = page cache, không phải leak (Server Management memory.md); 2 khung CTĐT 152/135 TC chờ tài liệu thầy.
 
 ### Backlog A — đầu việc chính trong kỳ (theo thứ tự)
 - [ ] A1 · Arena gắn điểm thành phần môn thầy dạy Fall 2026 (phổ biến trong đề cương — 🧑‍🏫) + bộ đề tuần
 - [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
-- [~] A3 · Mobile pass lần lượt: sv14 → sv18 → sv09 → sv13 → sv12 (mỗi app 1 phiên) — ✅ **sweep tìm lỗi cả 5 cổng xong (25/8)**: báo cáo `docs/PORTAL-REVIEW-FALL-2026.md` (0 tràn ngang; sv14 🔴 auth/refresh 404; sv09/sv18 🟡 lỗi script CF inject; sv12 🟡 nav mobile; sv13 ✅ sạch). Còn: các phiên SỬA theo thứ tự trong báo cáo.
+- [x] A3 · Mobile pass 5 cổng Core ✅ **ĐÓNG SỔ (25/8 tối)** — sweep + SỬA XONG cả 5: sv14 auth/refresh (deploy), sv09 email-decode + sv18 CSP beacon (qua CF API), sv12 hamburger (deploy), sv13 vốn sạch. Chi tiết: `docs/PORTAL-REVIEW-FALL-2026.md`.
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
 - [~] A5 · `/api/health` trả git SHA: ✅ LIVE cả 5/5 Core (verify public 27/8; sv18 miễn auth cho health; sha="unknown" đến khi B8 ghi VERSION lúc deploy) — còn: panel so sánh local↔origin↔server trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
@@ -79,14 +79,27 @@
   - B12.2 · sv15 Guild: app FREEZE trong git (chờ N8 chạy tay ổn) → giải phóng VM115.
   - B12.3 · Tái sử dụng 2 VM giải phóng: (a) **VM staging + CI runner** cho 5 app Core (hiện deploy thẳng prod — gốc của "chưa ổn định"), (b) VM backup tập trung (pg_dump hằng đêm + Drive sync). KHÔNG build app SV mới trước triage tháng 10.
 
-## 🧭 MÓN CHỐT HẠ — BCSE Compass (sv04) · *làm CUỐI CÙNG, sau khi tinh chỉnh toàn hệ*
+## 🧭 MÓN CHỐT HẠ — BCSE Compass (sv02) · *sau MASTERPLAN "lâu đài" + triage tháng 10*
 
-> Quyết định thầy 27/8: KHÔNG build ngay. Compass là dashboard toàn diện từng SV (thiết kế đầy đủ:
-> `docs/COMPASS-DESIGN.md`) — nó thâu tóm dữ liệu từ các cổng khác, nên chỉ có giá trị khi các cổng
-> nguồn đã chạy ổn định và có API `/api/me/*`. Trình tự: xong nhịp tim (D-series) → boring-solid +
-> backlog A/B trong kỳ → triage tháng 10 → **rồi mới Compass**.
-> Hạ tầng đã chốt: **sv04 + VM104** (sv21 ở VPS ngoài cụm). Bước 0 khi bắt đầu: backup DB e-service
-> kế toán → tắt hẳn (quyết định thầy; code đã an toàn trên GitHub private).
+> **Cập nhật thầy 25/8 (tối):** Compass chuyển **sv04 → sv02** — tái định nghĩa cổng AI Advisor theo
+> concept Compass, kế thừa VM102 + chatbot RAG (thành tính năng "Hỏi la bàn"). Compass = **hub chính
+> của SV sau login** (bcse-id thu về tài khoản+SSO; SV08 vẫn là cửa chung cả hệ). Reward senpai–kohai
+> = **ledger điểm thường, KHÔNG blockchain** (chốt hướng 25/8). **sv04 e-service GIỮ chạy cho kế
+> toán** — bỏ kế hoạch tắt. Chi tiết + launcher hành trình: `docs/COMPASS-DESIGN.md`.
+> Quyết định gốc 27/8 vẫn giữ: KHÔNG build ngay — cổng nguồn phải ổn định và có API `/api/me/*` trước.
+
+### 🏰 MASTERPLAN "lâu đài" — bước thiết kế KẾ TIẾP, trước mọi nâng cấp cổng (chỉ đạo thầy 25/8)
+
+> "Chưa đến bước nâng cấp từng cổng. Làm về hệ thống chung trong hệ sinh thái đã — như thiết kế một
+> lâu đài, cần biết khu vực cho từng nhà chức năng, lối đi, trải nghiệm, rồi mới đi sâu từng tòa."
+> Sản phẩm cần ra: bản đồ khu chức năng (zone) toàn hệ + lối đi giữa các cổng (SSO, điều hướng)
+> + trải nghiệm chuẩn theo hành trình 4 năm. Làm trong 1 phiên thiết kế riêng với thầy.
+
+### Tầm nhìn cổng đã chốt hướng (25/8 — thiết kế chi tiết sau masterplan)
+- **sv02 → Compass**: xem trên + `COMPASS-DESIGN.md`.
+- **sv12 Arena → ladder kiểu LeetCode**: trang bị từ nhập môn lập trình → lập trình căn bản → OOP →
+  lập trình nâng cao; ICPC + DSA cũng nằm trong đây (hiện Arena mới chấm OOP). Lưu ý: fix nav
+  hamburger mobile vẫn là việc nhỏ độc lập, deploy được bất cứ lúc nào.
 
 ## SPRING 2027 — phác trước, chi tiết hóa sau triage tháng 10
 - Tấm gương số trên bcse-id (portfolio sống từ dữ liệu Arena/booking/NCKH/KLTN)
