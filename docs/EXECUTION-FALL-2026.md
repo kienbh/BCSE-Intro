@@ -10,6 +10,8 @@
 
 - [x] **D1 · SSH probe sv09** — so file trên server (192.168.2.150) với local `bcse-internship-careerpath`, tìm hotfix chỉ-có-trên-server (sv09 có nhiều `fix_*.py` nhất). *DoD: báo cáo drift; nếu server ahead → pull về local + commit; 34 file dirty của sv09 được commit sạch.*
   - ✅ D1 (24/8) — Server ahead thật: kéo về 26 file (ecosystem.config.js, 21 logo doanh nghiệp, 4 tool script). 3 file khác nội dung: local đúng cả 3 (verify DB prod dùng `proposedLecturerName` — migration local chuẩn; layout.tsx local có Umami chờ D2; t1-packages local có filter mới chưa deploy). Repo sv09 commit + push sạch (`kienbh/bcse-internship-careerpath` master). Auth sv09 = SSH key `bcse_master_ed25519`, KHÔNG phải password.
+> ⚠ **Ghi chú phiên batch 24/8:** D2–D4 (deploy) bị lớp bảo vệ auto-mode chặn khi chạy không giám sát — cần phiên thầy ngồi accept lệnh deploy. D6 nửa data (journey field trong services.ts) hóa ra ĐÃ XONG từ commit N1.1 tháng 7; còn nửa UI (redesign `app/services/Content.tsx` 364 dòng theo chặng + review với SV).
+
 - [ ] **D2 · Umami sv09** — snippet đã chèn sẵn trong layout.tsx từ trước; verify + deploy bằng script đã sửa IP/path. *DoD: mở sv09 thấy `script.js` 200 + `api/send` 200.*
 - [ ] **D3 · Umami sv13 + sv18** — chèn snippet (sv13: Next layout; sv18: `dashboard_assets/*.html` + login.html), deploy, verify. *DoD: cả 2 đo được WAU.*
 - [ ] **D4 · Umami sv12 + sv14** — sv12: reset password VM112 qua Proxmox (đã drift) → cập nhật `vm_inventory.json` → deploy; sv14: chèn + deploy. *DoD: 5/5 Core có analytics. N0 CHỐT SỔ.*
@@ -51,12 +53,12 @@
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
-- [ ] B1 · Git đợt 2: bcse-advisor · B2 · Lambda Codex · B3 · delta-lab-platform · B4 · hygieia-lab-platform · B5 · Kiensensei_LMS_system · B6 · các folder còn lại
-- [ ] B7 · Sửa remote: e-service-be/e-services về kienbh; tách remote lambda-lab-platform; thêm remote review-hub
+- [x] B1–B6 · Git đợt 2 ✅ (24/8 batch): 12 repo mới lên GitHub private (lambda-codex, delta/hygieia-platform+landing, kiensensei-lms, demeter-codex, hygieia-food-health, xuathoadon, ai-career-trends, aurabrew-v1/-backend/-ver2-be). Phát hiện: bcse-advisor có repo git LỒNG BÊN TRONG (`bcse-advisor/bcse-advisor`, remote kienbh/bcse-advisor, master **behind 8** so origin — WIP 14 file đã bảo toàn ở nhánh `local-wip-2026-08-24`, cần thầy hợp nhất). Bỏ qua: `BCSE LAB MANAGEMENT` (rỗng), `qdrant` (data dir).
+- [x] B7 · Sửa remote ✅ (24/8): e-service-be/e-services → origin kienbh (thenamvn giữ làm `upstream`); lambda-lab-platform tách remote riêng; review-hub có remote + push. **Sweep WIP toàn workspace**: 14 repo dirty đã commit + push — WORKSPACE SẠCH 100%, mọi repo đều có backup GitHub.
 - [ ] B8 · Deployer chuẩn hóa: 1 script + `vm_inventory.json` thay ~40 biến thể (ghi SHA vào server khi deploy)
 - [ ] B9 · Rotate password VM (sau B8; lịch sử GitHub nhánh archive có password cũ)
 - [ ] B10 · Dọn sv01 (đang serve app lạ) ~~+ xác minh sv11, sv20~~ ✅ đã xác minh 24/8: sv11=Review Hub, sv20=Lambda Codex Campus LMS
-- [ ] B11 · Đồng bộ skill server-management với thực tế (đã biết drift)
+- [x] B11 · Đồng bộ skill server-management ✅ (24/8): thêm khối "THÔNG BÁO DRIFT" đầu SKILL.md trỏ về bcse-ecosystem + vm_inventory + các lệch đã biết.
 - [ ] **B12 · Gom & giải phóng máy chủ** (khảo sát 24/8; đã thu hẹp theo quyết định thầy 24/8: sv01 GIỮ — 1 GV đang dùng; sv07 Aura Brew GIỮ — dự án cá nhân của thầy; sv17/sv19 ĐỂ TẠM. Điều kiện tiên quyết: repo tương ứng có git backup ở B1–B6):
   - B12.1 · Gộp sv16 (Codex) vào sv20 (Codex Campus — cùng brand): nội dung distilled thành section trong LMS → giải phóng VM116.
   - B12.2 · sv15 Guild: app FREEZE trong git (chờ N8 chạy tay ổn) → giải phóng VM115.
