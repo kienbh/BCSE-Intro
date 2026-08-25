@@ -20,7 +20,10 @@
   - Tracker data (bảng điểm + bcse.db + phiếu, zip 1.7MB) + cong-bcse.db → `G:\My Drive\BCSE-ecosystem-backup\` (Google Drive for Desktop tự sync).
   - `vm_inventory.json`: 🧑‍🏫 **thầy tự backup** (đã chọn không đưa secrets lên cloud qua Claude). Gợi ý: copy vào password manager hoặc USB.
   - Ghi chú kỹ thuật: service account `bcse-thesis-sync` KHÔNG còn upload được vào My Drive (Google bỏ quota SA) — backup tự động sau này (B8) nên dùng Shared Drive hoặc Google Drive for Desktop.
-- [ ] **D6 · SV08 journey layout (N1)** — gán trường `journey` cho 20 services trong `data/services.ts`, redesign section theo 5 chặng (Năm 1→4 + Xuyên suốt), app Frozen vào mục "sắp trở lại". *DoD: build pass, deploy.*
+- [x] **D6 · SV08 services redesign** ✅ (26/8, deploy live) — qua 2 vòng review với thầy, kết quả KHÁC thiết kế N1 ban đầu:
+  - Quyết định thầy: **cổng dịch vụ thuần sinh viên** — bỏ role switcher (SV/GV/CBQL), app tiện ích tự nói công dụng nên KHÔNG ép chia theo năm.
+  - Mặc định "Dịch vụ" (theo nhóm như cũ); "🗺 Bản đồ 4 năm" (journey 5 chặng + lời dẫn 3 thứ tiếng) thành chế độ xem phụ; app coming-soon gom mục "Sắp ra mắt".
+  - Thêm trường `audience` (student/faculty/staff) gán tay 20 app — E-Office thuần GV/CBQL ẩn khỏi trang; audience để dành cho dashboard bcse-id lọc tự động sau login (N2).
 - [ ] **D7 · Nghỉ / buffer / việc nền** (xem Backlog).
 
 ## TUẦN 2 (1–7/9) — Nhịp tim SV08 + chuẩn bị onboarding
