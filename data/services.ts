@@ -41,6 +41,38 @@ export const JOURNEY_META: Record<JourneyStage, { vi: string; en: string; ja: st
   },
 };
 
+/**
+ * Lời dẫn mỗi chặng — giọng của chương trình nói với sinh viên (N1).
+ * Hiển thị dưới tiêu đề chặng trên trang services (chế độ Hành trình).
+ */
+export const JOURNEY_INTRO: Record<JourneyStage, { vi: string; en: string; ja: string }> = {
+  y1: {
+    vi: 'Năm đầu tiên — làm quen môi trường, dựng nền lập trình và tìm cảm giác thuộc về. Bắt đầu từ đây:',
+    en: 'Your first year — settle in, build programming foundations, and find your place. Start here:',
+    ja: '最初の1年 — 環境に慣れ、プログラミングの基礎を固め、居場所を見つける。ここから始めよう：',
+  },
+  y2: {
+    vi: 'Năm 2, bạn học chắc OOP · cấu trúc dữ liệu · kiến trúc máy tính — và lần đầu chạm vào phần cứng thật:',
+    en: 'In year 2 you master OOP · data structures · computer architecture — and touch real hardware for the first time:',
+    ja: '2年次は OOP・データ構造・計算機構成を固め、初めて本物のハードウェアに触れる：',
+  },
+  y3: {
+    vi: 'Năm 3 là lúc bước vào nghiên cứu, cuộc thi và dự án thật — chọn hướng đi của riêng bạn:',
+    en: 'Year 3 is when you step into research, competitions and real projects — choose your own direction:',
+    ja: '3年次は研究・コンテスト・実プロジェクトへ踏み出し、自分の進路を選ぶ時：',
+  },
+  final: {
+    vi: 'Năm cuối: thực tập, khóa luận và bước ra thị trường việc làm — mọi mốc quan trọng nằm ở đây:',
+    en: 'Final year: internship, thesis and stepping into the job market — every key milestone lives here:',
+    ja: '最終年次：インターン、卒業論文、そして就職へ — 重要なマイルストーンはすべてここに：',
+  },
+  all: {
+    vi: 'Những dịch vụ đồng hành cùng bạn suốt 4 năm — một tài khoản, một cửa, luôn ở cạnh bạn:',
+    en: 'Services that stay with you through all 4 years — one account, one front door, always at hand:',
+    ja: '4年間ずっと寄り添うサービス — 1つのアカウント、1つの入口、いつもそばに：',
+  },
+};
+
 /** Optional per-card accent — overrides CATEGORY_META visuals. */
 export interface ServiceAccent {
   bg: string;          // icon container background tint

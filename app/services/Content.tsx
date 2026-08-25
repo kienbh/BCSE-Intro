@@ -3,7 +3,14 @@
 import { useMemo, useState } from 'react';
 import { ExternalLink, Search, X, ChevronDown } from 'lucide-react';
 
-import { CATEGORY_META, type ServiceCategory, services } from '@/data/services';
+import {
+  CATEGORY_META,
+  JOURNEY_INTRO,
+  JOURNEY_META,
+  type JourneyStage,
+  type ServiceCategory,
+  services,
+} from '@/data/services';
 import SectionTitle from '@/components/shared/SectionTitle';
 import { getIcon } from '@/lib/utils';
 import { useLang } from '@/lib/i18n';
@@ -12,6 +19,20 @@ import { pickLocalized } from '@/lib/localized';
 type StatusFilter = 'all' | 'active' | 'coming-soon';
 type CategoryFilter = ServiceCategory | 'all';
 type RoleFilter = 'all' | 'student' | 'faculty' | 'admin';
+type ViewMode = 'journey' | 'category';
+
+/** Màu accent riêng cho tiêu đề từng chặng hành trình (bar + text). */
+const JOURNEY_ACCENT: Record<JourneyStage, { bar: string; text: string }> = {
+  y1: { bar: 'bg-emerald-500', text: 'text-emerald-300' },
+  y2: { bar: 'bg-sky-500', text: 'text-sky-300' },
+  y3: { bar: 'bg-violet-500', text: 'text-violet-300' },
+  final: { bar: 'bg-cyan-500', text: 'text-cyan-300' },
+  all: { bar: 'bg-amber-500', text: 'text-amber-300' },
+};
+
+const JOURNEY_ORDER: JourneyStage[] = (Object.keys(JOURNEY_META) as JourneyStage[]).sort(
+  (a, b) => JOURNEY_META[a].order - JOURNEY_META[b].order,
+);
 
 const ROLE_LABELS: Record<RoleFilter, { vi: string; en: string; ja: string }> = {
   all: { vi: 'Tất cả vai trò', en: 'All roles', ja: 'すべてのロール' },
@@ -38,6 +59,7 @@ export default function ServicesContent() {
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>('all');
   const [roleFilter, setRoleFilter] = useState<RoleFilter>('all');
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<ViewMode>('journey');
 
   // Counts per category and status (for filter chip badges)
   const counts = useMemo(() => {
@@ -83,6 +105,18 @@ export default function ServicesContent() {
       .filter((g) => g.items.length > 0);
   }, [filtered, categoryFilter]);
 
+  // Chế độ Hành trình (N1): app active xếp theo 5 chặng (1 app có thể xuất hiện
+  // ở nhiều chặng); app coming-soon gom về mục "Sắp ra mắt" cuối trang.
+  const journeyGroups = useMemo(() => {
+    const active = filtered.filter((s) => s.status === 'active');
+    return JOURNEY_ORDER
+      .map((stage) => ({ stage, items: active.filter((s) => s.journey.includes(stage)) }))
+      .filter((g) => g.items.length > 0);
+  }, [filtered]);
+  const comingSoon = useMemo(() => filtered.filter((s) => s.status === 'coming-soon'), [filtered]);
+  // DOM id (anchor #service-id) chỉ gắn ở lần xuất hiện đầu tiên của mỗi card.
+  const anchorSeen = new Set<string>();
+
   return (
     <div className="pt-20">
       <section className="section-padding">
@@ -111,6 +145,26 @@ export default function ServicesContent() {
                 </button>
               );
             })}
+          </div>
+
+          {/* View mode: journey (default) / category */}
+          <div className="mb-6 flex justify-center">
+            <div className="inline-flex rounded-lg border border-white/10 bg-slate-900/60 p-0.5 text-xs">
+              {(['journey', 'category'] as ViewMode[]).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setViewMode(m)}
+                  className={`rounded-md px-4 py-1.5 font-semibold transition ${
+                    viewMode === m ? 'bg-amber-400 text-slate-950' : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {m === 'journey'
+                    ? lang === 'vi' ? '🗺 Hành trình 4 năm' : lang === 'ja' ? '🗺 4年間の歩み' : '🗺 4-year journey'
+                    : lang === 'vi' ? 'Theo nhóm' : lang === 'ja' ? 'グループ別' : 'By group'}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Toolbar: search + status filter */}
@@ -191,7 +245,79 @@ export default function ServicesContent() {
                   : `Showing ${filtered.length} / ${counts.cat.all} services`}
           </p>
 
-          {/* Grouped grid */}
+          {/* Journey view (default) — 5 chặng hành trình + mục Sắp ra mắt */}
+          {viewMode === 'journey' ? (
+            <div className="space-y-12">
+              {journeyGroups.map((group) => {
+                const jm = JOURNEY_META[group.stage];
+                const accent = JOURNEY_ACCENT[group.stage];
+                return (
+                  <div key={group.stage}>
+                    <div className="mb-1 flex items-center gap-2">
+                      <span className={`h-1.5 w-10 rounded-full ${accent.bar}`} />
+                      <h2 className={`text-base font-bold tracking-wide ${accent.text}`}>
+                        {jm[lang]}
+                      </h2>
+                      <span className="text-xs text-slate-500">({group.items.length})</span>
+                    </div>
+                    <p className="mb-4 ml-12 text-sm italic text-slate-400">
+                      {JOURNEY_INTRO[group.stage][lang]}
+                    </p>
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                      {group.items.map((service) => {
+                        const first = !anchorSeen.has(service.id);
+                        anchorSeen.add(service.id);
+                        return (
+                          <ServiceCard
+                            key={`${group.stage}-${service.id}`}
+                            service={service}
+                            anchorId={first ? service.id : undefined}
+                            expanded={expandedId === service.id}
+                            onToggleExpand={() =>
+                              setExpandedId((id) => (id === service.id ? null : service.id))
+                            }
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {comingSoon.length > 0 && statusFilter !== 'active' && (
+                <div>
+                  <div className="mb-1 flex items-center gap-2">
+                    <span className="h-1.5 w-10 rounded-full bg-slate-600" />
+                    <h2 className="text-base font-bold tracking-wide text-slate-400">
+                      {lang === 'vi' ? 'Sắp ra mắt & sắp trở lại' : lang === 'ja' ? '近日公開・再開予定' : 'Coming soon & returning'}
+                    </h2>
+                    <span className="text-xs text-slate-500">({comingSoon.length})</span>
+                  </div>
+                  <p className="mb-4 ml-12 text-sm italic text-slate-500">
+                    {lang === 'vi'
+                      ? 'Những dịch vụ đang ấp ủ — sẽ mở khi có đúng người vận hành và đúng thời điểm.'
+                      : lang === 'ja'
+                        ? '準備中のサービス — 適切な運営体制とタイミングが整い次第公開します。'
+                        : 'Services in the making — opening when the right operators and timing are in place.'}
+                  </p>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {comingSoon.map((service) => (
+                      <ServiceCard
+                        key={`soon-${service.id}`}
+                        service={service}
+                        anchorId={service.id}
+                        expanded={expandedId === service.id}
+                        onToggleExpand={() =>
+                          setExpandedId((id) => (id === service.id ? null : service.id))
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+          /* Category view (legacy) */
           <div className="space-y-10">
             {grouped.map((group) => {
               const meta = CATEGORY_META[group.key];
@@ -211,6 +337,7 @@ export default function ServicesContent() {
                       <ServiceCard
                         key={service.id}
                         service={service}
+                        anchorId={service.id}
                         expanded={expandedId === service.id}
                         onToggleExpand={() =>
                           setExpandedId((id) => (id === service.id ? null : service.id))
@@ -222,6 +349,7 @@ export default function ServicesContent() {
               );
             })}
           </div>
+          )}
         </div>
       </section>
     </div>
@@ -255,11 +383,13 @@ function CategoryChip({
 }
 
 function ServiceCard({
-  service, expanded, onToggleExpand,
+  service, expanded, onToggleExpand, anchorId,
 }: {
   service: typeof services[number];
   expanded: boolean;
   onToggleExpand: () => void;
+  /** DOM id cho anchor #id — chỉ gắn ở lần render đầu (journey view có thể lặp card). */
+  anchorId?: string;
 }) {
   const { t, lang } = useLang();
   const Icon = getIcon(service.icon);
@@ -279,7 +409,7 @@ function ServiceCard({
 
   return (
     <div
-      id={service.id}
+      id={anchorId}
       className={`scroll-mt-24 group relative flex flex-col rounded-xl border border-white/[0.06] bg-slate-800/40 p-4 transition-all ${hoverBorder} ${
         !isActive ? 'opacity-70' : ''
       }`}
