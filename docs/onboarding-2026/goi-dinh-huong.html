@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gói tuần định hướng BCSE 2026 — SV08 + checklist tân SV</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--txt:#0f172a;--txt2:#475569;--txt3:#94a3b8;--green:#16a34a;--green-d:#15803d;--soft:#dcfce7;--line:#e2e8f0}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--txt);background:#f1f5f9}
+.page{width:210mm;min-height:296mm;margin:14px auto;background:#fff;padding:18mm 16mm;position:relative;
+  box-shadow:0 8px 30px -12px rgba(15,23,42,.25)}
+@media print{
+  body{background:#fff}
+  .page{margin:0;box-shadow:none;page-break-after:always;width:auto;min-height:auto}
+  .page:last-child{page-break-after:auto}
+  @page{size:A4;margin:0}
+}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:8mm}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#16a34a,#059669);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px}
+.brand b{font-size:14px}.brand small{display:block;font-size:10.5px;color:var(--txt3);font-weight:500}
+/* ---- PAGE 1: poster ---- */
+.p1{display:flex;flex-direction:column;text-align:center}
+.p1 .kicker{font-family:'JetBrains Mono';font-size:12px;font-weight:700;color:var(--green-d);letter-spacing:.14em;margin-top:6mm}
+.p1 h1{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.2;margin:5mm auto 3mm;max-width:150mm}
+.p1 .lead{font-size:14px;color:var(--txt2);max-width:120mm;margin:0 auto 8mm}
+.urlbox{display:inline-block;margin:0 auto;background:#0f172a;color:#fff;border-radius:16px;
+  font-family:'JetBrains Mono';font-size:24px;font-weight:700;padding:14px 30px;letter-spacing:.01em}
+.urlbox span{color:#86efac}
+.qrwrap{margin:8mm auto 3mm;padding:14px;border:1.5px solid var(--line);border-radius:20px;width:64mm;background:#fff}
+.qrwrap img{width:100%;display:block}
+.qrcap{font-size:11.5px;color:var(--txt3);margin-bottom:8mm}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:5mm;margin-top:4mm;text-align:left}
+.step{border:1.5px solid var(--line);border-radius:14px;padding:12px 13px}
+.step .n{width:24px;height:24px;border-radius:8px;background:var(--soft);color:var(--green-d);
+  display:grid;place-items:center;font-weight:800;font-size:12.5px;margin-bottom:8px}
+.step b{font-size:12.5px;display:block;line-height:1.3;margin-bottom:3px}
+.step small{font-size:10px;color:var(--txt2);line-height:1.45;display:block}
+.step .u{font-family:'JetBrains Mono';font-size:9px;color:var(--green-d);font-weight:700}
+.pfoot{margin-top:auto;padding-top:8mm;display:flex;justify-content:space-between;font-size:10.5px;color:var(--txt3)}
+/* ---- PAGE 2: checklist ---- */
+.p2 h2{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:2mm}
+.p2 .sub{font-size:13px;color:var(--txt2);margin-bottom:8mm}
+.item{display:grid;grid-template-columns:11mm 1fr auto;gap:5mm;padding:6mm 0;border-bottom:1px solid var(--line);align-items:start}
+.box{width:8mm;height:8mm;border:2px solid #cbd5e1;border-radius:3.5px;margin-top:1mm}
+.item h3{font-size:14.5px;font-weight:700;margin-bottom:1.5mm}
+.item h3 .tag{font-family:'JetBrains Mono';font-size:9.5px;font-weight:700;color:var(--green-d);
+  background:var(--soft);border-radius:99px;padding:2px 9px;margin-left:6px;vertical-align:2px}
+.item p{font-size:11.5px;color:var(--txt2);line-height:1.55}
+.item p b{color:var(--txt)}
+.item .u{font-family:'JetBrains Mono';font-size:10.5px;font-weight:700;color:var(--green-d)}
+.qr-s{width:22mm;padding:5px;border:1px solid var(--line);border-radius:10px}
+.qr-s img{width:100%;display:block}
+.note{margin-top:7mm;background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:5mm 6mm;font-size:11.5px;color:var(--txt2);line-height:1.6}
+.note b{color:var(--txt)}
+</style>
+</head>
+<body>
+
+<!-- ============ TRANG 1: POSTER / SLIDE ============ -->
+<div class="page p1">
+  <div class="brand" style="justify-content:center">
+    <div class="logo">B</div>
+    <div style="text-align:left"><b>BCSE — Khoa học &amp; Kỹ thuật Máy tính</b><small>Đại học Việt Nhật, ĐHQGHN</small></div>
+  </div>
+  <div class="kicker">TUẦN ĐỊNH HƯỚNG · KHÓA 2026</div>
+  <h1>Cả hệ sinh thái số BCSE,<br>một địa chỉ duy nhất</h1>
+  <p class="lead">Mọi công cụ bạn cần trong 4 năm — luyện code, đăng ký thực tập, theo dõi tín chỉ, đặt lịch lab — đều bắt đầu từ đây:</p>
+  <div class="urlbox">sv08<span>.bcse-vju.com</span></div>
+  <div class="qrwrap"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAIAAAD3027yAAAEoUlEQVR4nO3dy23cMBRAUTtwAbNMD+m/lPSQ5XSgdCBfQEOT1JyztTFfXdDAM6nP4zg+gO/8+vY3AKlAZVWBRCqQSAUSqUAiFUikAolUIPk6//Hj95+Pe3n++zvokWd9VuPe0bnHm10bVhVIpAKJVCCRCiRSgUQqkEgFEqlAIhV4xbR+zTnxrCny+SPfb2p+5R09b3dtWFUgkQokUoFEKpBIBRKpQCIVSKQCiVRg/LR+xynympP+HSff73ZtWFUgkQokUoFEKpBIBRKpQCIVSKQCiVRg9rT+fs4nwePm8TvOtu/HqgKJVCCRCiRSgUQqkEgFEqlAIhVIpAKJaf0PGXeq/JXz+dc8239NVhVIpAKJVCCRCiRSgUQqkEgFEqlAIhWYPa036/2Z/fFrPu/9rg2rCiRSgUQqkEgFEqlAIhVIpAKJVCCRCoyf1q85CV7Tmvvjx32Dj9tdG1YVSKQCiVQgkQokUoFEKpBIBRKpQCIVSD6P42i/+RZmzZh33Gv+bqwqkEgFEqlAIhVIpAKJVCCRCiRSgUQq8Ipp/Zr7tmfNxa+8o/t9Vo8NX/MVVhVIpAKJVCCRCiRSgUQqkEgFEqlAIhUYP63f8ez3c95v95z0HZ0b97xWFUikAolUIJEKJFKBRCqQSAUSqUAiFZh9Ev79dqLP+j+AHT+rcca93/NHtqpAIhVIpAKJVCCRCiRSgUQqkEgFEqnA+Gn9/fa4X+He8+u7csVaVSCRCiRSgUQqkEgFEqlAIhVIpAKJVCD5Ov/xldn2uFn+mmfs77iL3WkBnVUFEqlAIhVIpAKJVCCRCiRSgUQqkEgFXjGtnzXr3XEeP2tv/az/MHgu+Tm7bz1M5g8wSKQCiVQgkQokUoFEKpBIBRKpwCtOwp81n97xvPod70y/5t76c+5bD0vzBxgkUoFEKpBIBRKpQCIVSKQCiVRg/N76Hae593vNsx55nFl3SThnVYFEKpBIBRKpQCIVSKQCiVQgkQokUoHZ0/pZZu01v/KqZp1Iv6PHhfMerny/VhVIpAKJVCCRCiRSgUQqkEgFEqlAIhV4xUn472bHU+XXPCf/3Jqv6pxVBRKpQCIVSKQCiVQgkQokUoFEKpBIBV6xt/5+O7Ov7L1e8870V/aaX3lHjwvPe27Nb8GqAolUIJEKJFKBRCqQSAUSqUAiFUikAuNPwl/znujjJtCzrPk5PyftvJ81y7eqgFTgdawqkEgFEqlAIhVIpAKJVCCRCsy+b/2sPdBrWvP/ANZ8zc8L8/hx14ZVBRKpQCIVSKQCiVQgkQokUoFEKpBIBWZP69/NmvdiH/eqHsN2wM86HcFJ+PAC/gCDRCqQSAUSqUAiFUikAolUIJEKJKb1G+zpvzIXHzc1fy55Z/pxj2xVgUQqkEgFEqlAIhVIpAKJVCCRCiRSgdnT+h3Pq591T/RxE/dZ3+BjyVd1hVUFEqlAIhVIpAKJVCCRCiRSgUQqkEgFxk/rd7wX+7lxu8nHnf1+v3n8ms9rVYFEKpBIBRKpQCIVSKQCiVQgkQokUoHk8ziO9pvw1qwqkEgFEqlAIhVIpAKJVCCRCiRSgUQq8FH8B8+IcNIZuaZ1AAAAAElFTkSuQmCC" alt="QR sv08.bcse-vju.com"></div>
+  <div class="qrcap">Quét bằng camera điện thoại · không cần cài app</div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><b>Đăng nhập lần đầu</b><small>Bấm "Đăng nhập" → chọn Google → dùng email VJU. Tài khoản đã có sẵn.</small><span class="u">id.bcse-vju.com</span></div>
+    <div class="step"><div class="n">2</div><b>Xem "Tuần này của bạn"</b><small>Mốc học vụ &amp; việc cần làm của đúng khóa bạn, cập nhật mỗi tuần.</small><span class="u">id.bcse-vju.com</span></div>
+    <div class="step"><div class="n">3</div><b>Thử Code Arena</b><small>Làm bài nhập môn đầu tiên — nơi luyện code có tính điểm thành phần.</small><span class="u">sv12.bcse-vju.com</span></div>
+    <div class="step"><div class="n">4</div><b>Biết Hardware Lab</b><small>FPGA · Jetson · Raspberry Pi điều khiển từ xa — sẽ dùng ở môn phần cứng.</small><span class="u">sv14.bcse-vju.com</span></div>
+  </div>
+  <div class="pfoot"><span>BCSE — Đại học Việt Nhật, ĐHQGHN</span><span>bcse-vju.com</span></div>
+</div>
+
+<!-- ============ TRANG 2: CHECKLIST TÂN SV ============ -->
+<div class="page p2">
+  <div class="brand">
+    <div class="logo">B</div>
+    <div><b>Checklist tuần định hướng — Khóa 2026</b><small>Hoàn thành 5 việc dưới đây trong tuần đầu tiên · mỗi việc ~5 phút</small></div>
+  </div>
+  <h2>5 việc đầu tiên của bạn trên hệ sinh thái số BCSE</h2>
+  <p class="sub">Tick ✓ từng ô khi xong. Cuối tuần định hướng, cố vấn học tập sẽ hỏi bạn về checklist này.</p>
+
+  <div class="item">
+    <div class="box"></div>
+    <div>
+      <h3>Đăng nhập bcse-id bằng email VJU<span class="tag">BẮT BUỘC</span></h3>
+      <p>Mở <span class="u">id.bcse-vju.com</span> → bấm <b>"Đăng nhập với Google"</b> → chọn email
+      <b>…@st.vju.ac.vn</b> của bạn. Không cần đăng ký — hồ sơ của bạn (họ tên, khóa, lớp) đã được tạo sẵn.
+      Đây là <b>một tài khoản duy nhất</b> cho mọi dịch vụ BCSE.</p>
+    </div>
+    <div class="qr-s"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAIAAAD3027yAAAErElEQVR4nO3dwXEjNxBAUcnlAHh0Ds4/FOfgIzMYZ8D9tcM2AOq960oiNeIvbFUPBt/XdX0Bv/LHL78CkApUVhVIpAKJVCCRCiRSgUQqkEgFkj9f//Pjr7+/Psvz339++3vvXI3Xr7vqOq+6Gnt6fTWsKpBIBRKpQCIVSKQCiVQgkQokUoFEKvCOaf3crHfOnSnynhPoE2fqz4/7bFhVIJEKJFKBRCqQSAUSqUAiFUikAolUYH5av2pOPDcJXrUD/sR5/B17XsnXrCqQSAUSqUAiFUikAolUIJEKJFKBRCqwelrP//MU/bl3tef++FWsKpBIBRKpQCIVSKQCiVQgkQokUoFEKpCY1h9/Mv2d1zWP76wqkEgFEqlAIhVIpAKJVCCRCiRSgUQqsHpaf+IkeNV7XjXpXzXLfx742bCqQCIVSKQCiVQgkQokUoFEKpBIBRKpwPy0/sQT0+em15/3vXc8Pu6zYVWBRCqQSAUSqUAiFUikAolUIJEKJFKB5Pu6rvaVLNunvmryfeIO+DlWFUikAolUIJEKJFKBRCqQSAUSqUAiFXjH3vo993yfeFL7nu/qp93Z8Lzxk60qkEgFEqlAIhVIpAKJVCCRCiRSgUQqML+3fm7Pt1l+vxpz7vx9n1vef3Bnlm9VgUQqkEgFEqlAIhVIpAKJVCCRCiRSgb331t953bnvnfvJe+4Xn/MYu1arzgWwqkAiFUikAolUIJEKJFKBRCqQSAUSqcA7pvV37Dmffv2TV83j97zvYc+Z+nPROQhWFUikAolUIJEKJFKBRCqQSAUSqUAiFVg9rT9xB/zc637ebPtx4NnznoQP4/wHDBKpQCIVSKQCiVQgkQokUoFEKvCOaf2JT1nfcz696h6CO058z8+xv4JVBRKpQCIVSKQCiVQgkQokUoFEKpBIBU4+t/6OE095X/X77nlnw3PLz5VVBRKpQCIVSKQCiVQgkQokUoFEKpBIBZLv67q+TpuLr7qH4MSd93PPjX/t856ib1WBRCqQSAUSqUAiFUikAolUIJEKJFKBd0zr99ynvucUec939dOedT/HqgKJVCCRCiRSgUQqkEgFEqlAIhVIpAKfe279iXcJnPj7rno6wh1z90xYVSCRCiRSgUQqkEgFEqlAIhVIpAKJVGD+3PoTrTrH/Y49n7H/2PK5C3OsKpBIBRKpQCIVSKQCiVQgkQokUoFEKvCOaf1re05k97zDYM+T2ud2oq8y9/taVUAq8D5WFUikAolUIJEKJFKBRCqQSAXmp/WrpuYn7mI/cWq+530Pq96zVQUSqUAiFUikAolUIJEKJFKBRCqQSAVWT+tPdGfyfeI8fu51Hx/3BH6rCiRSgUQqkEgFEqlAIhVIpAKJVCCRCiSm9T/6LPY5z7HnENxx53WtKpBIBRKpQCIVSKQCiVQgkQokUoFEKrB6Wn/ibHvP8+NXPZH+xJn6Y+w9W1UgkQokUoFEKpBIBRKpQCIVSKQCiVRgflp/4rnmr83NeueehD/3V1h178Ice+thnP+AQSIVSKQCiVQgkQokUoFEKpBIBZLv67raV8KPZlWBRCqQSAUSqUAiFUikAolUIJEKJFKBr+I/xGSEMFktfq8AAAAASUVORK5CYII=" alt="QR id.bcse-vju.com"></div>
+  </div>
+
+  <div class="item">
+    <div class="box"></div>
+    <div>
+      <h3>Khám phá cổng chung SV08</h3>
+      <p>Mở <span class="u">sv08.bcse-vju.com</span> — bản đồ mọi dịch vụ số của chương trình.
+      Lưu bookmark / thêm vào màn hình chính điện thoại. Quên link nào cứ quay về đây.</p>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="item">
+    <div class="box"></div>
+    <div>
+      <h3>Xem widget "Tuần này của bạn"</h3>
+      <p>Sau khi đăng nhập <span class="u">id.bcse-vju.com</span>, dashboard hiện <b>mốc học vụ tuần này của đúng khóa K2026</b>:
+      hạn đăng ký, sự kiện, việc cần làm. Tập thói quen xem mỗi <b>sáng thứ Hai</b>.</p>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="item">
+    <div class="box"></div>
+    <div>
+      <h3>Làm bài nhập môn trên Code Arena</h3>
+      <p>Mở <span class="u">sv12.bcse-vju.com</span> → đăng nhập bằng bcse-id → làm <b>bài "Hello BCSE"</b>.
+      Arena là nơi luyện code suốt 4 năm — một số môn tính <b>điểm thành phần</b> tại đây.</p>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="item" style="border-bottom:0">
+    <div class="box"></div>
+    <div>
+      <h3>Ghé thăm Hardware Lab (chỉ cần biết nó tồn tại)</h3>
+      <p>Mở <span class="u">sv14.bcse-vju.com</span> — phòng lab phần cứng <b>điều khiển từ xa</b>: FPGA, Jetson, Raspberry Pi
+      thật, đặt lịch qua mạng. Năm 2–3 học môn phần cứng bạn sẽ dùng thường xuyên.</p>
+    </div>
+    <div></div>
+  </div>
+
+  <div class="note">
+    <b>Gặp lỗi đăng nhập?</b> Chụp màn hình, gửi cố vấn học tập hoặc email <b>bh.kien@vju.ac.vn</b> (Giám đốc chương trình).
+    · <b>Mẹo:</b> mọi cổng BCSE đều đăng nhập chung một tài khoản bcse-id — đăng nhập một lần, dùng mọi nơi.
+  </div>
+  <div class="pfoot" style="margin-top:8mm"><span>BCSE — Đại học Việt Nhật, ĐHQGHN · Tuần định hướng 9/2026</span><span>In 2 mặt trên 1 tờ A4</span></div>
+</div>
+
+</body>
+</html>
