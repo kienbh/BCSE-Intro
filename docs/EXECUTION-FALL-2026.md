@@ -15,7 +15,11 @@
 - [x] **D2 · Umami sv09** ✅ (25/8) — deploy full (kèm filter t1-packages), smoke test pass, snippet live.
 - [x] **D3 · Umami sv13 + sv18** ✅ (25/8) — sv13 deploy full; sv18 deploy full; cả hai verify công khai.
 - [x] **D4 · Umami sv12 + sv14** ✅ (25/8) — sv12: SSH key bcse_master vào được VM112 (không cần reset password), mini-deploy base.html; sv14: mini-deploy layout.tsx + docker rebuild frontend. **5/5 Core có analytics — N0 CHỐT SỔ.** Verify công khai cả 5.
-- [ ] **D5 · Backup ngoài máy** — `vm_inventory.json`, `BCSE-Tracker/data/` (bảng điểm + bcse.db), backup KLTN 1.5GB → Google Drive. *DoD: mất laptop không mất chìa khóa VM và dữ liệu SV.*
+- [x] **D5 · Backup ngoài máy** ✅ (25/8) — *DoD: mất laptop không mất chìa khóa VM và dữ liệu SV.*
+  - KLTN 1.5GB: **đối chiếu Drive — ĐÃ CÓ ĐỦ 62/62 folder SV** (app sv13 tự sync từ tháng 5, spot-check khớp) → không cần upload lại.
+  - Tracker data (bảng điểm + bcse.db + phiếu, zip 1.7MB) + cong-bcse.db → `G:\My Drive\BCSE-ecosystem-backup\` (Google Drive for Desktop tự sync).
+  - `vm_inventory.json`: 🧑‍🏫 **thầy tự backup** (đã chọn không đưa secrets lên cloud qua Claude). Gợi ý: copy vào password manager hoặc USB.
+  - Ghi chú kỹ thuật: service account `bcse-thesis-sync` KHÔNG còn upload được vào My Drive (Google bỏ quota SA) — backup tự động sau này (B8) nên dùng Shared Drive hoặc Google Drive for Desktop.
 - [ ] **D6 · SV08 journey layout (N1)** — gán trường `journey` cho 20 services trong `data/services.ts`, redesign section theo 5 chặng (Năm 1→4 + Xuyên suốt), app Frozen vào mục "sắp trở lại". *DoD: build pass, deploy.*
 - [ ] **D7 · Nghỉ / buffer / việc nền** (xem Backlog).
 
