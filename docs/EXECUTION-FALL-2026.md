@@ -45,7 +45,7 @@
 
 | Nhịp | Việc |
 |---|---|
-| **Thứ 2, 10'** | Mở sv05 Ops Center: app Core nào lỗi/chậm → tuần đó là "tuần sửa", không thêm tính năng |
+| **Thứ 2, 10'** | Mở sv05 (uptime) + **analytics.bcse-vju.com** (WAU — mở 27/8, login SSO email giám đốc, Umami đăng nhập lần đầu admin/umami rồi ĐỔI PASS): app nào lỗi/chậm → tuần đó là "tuần sửa" |
 | **Mỗi tuần, 1 đầu việc chính** | Lấy theo thứ tự backlog A (dưới) |
 | **🧑‍🏫 15'/tuần** | Review với SV owner |
 | **Cuối tháng 10** | 📊 Báo cáo WAU đầu tiên → họp triage KEEP/FREEZE bằng số liệu (GĐ0.2) |
