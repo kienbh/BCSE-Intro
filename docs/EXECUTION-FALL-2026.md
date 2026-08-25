@@ -53,6 +53,12 @@
 
 > ✅ **A8 · BCSE Pulse CÔNG KHAI — XONG (25/8, LIVE, v2 sau duyệt UI):** `https://sv05.bcse-vju.com/` (root 302 → `/pulse/`). Thầy duyệt qua 3 mẫu (`pulse/mockups/`) → chốt **Clean SaaS** + 3 chỉnh: trục tung, filter Ngày/Tuần/Tháng/Năm, cột "Mức hoạt động 7d" **4 màu có nhãn** (Sôi động ≥100 / Ổn định 20–99 / Trầm lắng 1–19 / Im ắng 0) thay sparkline ping. Nguồn liệu: (1) Kuma status page `bcse` 16 monitor — trạng thái/ping/uptime; (2) `pulse.json` cron `7 * * * *` VM105 — series ngày/tuần/tháng/năm + delta tuần trước từ Umami; (3) **endpoint mới `bcse-id /api/stats/cohort`** (chỉ số tổng hợp, không định danh) → card "Tham gia theo khóa" (25/8: K2023 dẫn đầu 13 SV). nginx: `/pulse/*` `/status/*` `/api/status-page/*` `/assets/*` public — `/overview` `/dashboard` vẫn sau SSO. Redeploy: `sv05-ops-center/deploy_pulse_public.py` (sv05) + `deploy_bcse_id_cohort_stats.py` (VM108). Verify 25/8: 541 views (+163%)/97 phiên 7d, 16/16 up.
 
+> 🔜 **HANDOFF 25/8 (cuối ngày) — phiên mới đọc mục này trước:**
+> 1. **sv08 trang chủ rút gọn** — code xong 2 vòng (teaser 6 app + mobile "ít chữ": 34 → 22.4 màn, desktop nguyên trạng), ĐÃ COMMIT, **CHƯA deploy** — 🧑‍🏫 thầy hẹn "check sau mobile". Demo: `cd bcse-intro/out && python -m http.server 8788` → mở `127.0.0.1:8788`. Duyệt xong chạy `deploy_bcse_intro.py`.
+> 2. **Phiên sv14** (thầy đã OK PR): branch `fix/auth-refresh-endpoint` (bcse vLab) — cần PG test DB (local KHÔNG có Docker → dựng PG tạm trên VM có docker hoặc host khác), chạy `pytest backend/tests/test_auth_refresh.py`, merge, deploy backend.
+> 3. Các fix sẵn chờ deploy: sv12 nav hamburger (oop-grader main — pytest + `deploy/sv12_deploy.py`); sv09 tắt Rocket Loader + sv18 CSP beacon (🧑‍🏫 CF dashboard, ~10' — xem PORTAL-REVIEW).
+> 4. Ghi nhớ mới: quy tắc "mobile ít chữ" (memory `mobile-design-it-chu`); RAM 99% panel PVE = page cache, không phải leak (Server Management memory.md); 2 khung CTĐT 152/135 TC chờ tài liệu thầy.
+
 ### Backlog A — đầu việc chính trong kỳ (theo thứ tự)
 - [ ] A1 · Arena gắn điểm thành phần môn thầy dạy Fall 2026 (phổ biến trong đề cương — 🧑‍🏫) + bộ đề tuần
 - [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
