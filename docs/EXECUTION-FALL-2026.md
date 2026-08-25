@@ -53,6 +53,18 @@
 
 > ✅ **A8 · BCSE Pulse CÔNG KHAI — XONG (25/8, LIVE, v2 sau duyệt UI):** `https://sv05.bcse-vju.com/` (root 302 → `/pulse/`). Thầy duyệt qua 3 mẫu (`pulse/mockups/`) → chốt **Clean SaaS** + 3 chỉnh: trục tung, filter Ngày/Tuần/Tháng/Năm, cột "Mức hoạt động 7d" **4 màu có nhãn** (Sôi động ≥100 / Ổn định 20–99 / Trầm lắng 1–19 / Im ắng 0) thay sparkline ping. Nguồn liệu: (1) Kuma status page `bcse` 16 monitor — trạng thái/ping/uptime; (2) `pulse.json` cron `7 * * * *` VM105 — series ngày/tuần/tháng/năm + delta tuần trước từ Umami; (3) **endpoint mới `bcse-id /api/stats/cohort`** (chỉ số tổng hợp, không định danh) → card "Tham gia theo khóa" (25/8: K2023 dẫn đầu 13 SV). nginx: `/pulse/*` `/status/*` `/api/status-page/*` `/assets/*` public — `/overview` `/dashboard` vẫn sau SSO. Redeploy: `sv05-ops-center/deploy_pulse_public.py` (sv05) + `deploy_bcse_id_cohort_stats.py` (VM108). Verify 25/8: 541 views (+163%)/97 phiên 7d, 16/16 up.
 
+> 🔜 **HANDOFF 25/8 ĐÊM — 🏝 BCSE WORLD ra đời (phiên sáng 26/8 đọc trước):**
+> Thầy chốt concept thế giới ảo Compass = **fork SkyOffice** (MIT, xem `docs/COMPASS-CONCEPTS.md`).
+> Đêm 25/8 Claude đã làm: clone → `d:\files\bcse-world` (branch `bcse-world`, commit sạch);
+> chạy ngon trên Node 24 (server Colyseus :2567 + client Vite :5173, 0 lỗi console, verify selenium
+> full flow); rebrand "BCSE World — Quần đảo BCSE" + Việt hóa UI + nút 🧭 panel 5 đảo mở app thật
+> + nút 🏠 về SV08. Chạy thử: 2 terminal (`npm start` gốc + `npm run dev` trong client/) → mở
+> `localhost:5173` 2 tab là thấy 2 avatar gặp nhau. **Việc tiếp (theo README-BCSE.md):** (1) thầy
+> `gh auth login` → tạo repo private kienbh/bcse-world + push; (2) map quần đảo thật bằng Tiled
+> (tileset Kenney CC0); (3) SSO bcse-id; (4) deploy VM115 (probe xong: cần docker, tăng 1→2 CPU).
+> ⚠ Gotcha học đêm nay: KHÔNG dùng PowerShell Get/Set-Content sửa file UTF-8 tiếng Việt — vỡ mojibake;
+> chỉ dùng Edit/Write tool.
+
 > 🔜 **HANDOFF 25/8 (cuối ngày) — phiên mới đọc mục này trước:**
 > 1. ✅ **sv08 trang chủ rút gọn DEPLOY LIVE** (25/8 tối) — thầy duyệt demo → `deploy_bcse_intro.py` (build trên server, nginx reload, HTTP 200) → verify công khai markers `line-clamp-3` ×3 + `hidden sm:block` ×36 trên sv08.bcse-vju.com. **HANDOFF 25/8 SẠCH HOÀN TOÀN (mục 1-2-3 đều ✅).**
 > 2. **Phiên sv14** ✅ XONG (25/8, deploy live): test 5/5 pass (PG+Redis test tạm bằng Docker ngay trên SV14, dọn sạch) → merge ff vào `feat/M6.5-vps-gpu-metrics` (`fd552dc`, push; kèm pin pytest 7.4.4 + pytest-asyncio 0.21.2 — bản ≥0.23 vỡ event loop với conftest) → mini-deploy auth.py + rebuild backend → verify công khai `POST https://sv14.bcse-vju.com/api/auth/refresh` = **401 NO_REFRESH_TOKEN** (hết 404). 🔴 A3 sv14 ĐÓNG. Gotcha đã trả học phí: (a) auth.py trên server là bản CRLF — drift-check phải chuẩn hóa line-ending; (b) lệnh dài qua paramiko phải nohup `</dev/null` + poll log, không thì build kẹt ghi vào kênh SSH chết thành tiến trình ma; (c) pattern chạy test trên SV14: `run_sv14_authtest.py` (scratchpad 25/8).
