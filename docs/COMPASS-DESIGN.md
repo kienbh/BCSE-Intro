@@ -1,4 +1,4 @@
-# 🧭 BCSE Compass — La bàn sinh viên (sv21)
+# 🧭 BCSE Compass — La bàn sinh viên (sv04)
 
 > Quyết định GĐCT 2026-08-27: mở app MỚI (ngoại lệ có chủ đích của nguyên tắc "không app mới").
 > Lý do tách khỏi Tracker: **cách ly dữ liệu nhạy cảm** — Tracker giữ risk score, note cố vấn,
@@ -29,8 +29,8 @@ kế hoạch học tập theo năm/kỳ, tiến độ, mốc sắp tới — **t
 
 ## Hạ tầng
 
-- Domain: `sv21.bcse-vju.com` (CF tunnel — script mẫu `cf_dns_*.py` có sẵn).
-- VM: dùng **VM116** sau khi gộp Codex→sv20 (B12.1) hoặc VM mới nếu muốn làm ngay.
+- Domain: **`sv04.bcse-vju.com`** — quyết định thầy 27/8: sv21 nằm ở VPS ngoài cụm chung nên không dùng; E-Service kế toán trên sv04 **TẮT HẲN** (app đã backup git: kienbh/e-service-be + e-services — freeze, không xóa code).
+- VM: **VM104** trọn vẹn cho Compass (gỡ NestJS+Next e-service cũ, giữ backup DB trước khi gỡ).
 - Stack: Next.js (App Router) + OIDC client theo checklist bcse-id — copy pattern từ sv09.
 - Ngày 1 phải có: Umami snippet + `/api/health` + VERSION + repo GitHub private. Không nợ chuẩn nào.
 

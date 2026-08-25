@@ -58,7 +58,6 @@
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
 - [~] A5 · `/api/health` trả git SHA: ✅ LIVE cả 5/5 Core (verify public 27/8; sv18 miễn auth cho health; sha="unknown" đến khi B8 ghi VERSION lúc deploy) — còn: panel so sánh local↔origin↔server trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
-- [ ] **A7 · 🧭 BCSE Compass (sv21) — dashboard toàn diện từng SV** (quyết định thầy 27/8, thiết kế: `docs/COMPASS-DESIGN.md`): v1 Study Plan tĩnh từ CTĐT + lịch kỳ (2–3 session, không cần API); v2 nối Tracker `/api/me/summary` SV-safe; v3 gương toàn cảnh. Hạ tầng: sv21 + VM116 (sau B12.1) hoặc VM mới.
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
 - [x] B1–B6 · Git đợt 2 ✅ (24/8 batch): 12 repo mới lên GitHub private (lambda-codex, delta/hygieia-platform+landing, kiensensei-lms, demeter-codex, hygieia-food-health, xuathoadon, ai-career-trends, aurabrew-v1/-backend/-ver2-be). Phát hiện: bcse-advisor có repo git LỒNG BÊN TRONG (`bcse-advisor/bcse-advisor`, remote kienbh/bcse-advisor, master **behind 8** so origin — WIP 14 file đã bảo toàn ở nhánh `local-wip-2026-08-24`, cần thầy hợp nhất). Bỏ qua: `BCSE LAB MANAGEMENT` (rỗng), `qdrant` (data dir).
@@ -71,6 +70,15 @@
   - B12.1 · Gộp sv16 (Codex) vào sv20 (Codex Campus — cùng brand): nội dung distilled thành section trong LMS → giải phóng VM116.
   - B12.2 · sv15 Guild: app FREEZE trong git (chờ N8 chạy tay ổn) → giải phóng VM115.
   - B12.3 · Tái sử dụng 2 VM giải phóng: (a) **VM staging + CI runner** cho 5 app Core (hiện deploy thẳng prod — gốc của "chưa ổn định"), (b) VM backup tập trung (pg_dump hằng đêm + Drive sync). KHÔNG build app SV mới trước triage tháng 10.
+
+## 🧭 MÓN CHỐT HẠ — BCSE Compass (sv04) · *làm CUỐI CÙNG, sau khi tinh chỉnh toàn hệ*
+
+> Quyết định thầy 27/8: KHÔNG build ngay. Compass là dashboard toàn diện từng SV (thiết kế đầy đủ:
+> `docs/COMPASS-DESIGN.md`) — nó thâu tóm dữ liệu từ các cổng khác, nên chỉ có giá trị khi các cổng
+> nguồn đã chạy ổn định và có API `/api/me/*`. Trình tự: xong nhịp tim (D-series) → boring-solid +
+> backlog A/B trong kỳ → triage tháng 10 → **rồi mới Compass**.
+> Hạ tầng đã chốt: **sv04 + VM104** (sv21 ở VPS ngoài cụm). Bước 0 khi bắt đầu: backup DB e-service
+> kế toán → tắt hẳn (quyết định thầy; code đã an toàn trên GitHub private).
 
 ## SPRING 2027 — phác trước, chi tiết hóa sau triage tháng 10
 - Tấm gương số trên bcse-id (portfolio sống từ dữ liệu Arena/booking/NCKH/KLTN)
