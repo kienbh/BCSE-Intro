@@ -11,6 +11,10 @@
 > làm về hệ thống chung trong hệ sinh thái đã — như thiết kế một lâu đài, cần biết khu vực
 > cho từng nhà chức năng, lối đi, trải nghiệm, rồi mới đi sâu thiết kế từng tòa."
 
+> 🏰 **Masterplan 25/8 (chốt):** Compass là **quảng trường trung tâm** của lâu đài BCSE — xem
+> `MASTERPLAN-LAU-DAI.md`. UI hiển thị các khu như **bản đồ thành/lâu đài** (quyết định thầy 25/8
+> — cần vòng mockup 2–3 mẫu trước khi build v1). Ngân khố điểm senpai–kohai đặt ở **bcse-id**.
+
 ## Nó là gì
 
 Dashboard toàn diện **cho từng sinh viên**: bức tranh hành trình của TÔI trong ngành —

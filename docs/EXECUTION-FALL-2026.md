@@ -88,12 +88,13 @@
 > toán** — bỏ kế hoạch tắt. Chi tiết + launcher hành trình: `docs/COMPASS-DESIGN.md`.
 > Quyết định gốc 27/8 vẫn giữ: KHÔNG build ngay — cổng nguồn phải ổn định và có API `/api/me/*` trước.
 
-### 🏰 MASTERPLAN "lâu đài" — bước thiết kế KẾ TIẾP, trước mọi nâng cấp cổng (chỉ đạo thầy 25/8)
+### 🏰 MASTERPLAN "lâu đài" — ✅ v1 CHỐT (phiên thiết kế 25/8 tối) → `docs/MASTERPLAN-LAU-DAI.md`
 
-> "Chưa đến bước nâng cấp từng cổng. Làm về hệ thống chung trong hệ sinh thái đã — như thiết kế một
-> lâu đài, cần biết khu vực cho từng nhà chức năng, lối đi, trải nghiệm, rồi mới đi sâu từng tòa."
-> Sản phẩm cần ra: bản đồ khu chức năng (zone) toàn hệ + lối đi giữa các cổng (SSO, điều hướng)
-> + trải nghiệm chuẩn theo hành trình 4 năm. Làm trong 1 phiên thiết kế riêng với thầy.
+> Bản đồ không gian toàn hệ: 4 kết cấu nền (thẻ cư dân bcse-id · cổng thành SV08 · quảng trường
+> Compass · đài quan sát sv05) + 6 khu phố + lối đi 3 tầng + kịch bản trải nghiệm 4 năm + 7 chuẩn
+> building code. 3 quyết định thầy chốt: ngân khố điểm ở **bcse-id**; ẩn dụ lâu đài **đưa vào UI**
+> (Compass = bản đồ thành — cần vòng mockup trước khi build); Arena ∥ LMS song song 2 vai.
+> Việc kế tiếp của trục này (khi thầy gọi): **vòng mockup Compass** (2–3 mẫu bản đồ lâu đài).
 
 ### Tầm nhìn cổng đã chốt hướng (25/8 — thiết kế chi tiết sau masterplan)
 - **sv02 → Compass**: xem trên + `COMPASS-DESIGN.md`.
