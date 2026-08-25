@@ -48,7 +48,7 @@ export default function PhilosophySection() {
                   {lang !== 'en' && (
                     <p className={`text-xs font-mono mb-3 ${c.icon}`}>{pillar.titleEN}</p>
                   )}
-                  <p className="text-sm text-slate-400 leading-relaxed">{desc}</p>
+                  <p className="text-sm text-slate-400 leading-relaxed line-clamp-3 sm:line-clamp-none">{desc}</p>
                 </div>
               );
             })}
@@ -87,7 +87,8 @@ export default function PhilosophySection() {
                   <Icon className="w-4 h-4 text-amber-400/70 mt-0.5 flex-shrink-0" />
                   <div>
                     <h4 className="text-sm font-semibold text-white mb-1">{pickLocalized(feature.title, lang)}</h4>
-                    <p className="text-xs text-slate-500 leading-relaxed">{pickLocalized(feature.description, lang)}</p>
+                    {/* Mobile ít chữ: chỉ giữ tiêu đề feature */}
+                    <p className="hidden sm:block text-xs text-slate-500 leading-relaxed">{pickLocalized(feature.description, lang)}</p>
                   </div>
                 </div>
               );

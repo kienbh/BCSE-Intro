@@ -53,8 +53,9 @@ export default function ServicesPortal() {
                     )}
                   </div>
                   <h3 className="text-sm font-bold text-white mb-1">{name}</h3>
-                  <p className="text-xs text-slate-500 mb-3">{description}</p>
-                  <ul className="space-y-1 mb-4">
+                  <p className="text-xs text-slate-500 mb-3 line-clamp-2 sm:line-clamp-none">{description}</p>
+                  {/* Bullet chi tiết ẩn trên mobile — ít chữ, giữ cỡ chữ đọc được */}
+                  <ul className="hidden sm:block space-y-1 mb-4">
                     {features.slice(0, 3).map((f) => (
                       <li key={f} className="text-[11px] text-slate-600 flex items-center gap-1.5">
                         <span className="w-1 h-1 rounded-full bg-sky-500/40" />

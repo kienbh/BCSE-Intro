@@ -51,18 +51,19 @@ export default function ResearchPreview() {
         {/* 6 Research areas */}
         <ScrollReveal>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-            {researchAreas.map((area) => (
-              <GlassCard key={area.id}>
+            {researchAreas.map((area, i) => (
+              /* Mobile ít chữ: chỉ 4 hướng đầu, ẩn infographic + clamp mô tả */
+              <GlassCard key={area.id} className={i >= 4 ? 'hidden sm:block' : ''}>
                 <ResearchInfographic
                   icon={area.icon}
                   color={area.color}
                   pattern={area.pattern}
                   topicCount={area.topics.length}
-                  className="w-full h-32 rounded-xl mb-4"
+                  className="w-full h-32 rounded-xl mb-4 hidden sm:block"
                 />
                 <h3 className="text-sm font-bold text-white mb-1">{area.name}</h3>
                 <p className="text-xs text-sky-400 mb-2">{area.supervisors.join(', ')}</p>
-                <p className="text-xs text-slate-500 mb-3">{area.description}</p>
+                <p className="text-xs text-slate-500 mb-3 line-clamp-2 sm:line-clamp-none">{area.description}</p>
                 <div className="flex flex-wrap gap-1">
                   {area.topics.slice(0, 3).map((t) => (
                     <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-500">{t}</span>
@@ -92,7 +93,7 @@ export default function ResearchPreview() {
             </div>
             <div className="space-y-3">
               {publications.map((pub, i) => (
-                <div key={i} className="text-xs">
+                <div key={i} className={`text-xs ${i >= 3 ? 'hidden sm:block' : ''}`}>
                   <p className="text-slate-300">{pub.title}</p>
                   <p className="text-slate-500">{pub.authors} — <span className="text-sky-500">{pub.venue}</span> ({pub.year})</p>
                 </div>

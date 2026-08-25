@@ -63,8 +63,8 @@ export default function StudentProjectsSection() {
                   <h3 className="text-sm font-bold text-white leading-tight">{p.title}</h3>
                 </div>
                 <p className="text-xs text-slate-300 mb-1"><span className="text-slate-500">SV:</span> {p.students}</p>
-                <p className="text-xs text-slate-300 mb-3"><span className="text-slate-500">HD:</span> {p.supervisors}</p>
-                <p className="text-xs text-slate-400 leading-relaxed mb-3">{p.summary}</p>
+                <p className="hidden sm:block text-xs text-slate-300 mb-3"><span className="text-slate-500">HD:</span> {p.supervisors}</p>
+                <p className="text-xs text-slate-400 leading-relaxed mb-3 line-clamp-2 sm:line-clamp-none">{p.summary}</p>
                 <div className="flex flex-wrap gap-1">
                   {p.tags.map((t) => (
                     <span
