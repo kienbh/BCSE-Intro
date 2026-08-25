@@ -84,6 +84,9 @@ export interface ServiceAccent {
   titleClass?: string; // optional title text-color override (default white)
 }
 
+/** Đối tượng phục vụ — dùng cho bộ lọc vai trò (thay cách suy từ category vốn không chính xác). */
+export type Audience = 'student' | 'faculty' | 'staff';
+
 export interface ServiceItem {
   id: string;
   name: Localized<string>;
@@ -95,6 +98,8 @@ export interface ServiceItem {
   category: ServiceCategory;
   /** Chặng hành trình SV mà dịch vụ phục vụ chính (1 dịch vụ có thể thuộc nhiều chặng). */
   journey: JourneyStage[];
+  /** Ai dùng dịch vụ này — gán tường minh từng app. */
+  audience: Audience[];
   /** Per-card accent override (e.g. for flagship lab cards). */
   accent?: ServiceAccent;
 }
@@ -187,6 +192,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'lab',
     journey: ['y2', 'y3'],
+    audience: ['student'],
   },
   {
     id: 'hardware-lab-portal',
@@ -228,6 +234,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'lab',
     journey: ['y2', 'final'],
+    audience: ['student', 'faculty'],
   },
   {
     id: 'ai-advisor',
@@ -251,6 +258,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'learning',
     journey: ['y1'],
+    audience: ['student'],
   },
   {
     id: 'lambda-lab',
@@ -274,6 +282,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'research',
     journey: ['y3'],
+    audience: ['student', 'faculty'],
     // λ Lab flagship accent — tím than (dark purple) supporting; title giữ trắng
     accent: {
       bg: 'bg-violet-900/30',
@@ -306,6 +315,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'admin',
     journey: ['all'],
+    audience: ['student', 'faculty', 'staff'],
   },
   {
     // sv05 (Lab Command Center) đã được tái sử dụng thành BCSE Ops Center — dashboard giám sát
@@ -347,6 +357,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'community',
     journey: ['all'],
+    audience: ['student'],
   },
   {
     id: 'self-learning',
@@ -385,6 +396,7 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'learning',
     journey: ['y1'],
+    audience: ['student'],
   },
   {
     id: 'bcse-tracker',
@@ -408,6 +420,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'learning',
     journey: ['all'],
+    audience: ['student', 'faculty', 'staff'],
   },
   {
     id: 'bcse-club',
@@ -431,6 +444,7 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'community',
     journey: ['all'],
+    audience: ['student'],
   },
   {
     id: 'career-portal',
@@ -469,6 +483,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'career',
     journey: ['final'],
+    audience: ['student', 'staff'],
   },
   {
     id: 'e-office',
@@ -492,6 +507,7 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'admin',
     journey: ['all'],
+    audience: ['faculty', 'staff'],
   },
   {
     id: 'thesis-review',
@@ -530,6 +546,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'career',
     journey: ['final'],
+    audience: ['student', 'faculty', 'staff'],
   },
   {
     id: 'code-arena',
@@ -568,6 +585,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'learning',
     journey: ['y1', 'y2'],
+    audience: ['student', 'faculty'],
   },
   {
     id: 'bcse-guild',
@@ -606,6 +624,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'compete',
     journey: ['y2', 'y3'],
+    audience: ['student'],
   },
   {
     id: 'japan-talent-showcase',
@@ -644,6 +663,7 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'community',
     journey: ['final'],
+    audience: ['student'],
   },
   {
     id: 'agri-robotics-lab',
@@ -682,6 +702,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'research',
     journey: ['y3'],
+    audience: ['student', 'faculty'],
     // Δ Lab flagship accent — xanh lá cây (forest green) supporting; title giữ trắng
     accent: {
       bg: 'bg-emerald-700/25',
@@ -729,6 +750,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'research',
     journey: ['y3'],
+    audience: ['student', 'faculty'],
     // Υ Lab flagship accent — coral (Hygieia signature) supporting; title giữ trắng
     accent: {
       bg: 'bg-rose-900/25',
@@ -776,6 +798,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'research',
     journey: ['y2', 'y3'],
+    audience: ['student'],
   },
   {
     id: 'bcse-competition-hub',
@@ -814,6 +837,7 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'compete',
     journey: ['y2', 'y3'],
+    audience: ['student'],
   },
   {
     id: 'koe-listening',
@@ -852,5 +876,6 @@ export const services: ServiceItem[] = [
     status: 'coming-soon',
     category: 'learning',
     journey: ['all'],
+    audience: ['student', 'faculty'],
   },
 ];

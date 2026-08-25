@@ -41,15 +41,16 @@ const ROLE_LABELS: Record<RoleFilter, { vi: string; en: string; ja: string }> = 
   admin: { vi: 'Admin / CBQL', en: 'Admin / Staff', ja: '管理者・職員' },
 };
 
-const STUDENT_CATEGORIES = new Set<ServiceCategory>(['lab', 'learning', 'research', 'career', 'compete', 'community']);
-const FACULTY_CATEGORIES = new Set<ServiceCategory>(['lab', 'research', 'career', 'admin', 'community']);
-const ADMIN_CATEGORIES = new Set<ServiceCategory>(['lab', 'admin', 'career', 'community']);
+/** Vai trò UI → audience trong data (gán tường minh từng app, không suy từ category). */
+const ROLE_TO_AUDIENCE: Record<Exclude<RoleFilter, 'all'>, 'student' | 'faculty' | 'staff'> = {
+  student: 'student',
+  faculty: 'faculty',
+  admin: 'staff',
+};
 
 function serviceMatchesRole(service: typeof services[number], role: RoleFilter) {
   if (role === 'all') return true;
-  if (role === 'student') return STUDENT_CATEGORIES.has(service.category);
-  if (role === 'faculty') return FACULTY_CATEGORIES.has(service.category);
-  return ADMIN_CATEGORIES.has(service.category);
+  return service.audience.includes(ROLE_TO_AUDIENCE[role]);
 }
 
 export default function ServicesContent() {
@@ -245,8 +246,67 @@ export default function ServicesContent() {
                   : `Showing ${filtered.length} / ${counts.cat.all} services`}
           </p>
 
-          {/* Journey view (default) — 5 chặng hành trình + mục Sắp ra mắt */}
-          {viewMode === 'journey' ? (
+          {/* Journey view (default) — 5 chặng hành trình + mục Sắp ra mắt.
+              Với vai trò GV/CBQL: hành trình là câu chuyện của SV nên thay bằng
+              một mục phẳng "Bộ công cụ giảng viên & vận hành". */}
+          {viewMode === 'journey' && (roleFilter === 'faculty' || roleFilter === 'admin') ? (
+            <div className="space-y-12">
+              <div>
+                <div className="mb-1 flex items-center gap-2">
+                  <span className="h-1.5 w-10 rounded-full bg-amber-500" />
+                  <h2 className="text-base font-bold tracking-wide text-amber-300">
+                    {roleFilter === 'faculty'
+                      ? lang === 'vi' ? 'Bộ công cụ cho giảng viên' : lang === 'ja' ? '教員向けツール' : 'Faculty toolkit'
+                      : lang === 'vi' ? 'Bộ công cụ vận hành & CBQL' : lang === 'ja' ? '運営・職員向けツール' : 'Operations & staff toolkit'}
+                  </h2>
+                  <span className="text-xs text-slate-500">({filtered.filter((s) => s.status === 'active').length})</span>
+                </div>
+                <p className="mb-4 ml-12 text-sm italic text-slate-400">
+                  {lang === 'vi'
+                    ? 'Các công cụ giảm việc tay: theo dõi cố vấn, chấm bài, khóa luận, thủ tục — mỗi tuần đỡ vài giờ.'
+                    : lang === 'ja'
+                      ? '手作業を減らすツール群：指導・採点・卒論・手続きを効率化します。'
+                      : 'Tools that cut manual work: advising, grading, thesis and paperwork.'}
+                </p>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {filtered.filter((s) => s.status === 'active').map((service) => (
+                    <ServiceCard
+                      key={`role-${service.id}`}
+                      service={service}
+                      anchorId={service.id}
+                      expanded={expandedId === service.id}
+                      onToggleExpand={() =>
+                        setExpandedId((id) => (id === service.id ? null : service.id))
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
+              {comingSoon.length > 0 && statusFilter !== 'active' && (
+                <div>
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="h-1.5 w-10 rounded-full bg-slate-600" />
+                    <h2 className="text-base font-bold tracking-wide text-slate-400">
+                      {lang === 'vi' ? 'Sắp ra mắt' : lang === 'ja' ? '近日公開' : 'Coming soon'}
+                    </h2>
+                  </div>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {comingSoon.map((service) => (
+                      <ServiceCard
+                        key={`soon-${service.id}`}
+                        service={service}
+                        anchorId={service.id}
+                        expanded={expandedId === service.id}
+                        onToggleExpand={() =>
+                          setExpandedId((id) => (id === service.id ? null : service.id))
+                        }
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : viewMode === 'journey' ? (
             <div className="space-y-12">
               {journeyGroups.map((group) => {
                 const jm = JOURNEY_META[group.stage];
