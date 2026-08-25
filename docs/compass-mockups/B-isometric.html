@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass · Mẫu B — Thành isometric BCSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #d4a574; --gold-deep: #b8864d; --forest: #2d9c6f; --forest-deep: #1f7a55;
+    --bg: #faf8f2; --bg2: #f3efe4; --surface: #ffffff; --border: #ece4d3;
+    --text: #16241b; --text2: #3a4a40; --text3: #64726a;
+    --serif: 'Fraunces', Georgia, serif; --mono: 'JetBrains Mono', monospace;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body { background: radial-gradient(120% 90% at 50% 0%, #eef4e6 0%, var(--bg) 55%);
+    color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+  body::after { content: ""; position: fixed; inset: 0; z-index: 999; pointer-events: none; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay; }
+
+  header { display: flex; align-items: center; gap: 12px; padding: 14px 20px; max-width: 1180px; margin: 0 auto; }
+  .brand { font-family: var(--serif); font-weight: 700; font-size: 20px; }
+  .brand em { color: var(--forest); font-style: normal; }
+  .user-chip { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--text3);
+    border: 1px solid var(--border); border-radius: 99px; padding: 6px 13px; background: var(--surface); }
+
+  .stage { max-width: 1180px; margin: 0 auto; padding: 0 16px 26px;
+    display: grid; grid-template-columns: 1fr 320px; gap: 18px; align-items: start; }
+  .map-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+    box-shadow: 0 30px 70px -30px rgba(20,40,25,.25); overflow: hidden; position: relative; }
+  .map-card svg { display: block; width: 100%; height: auto; }
+  .map-hint { position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--text3);
+    background: rgba(255,255,255,.8); border-radius: 99px; padding: 4px 12px; pointer-events: none; }
+
+  .side { display: flex; flex-direction: column; gap: 14px; }
+  .week { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 14px 16px; }
+  .week h3 { font-family: var(--mono); font-size: 10px; color: var(--forest); letter-spacing: .14em; margin-bottom: 8px; }
+  .week li { list-style: none; font-size: 13px; color: var(--text2); padding: 5px 0; display: flex; gap: 8px; }
+  .week li b { color: var(--text); }
+
+  #zone-panel { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+    border-radius: 18px; padding: 16px 18px; }
+  .zp-head { display: flex; gap: 11px; align-items: center; }
+  .zp-icon { font-size: 30px; }
+  .zp-name { font-family: var(--serif); font-weight: 700; font-size: 19px; }
+  .zp-tag { font-family: var(--mono); font-size: 10px; color: var(--gold-deep); letter-spacing: .08em; text-transform: uppercase; }
+  .zp-invite { font-size: 13.5px; line-height: 1.6; color: var(--text2); margin: 9px 0 11px; }
+  .zp-apps { display: flex; flex-wrap: wrap; gap: 7px; }
+  .zp-app { font-family: var(--mono); font-size: 11.5px; color: var(--forest-deep); text-decoration: none;
+    border: 1px solid rgba(45,156,111,.25); border-radius: 99px; padding: 6px 12px; background: rgba(45,156,111,.07);
+    transition: .2s var(--ease); }
+  .zp-app:hover { background: rgba(45,156,111,.16); transform: translateY(-1px); }
+
+  .ask { display: flex; gap: 8px; }
+  .ask input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 99px;
+    font-size: 13px; padding: 11px 16px; outline: none; color: var(--text); }
+  .ask button { background: linear-gradient(135deg, #74c69d, var(--forest), var(--forest-deep)); color: #fff;
+    border: 0; border-radius: 99px; font-weight: 700; font-size: 13px; padding: 0 18px; cursor: pointer;
+    box-shadow: 0 10px 26px -8px rgba(45,156,111,.55); }
+
+  /* SVG districts */
+  .district { cursor: pointer; transition: transform .35s var(--ease); transform-box: fill-box; transform-origin: center; }
+  .district:hover { transform: translateY(-6px); }
+  .district.sel { transform: translateY(-9px); filter: drop-shadow(0 10px 14px rgba(20,40,25,.3)); }
+  .d-label { font-family: var(--serif); font-size: 17px; font-weight: 600; fill: var(--text); }
+  .d-icon-t { font-size: 26px; }
+
+  /* animation */
+  .cloud { animation: drift linear infinite; opacity: .9; }
+  @keyframes drift { from { transform: translateX(-160px); } to { transform: translateX(1100px); } }
+  .flag-b { transform-origin: left center; animation: wave 1.6s ease-in-out infinite; }
+  @keyframes wave { 0%,100% { transform: skewY(0deg); } 50% { transform: skewY(-8deg); } }
+  .smoke { animation: puff 3.4s ease-out infinite; opacity: 0; }
+  @keyframes puff { 0% { transform: translateY(0) scale(.6); opacity: .5; } 100% { transform: translateY(-46px) scale(1.5); opacity: 0; } }
+  .water-shine { animation: shine 5s ease-in-out infinite; }
+  @keyframes shine { 0%,100% { opacity: .25; } 50% { opacity: .5; } }
+  .beacon { transform-box: fill-box; transform-origin: center; animation: spin 14s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 900px) {
+    .stage { grid-template-columns: 1fr; }
+    .week { display: none; }                 /* mobile ít chữ */
+    .zp-invite { display: none; }
+    .d-label { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">🧭 BCSE <em>Compass</em></span>
+  <span class="user-chip">Đức Anh · K2026 · Năm 1</span>
+</header>
+
+<div class="stage">
+  <div class="map-card">
+    <div class="map-hint">CHẠM VÀO TỪNG KHU CỦA THÀNH</div>
+    <svg id="iso" viewBox="0 0 1000 760" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Thành BCSE isometric"></svg>
+  </div>
+  <div class="side">
+    <div class="week">
+      <h3>TUẦN NÀY CỦA BẠN</h3>
+      <ul>
+        <li>⚔️ <span><b>Arena:</b> bài nhập môn #3 — hạn thứ 6</span></li>
+        <li>🎓 <span><b>LMS:</b> quiz OOP tuần 2</span></li>
+        <li>🏮 <span><b>Guild:</b> câu hỏi của bạn có trả lời mới</span></li>
+      </ul>
+    </div>
+    <div id="zone-panel"></div>
+    <div class="ask">
+      <input placeholder="Hỏi la bàn — năm 2 em nên học gì?" />
+      <button>Hỏi</button>
+    </div>
+  </div>
+</div>
+
+<script src="map-core.js"></script>
+<script>
+// ── Vẽ isometric bằng JS: box 3 mặt + mái ─────────────────────────────
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("iso");
+const CX = 500, CY = 330, U = 26;                 // gốc + đơn vị lưới iso
+const IX = (x, y) => CX + (x - y) * U * .866;      // iso projection
+const IY = (x, y, z = 0) => CY + (x + y) * U * .5 - z * U;
+
+function poly(points, fill, extra = "") {
+  const p = document.createElementNS(NS, "polygon");
+  p.setAttribute("points", points.map(([x, y]) => `${x},${y}`).join(" "));
+  p.setAttribute("fill", fill);
+  if (extra) p.setAttribute("class", extra);
+  return p;
+}
+function shade(hex, f) { // f<1 tối, f>1 sáng
+  const n = parseInt(hex.slice(1), 16);
+  const c = v => Math.max(0, Math.min(255, Math.round(v * f)));
+  return `rgb(${c(n >> 16)},${c((n >> 8) & 255)},${c(n & 255)})`;
+}
+function isoBox(g, x, y, w, d, h, color) {
+  const A = [IX(x, y), IY(x, y, h)], B = [IX(x + w, y), IY(x + w, y, h)],
+        C = [IX(x + w, y + d), IY(x + w, y + d, h)], D = [IX(x, y + d), IY(x, y + d, h)];
+  const B0 = [IX(x + w, y), IY(x + w, y)], C0 = [IX(x + w, y + d), IY(x + w, y + d)], D0 = [IX(x, y + d), IY(x, y + d)];
+  g.append(poly([A, B, C, D], shade(color, 1.16)));           // top
+  g.append(poly([D, C, C0, D0], shade(color, .82)));          // front-left
+  g.append(poly([B, C, C0, B0], shade(color, .62)));          // front-right
+}
+function isoRoof(g, x, y, w, d, h, rh, color) {
+  const P = [IX(x + w / 2, y + d / 2), IY(x + w / 2, y + d / 2, h + rh)];
+  const A = [IX(x, y), IY(x, y, h)], B = [IX(x + w, y), IY(x + w, y, h)],
+        C = [IX(x + w, y + d), IY(x + w, y + d, h)], D = [IX(x, y + d), IY(x, y + d, h)];
+  g.append(poly([A, B, P], shade(color, 1.06)));
+  g.append(poly([B, C, P], shade(color, .7)));
+  g.append(poly([D, C, P], shade(color, .88)));
+}
+function text(g, x, y, str, cls, anchor = "middle") {
+  const t = document.createElementNS(NS, "text");
+  t.setAttribute("x", x); t.setAttribute("y", y); t.setAttribute("text-anchor", anchor);
+  t.setAttribute("class", cls); t.textContent = str; g.append(t); return t;
+}
+function grp(cls, zone) {
+  const g = document.createElementNS(NS, "g");
+  if (cls) g.setAttribute("class", cls);
+  if (zone) g.setAttribute("data-zone", zone);
+  svg.append(g); return g;
+}
+
+// ── Nước + đảo + nền ─────────────────────────────────────────────────
+const back = grp();
+const water = document.createElementNS(NS, "ellipse");
+water.setAttribute("cx", CX); water.setAttribute("cy", CY + 105);
+water.setAttribute("rx", 470); water.setAttribute("ry", 250); water.setAttribute("fill", "#7fb6cf");
+back.append(water);
+const waterShine = document.createElementNS(NS, "ellipse");
+waterShine.setAttribute("cx", CX - 120); waterShine.setAttribute("cy", CY + 150);
+waterShine.setAttribute("rx", 190); waterShine.setAttribute("ry", 70);
+waterShine.setAttribute("fill", "#cfe9f5"); waterShine.setAttribute("class", "water-shine");
+back.append(waterShine);
+const island = document.createElementNS(NS, "ellipse");
+island.setAttribute("cx", CX); island.setAttribute("cy", CY + 92);
+island.setAttribute("rx", 400); island.setAttribute("ry", 205); island.setAttribute("fill", "#9dc27c");
+back.append(island);
+const lawn = document.createElementNS(NS, "ellipse");
+lawn.setAttribute("cx", CX); lawn.setAttribute("cy", CY + 86);
+lawn.setAttribute("rx", 372); lawn.setAttribute("ry", 186); lawn.setAttribute("fill", "#aecf8d");
+back.append(lawn);
+
+// ── Tường thành (vòng tháp + tường thấp) ─────────────────────────────
+const wallG = grp();
+const towerPos = [[-9,-9],[0,-12],[9,-9],[12,0],[9,9],[0,12],[-9,9],[-12,0]];
+// tường: đoạn nối các tháp (vẽ trước để tháp đè lên)
+for (let i = 0; i < towerPos.length; i++) {
+  const [x1, y1] = towerPos[i], [x2, y2] = towerPos[(i + 1) % towerPos.length];
+  if (i === 4) continue; // chừa cổng phía trước-phải
+  const steps = 5;
+  for (let s = 1; s < steps; s++) {
+    const x = x1 + (x2 - x1) * s / steps, y = y1 + (y2 - y1) * s / steps;
+    isoBox(wallG, x - .55, y - .55, 1.1, 1.1, .9, "#c9b99e");
+  }
+}
+towerPos.forEach(([x, y], i) => {
+  const g = grp();
+  isoBox(g, x - .9, y - .9, 1.8, 1.8, 2.2, "#bfae92");
+  isoRoof(g, x - 1.2, y - 1.2, 2.4, 2.4, 2.2, 1.6, "#c55b4a");
+  // cờ
+  const fx = IX(x, y), fy = IY(x, y, 5);
+  const pole = document.createElementNS(NS, "line");
+  pole.setAttribute("x1", fx); pole.setAttribute("y1", fy);
+  pole.setAttribute("x2", fx); pole.setAttribute("y2", fy - 26);
+  pole.setAttribute("stroke", "#6b5a45"); pole.setAttribute("stroke-width", "2");
+  g.append(pole);
+  const fg = document.createElementNS(NS, "g");
+  fg.setAttribute("class", "flag-b"); fg.setAttribute("style", `animation-delay:${i * .2}s`);
+  fg.setAttribute("transform", `translate(${fx},${fy - 24})`);
+  fg.append(poly([[0, 0], [20, 4], [0, 9]], i % 2 ? "#d4a574" : "#2d9c6f"));
+  g.append(fg);
+});
+
+// ── Cổng thành (trước-phải) + cầu ────────────────────────────────────
+const gateG = grp();
+const gx = 10.5, gy = 10.5;
+isoBox(gateG, gx - 1.6, gy - 1.6, 3.2, 3.2, 4.4, "#b3a184");
+isoRoof(gateG, gx - 2, gy - 2, 4, 4, 4.4, 2.4, "#c55b4a");
+// vòm cửa
+gateG.append(poly([
+  [IX(gx, gy + 1.6), IY(gx, gy + 1.6, 2.6)], [IX(gx + 1.6, gy + 1.6), IY(gx + 1.6, gy + 1.6, 2.6)],
+  [IX(gx + 1.6, gy + 1.6), IY(gx + 1.6, gy + 1.6, 0)], [IX(gx, gy + 1.6), IY(gx, gy + 1.6, 0)]
+], "#3a2c1e"));
+text(gateG, IX(gx + 1, gy + 4), IY(gx + 1, gy + 4) + 30, "⛩ Cổng thành · SV08", "d-label");
+// cầu gỗ qua nước
+for (let s = 0; s < 4; s++) isoBox(gateG, gx + 1.8 + s * 1.3, gy + 1.8 + s * 1.3, 1.5, 1.5, .35, "#a98b62");
+
+// ── Đường từ quảng trường tỏa 5 khu ─────────────────────────────────
+const roadG = grp();
+const D_POS = { hoiquan: [0, -8.2], hoctap: [-8.2, -2.2], guong: [7.8, -3.8], xuong: [-6, 6.2], cau: [7, 5.4] };
+Object.values(D_POS).forEach(([dx, dy]) => {
+  const steps = 7;
+  for (let s = 2; s < steps; s++) {
+    const x = dx * s / steps, y = dy * s / steps;
+    isoBox(roadG, x - .45, y - .45, .9, .9, .1, "#d9c9a8");
+  }
+});
+
+// ── Quảng trường Compass ────────────────────────────────────────────
+const plazaG = grp();
+isoBox(plazaG, -2.4, -2.4, 4.8, 4.8, .5, "#e6dcc4");
+isoBox(plazaG, -1.4, -1.4, 2.8, 2.8, .9, "#efe6d2");
+const bc = document.createElementNS(NS, "g");
+bc.setAttribute("class", "beacon");
+bc.append(poly([[IX(0,0)-14, IY(0,0,1.2)], [IX(0,0)+14, IY(0,0,1.2)], [IX(0,0), IY(0,0,1.2)-9]], "rgba(45,156,111,.25)"));
+plazaG.append(bc);
+text(plazaG, IX(0, 0), IY(0, 0, 1.4) - 40, "Quảng trường Compass", "d-label");
+text(plazaG, IX(0, 0), IY(0, 0, 1.4) - 12, "🧭", "d-icon-t");
+
+// ── 5 khu phố ───────────────────────────────────────────────────────
+const D_STYLE = {
+  hoctap:  { c: "#e0a458", icon: "📚", label: "Học tập" },
+  guong:   { c: "#9b6dd7", icon: "🪞", label: "Gương soi" },
+  xuong:   { c: "#2c7fb8", icon: "⚒️", label: "Xưởng & Tháp" },
+  cau:     { c: "#2d9c6f", icon: "🌉", label: "Nghề nghiệp" },
+  hoiquan: { c: "#d26a5a", icon: "🏮", label: "Hội quán" },
+};
+Object.entries(D_POS).forEach(([id, [dx, dy]]) => {
+  const st = D_STYLE[id];
+  const g = grp("district", id);
+  // nền khu
+  isoBox(g, dx - 2.6, dy - 2.6, 5.2, 5.2, .35, "#c3b795");
+  // 3 nhà
+  isoBox(g, dx - 1.9, dy - .4, 1.7, 1.7, 2.1, "#e7dbc2"); isoRoof(g, dx - 2.1, dy - .6, 2.1, 2.1, 2.1, 1.4, st.c);
+  isoBox(g, dx + .3, dy - 1.9, 1.6, 1.6, 3.1, "#ddd0b4");  isoRoof(g, dx + .1, dy - 2.1, 2, 2, 3.1, 1.5, st.c);
+  isoBox(g, dx + .4, dy + .7, 1.3, 1.3, 1.6, "#efe4cb");   isoRoof(g, dx + .2, dy + .5, 1.7, 1.7, 1.6, 1.1, st.c);
+  // khói từ nhà cao
+  for (let s = 0; s < 2; s++) {
+    const c = document.createElementNS(NS, "circle");
+    c.setAttribute("cx", IX(dx + 1.1, dy - 1.1)); c.setAttribute("cy", IY(dx + 1.1, dy - 1.1, 4.8));
+    c.setAttribute("r", 5); c.setAttribute("fill", "#fff");
+    c.setAttribute("class", "smoke"); c.setAttribute("style", `animation-delay:${s * 1.7}s`);
+    g.append(c);
+  }
+  text(g, IX(dx, dy), IY(dx, dy, 5.6) - 8, st.icon, "d-icon-t");
+  text(g, IX(dx, dy), IY(dx, dy) + 52, st.label, "d-label");
+});
+
+// ── Mây trôi ────────────────────────────────────────────────────────
+[[70, 26, 55], [40, 90, 75], [55, 55, 95]].forEach(([w, y, dur], i) => {
+  const g = grp("cloud");
+  g.setAttribute("style", `animation-duration:${dur}s; animation-delay:${-i * 18}s`);
+  [[0, 0, w], [w * .5, -8, w * .7], [w * .9, 2, w * .6]].forEach(([ox, oy, ww]) => {
+    const e = document.createElementNS(NS, "ellipse");
+    e.setAttribute("cx", ox); e.setAttribute("cy", y + oy);
+    e.setAttribute("rx", ww / 2); e.setAttribute("ry", ww / 5);
+    e.setAttribute("fill", "#ffffff");
+    g.append(e);
+  });
+});
+
+initMap("hoctap");
+</script>
+</body>
+</html>

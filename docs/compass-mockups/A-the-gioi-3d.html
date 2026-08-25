@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass · Mẫu A — Thế giới 3D lâu đài BCSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lime: #a3f56b; --mint: #5fe0b0; --amber: #f2b35c; --cyan: #54d6e6;
+    --violet: #b18cf0; --rose: #f0756a;
+    --bg: #05080a; --panel: rgba(10,16,17,.88); --line: rgba(120,230,160,.16);
+    --txt: #dbe9df; --txt2: #9fb4a7; --mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+  #world { position: fixed; inset: 0; }
+  canvas { display: block; }
+
+  .hud { position: fixed; z-index: 10; }
+  .hud-top { top: 0; left: 0; right: 0; display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px; background: linear-gradient(180deg, rgba(5,8,10,.85), transparent); }
+  .brand { font-family: 'Space Grotesk'; font-weight: 700; font-size: 17px; letter-spacing: .02em; }
+  .brand em { color: var(--lime); font-style: normal; }
+  .user-chip { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--txt2);
+    border: 1px solid var(--line); border-radius: 99px; padding: 5px 12px; background: rgba(5,8,10,.6); }
+  .btn-sky { font-family: var(--mono); font-size: 11px; color: var(--lime); background: rgba(163,245,107,.08);
+    border: 1px solid rgba(163,245,107,.3); border-radius: 7px; padding: 5px 10px; cursor: pointer; }
+
+  .week { position: fixed; top: 56px; left: 12px; z-index: 10; width: min(280px, 42vw);
+    background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    padding: 10px 12px; backdrop-filter: blur(10px); }
+  .week h3 { font-family: var(--mono); font-size: 10px; color: var(--lime); letter-spacing: .12em; margin-bottom: 7px; }
+  .week li { list-style: none; font-size: 12px; color: var(--txt2); padding: 4px 0; display: flex; gap: 7px; }
+  .week li b { color: var(--txt); font-weight: 600; }
+
+  #zone-panel { position: fixed; z-index: 10; right: 12px; bottom: 12px; width: min(330px, calc(100vw - 24px));
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 14px 16px; backdrop-filter: blur(12px); }
+  .zp-head { display: flex; gap: 10px; align-items: center; }
+  .zp-icon { font-size: 26px; }
+  .zp-name { font-family: 'Space Grotesk'; font-weight: 700; font-size: 15px; }
+  .zp-tag { font-family: var(--mono); font-size: 10px; color: var(--mint); letter-spacing: .06em; }
+  .zp-invite { font-size: 12.5px; line-height: 1.55; color: var(--txt2); margin: 8px 0 10px; }
+  .zp-apps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .zp-app { font-family: var(--mono); font-size: 11px; color: var(--lime); text-decoration: none;
+    border: 1px solid rgba(163,245,107,.3); border-radius: 7px; padding: 5px 9px; background: rgba(163,245,107,.06); }
+  .zp-app:hover { background: rgba(163,245,107,.16); }
+
+  .ask { position: fixed; z-index: 10; left: 50%; transform: translateX(-50%); bottom: 12px;
+    width: min(420px, calc(100vw - 380px)); display: flex; gap: 8px; }
+  .ask input { flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 99px;
+    color: var(--txt); font-size: 13px; padding: 10px 16px; outline: none; backdrop-filter: blur(10px); }
+  .ask input::placeholder { color: var(--txt2); }
+  .ask button { background: var(--lime); color: #06120b; border: 0; border-radius: 99px; font-family: var(--mono);
+    font-weight: 700; font-size: 12px; padding: 0 16px; cursor: pointer;
+    box-shadow: 0 0 24px -6px rgba(163,245,107,.5); }
+
+  .hint { position: fixed; z-index: 10; left: 50%; transform: translateX(-50%); top: 58px;
+    font-family: var(--mono); font-size: 10px; color: var(--txt2); letter-spacing: .08em;
+    background: rgba(5,8,10,.55); border-radius: 99px; padding: 4px 12px; pointer-events: none; }
+
+  @media (max-width: 760px) {
+    .week { display: none; }               /* mobile ít chữ */
+    .ask { width: calc(100vw - 24px); bottom: calc(12px + 148px); }
+    #zone-panel { left: 12px; right: 12px; width: auto; }
+    .zp-invite { display: none; }          /* mobile ít chữ: chỉ tên khu + app */
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<div id="world"></div>
+
+<div class="hud hud-top">
+  <span class="brand">🧭 BCSE <em>COMPASS</em></span>
+  <button class="btn-sky" id="sky-toggle">🌙 ĐÊM</button>
+  <span class="user-chip">Đức Anh · K2026 · Năm 1</span>
+</div>
+<div class="hint">KÉO ĐỂ XOAY · CUỘN ĐỂ ZOOM · CHẠM VÀO KHU</div>
+
+<div class="week">
+  <h3>TUẦN NÀY CỦA BẠN</h3>
+  <ul>
+    <li>⚔️ <span><b>Arena:</b> bài nhập môn #3 — hạn T6</span></li>
+    <li>🎓 <span><b>LMS:</b> quiz OOP tuần 2</span></li>
+    <li>🏮 <span><b>Guild:</b> 1 câu hỏi của bạn có trả lời</span></li>
+  </ul>
+</div>
+
+<div id="zone-panel"></div>
+
+<div class="ask">
+  <input placeholder="Hỏi la bàn — ví dụ: năm 2 em nên học gì?" />
+  <button>HỎI</button>
+</div>
+
+<script src="map-core.js"></script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const ACCENT = { hoctap: 0xf2b35c, guong: 0xb18cf0, xuong: 0x54d6e6, cau: 0x5fe0b0, hoiquan: 0xf0756a };
+const DAY = { sky: 0x9fd4e8, fogC: 0xbfe3ee, hemi: .95, sun: 1.15, win: 0.0 };
+const NIGHT = { sky: 0x060a12, fogC: 0x0a1020, hemi: .25, sun: .12, win: 1.4 };
+
+const root = document.getElementById('world');
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+root.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(DAY.fogC, 160, 420);
+const camera = new THREE.PerspectiveCamera(52, innerWidth / innerHeight, .1, 1000);
+camera.position.set(0, 95, 150);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 6, 0);
+controls.enableDamping = true; controls.dampingFactor = .06;
+controls.maxPolarAngle = 1.32; controls.minDistance = 55; controls.maxDistance = 280;
+controls.autoRotate = true; controls.autoRotateSpeed = .4;
+['pointerdown','wheel'].forEach(e => renderer.domElement.addEventListener(e, () => controls.autoRotate = false, { once: true }));
+
+const hemi = new THREE.HemisphereLight(0xeaf6ff, 0x3a5a40, DAY.hemi);
+scene.add(hemi);
+const sun = new THREE.DirectionalLight(0xfff2d8, DAY.sun);
+sun.position.set(80, 120, 60);
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+sun.shadow.camera.left = -140; sun.shadow.camera.right = 140;
+sun.shadow.camera.top = 140; sun.shadow.camera.bottom = -140;
+scene.add(sun);
+
+const M = (c, opts = {}) => new THREE.MeshStandardMaterial({ color: c, roughness: .85, metalness: .05, ...opts });
+const winMats = [];   // cửa sổ phát sáng ban đêm
+const flags = [];     // cờ vẫy
+const smokes = [];    // khói ống khói
+
+// ── Đảo + hào nước + đất ────────────────────────────────────────────
+const water = new THREE.Mesh(new THREE.CircleGeometry(400, 64), M(0x2e7fa8, { roughness: .25, metalness: .1 }));
+water.rotation.x = -Math.PI / 2; water.position.y = -1.6; water.receiveShadow = true; scene.add(water);
+const island = new THREE.Mesh(new THREE.CylinderGeometry(112, 122, 6, 48), M(0x6aa552));
+island.position.y = -3; island.receiveShadow = true; scene.add(island);
+const ground = new THREE.Mesh(new THREE.CircleGeometry(110, 48), M(0x79b25c));
+ground.rotation.x = -Math.PI / 2; ground.position.y = .02; ground.receiveShadow = true; scene.add(ground);
+
+// ── Tường thành bát giác + tháp canh ────────────────────────────────
+const R = 86, SIDES = 8;
+const wallMat = M(0xb9a88f), roofMat = M(0xc55b4a), stoneMat = M(0x8f8577);
+for (let i = 0; i < SIDES; i++) {
+  const a1 = (i / SIDES) * Math.PI * 2 + Math.PI / SIDES, a2 = ((i + 1) / SIDES) * Math.PI * 2 + Math.PI / SIDES;
+  const mid = (a1 + a2) / 2;
+  if (i === SIDES - 2) continue; // chừa cổng phía trước
+  const len = 2 * R * Math.sin(Math.PI / SIDES) - 8;
+  const w = new THREE.Mesh(new THREE.BoxGeometry(len, 10, 4), wallMat);
+  w.position.set(Math.cos(mid) * R, 5, Math.sin(mid) * R);
+  w.rotation.y = -mid + Math.PI / 2;
+  w.castShadow = w.receiveShadow = true; scene.add(w);
+}
+for (let i = 0; i < SIDES; i++) {
+  const a = (i / SIDES) * Math.PI * 2 + Math.PI / SIDES;
+  const t = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.CylinderGeometry(5, 5.6, 16, 10), stoneMat);
+  body.position.y = 8; body.castShadow = true; t.add(body);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(6.6, 8, 10), roofMat);
+  roof.position.y = 20; roof.castShadow = true; t.add(roof);
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(.25, .25, 8), M(0x555555));
+  pole.position.y = 27; t.add(pole);
+  const flag = new THREE.Mesh(new THREE.PlaneGeometry(4.5, 2.6, 6, 1), M(0xa3f56b, { side: THREE.DoubleSide, emissive: 0x224411 }));
+  flag.position.set(2.4, 29.6, 0); t.add(flag); flags.push(flag);
+  t.position.set(Math.cos(a) * R, 0, Math.sin(a) * R);
+  scene.add(t);
+}
+
+// ── Cổng thành SV08 (phía trước) ────────────────────────────────────
+const gateA = (SIDES - 1.5) / SIDES * Math.PI * 2 + Math.PI / SIDES;
+const gate = new THREE.Group();
+const arch = new THREE.Mesh(new THREE.BoxGeometry(22, 15, 8), stoneMat);
+arch.position.y = 7.5; arch.castShadow = true; gate.add(arch);
+const hole = new THREE.Mesh(new THREE.CylinderGeometry(5, 5, 9, 16, 1, false, 0, Math.PI), M(0x2a2118));
+hole.rotation.z = Math.PI / 2; hole.rotation.y = Math.PI / 2; hole.position.y = 4; hole.position.z = .5; gate.add(hole);
+const gRoof = new THREE.Mesh(new THREE.ConeGeometry(13, 7, 4), roofMat);
+gRoof.position.y = 18.5; gRoof.rotation.y = Math.PI / 4; gRoof.castShadow = true; gate.add(gRoof);
+gate.position.set(Math.cos(gateA) * R, 0, Math.sin(gateA) * R);
+gate.rotation.y = -gateA + Math.PI / 2;
+scene.add(gate);
+// cầu qua hào
+const bridge = new THREE.Mesh(new THREE.BoxGeometry(10, 1.2, 34), M(0x9a7b53));
+bridge.position.set(Math.cos(gateA) * (R + 22), -0.4, Math.sin(gateA) * (R + 22));
+bridge.rotation.y = -gateA + Math.PI / 2; bridge.receiveShadow = true; scene.add(bridge);
+
+// ── Sprite chữ/emoji ────────────────────────────────────────────────
+function sprite(text, size = 46, scale = 13) {
+  const cv = document.createElement('canvas'); cv.width = cv.height = 128;
+  const cx = cv.getContext('2d');
+  cx.font = `${size}px sans-serif`; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  cx.fillText(text, 64, 70);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true }));
+  sp.scale.setScalar(scale);
+  return sp;
+}
+function labelSprite(text) {
+  const cv = document.createElement('canvas'); cv.width = 512; cv.height = 128;
+  const cx = cv.getContext('2d');
+  cx.font = '700 44px "Space Grotesk", sans-serif'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  cx.shadowColor = 'rgba(0,0,0,.65)'; cx.shadowBlur = 14;
+  cx.fillStyle = '#f2f7ee'; cx.fillText(text, 256, 64);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true }));
+  sp.scale.set(30, 7.5, 1);
+  return sp;
+}
+
+// ── Nhà trong khu ───────────────────────────────────────────────────
+function house(w, h, d, color, accent) {
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), M(color));
+  body.position.y = h / 2; body.castShadow = body.receiveShadow = true; g.add(body);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(Math.max(w, d) * .78, h * .62, 4), M(accent));
+  roof.position.y = h + h * .31; roof.rotation.y = Math.PI / 4; roof.castShadow = true; g.add(roof);
+  const winMat = new THREE.MeshStandardMaterial({ color: 0xffe9a8, emissive: 0xffc94d, emissiveIntensity: 0 });
+  winMats.push(winMat);
+  for (const sx of [-w / 4, w / 4]) {
+    const win = new THREE.Mesh(new THREE.PlaneGeometry(w / 5, h / 4), winMat);
+    win.position.set(sx, h / 2, d / 2 + .02); g.add(win);
+  }
+  return g;
+}
+
+// ── 5 khu quanh quảng trường ────────────────────────────────────────
+const districts = [];
+const ORDER = ['hoiquan', 'hoctap', 'guong', 'xuong', 'cau'];
+const ICONS = { hoctap: '📚', guong: '🪞', xuong: '⚒️', cau: '🌉', hoiquan: '🏮' };
+const NAMES = { hoctap: 'Học tập', guong: 'Gương soi', xuong: 'Xưởng & Tháp', cau: 'Nghề nghiệp', hoiquan: 'Hội quán' };
+ORDER.forEach((id, i) => {
+  const a = (i / 5) * Math.PI * 2 - Math.PI / 2;
+  const g = new THREE.Group();
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(19, 21, 1.6, 24), M(0x8d9c6e));
+  base.position.y = .8; base.receiveShadow = true; g.add(base);
+  const c = ACCENT[id];
+  const h1 = house(9, 9, 9, 0xd8cbb4, c); h1.position.set(-6, 1.6, 2); g.add(h1);
+  const h2 = house(7, 13, 7, 0xcfc0a6, c); h2.position.set(5.5, 1.6, -4); g.add(h2);
+  const h3 = house(6, 6.5, 6, 0xe0d4bf, c); h3.position.set(4, 1.6, 6.5); g.add(h3);
+  // ống khói + khói
+  const chim = new THREE.Mesh(new THREE.BoxGeometry(1.4, 4, 1.4), M(0x77685a));
+  chim.position.set(5.5, 16, -4); g.add(chim);
+  const puffs = [];
+  for (let p = 0; p < 3; p++) {
+    const puff = new THREE.Mesh(new THREE.SphereGeometry(.9, 8, 8),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .35 }));
+    puff.position.set(5.5, 18 + p * 3, -4); puff.userData.t = p * 1.1; g.add(puff); puffs.push(puff);
+  }
+  smokes.push(puffs);
+  const ic = sprite(ICONS[id]); ic.position.y = 24; g.add(ic);
+  const lb = labelSprite(NAMES[id]); lb.position.y = 31; g.add(lb);
+  g.position.set(Math.cos(a) * 52, 0, Math.sin(a) * 52);
+  g.userData.zone = id; g.userData.baseY = 0;
+  scene.add(g); districts.push(g);
+  // đường về quảng trường
+  const road = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 30), M(0xbfae8d));
+  road.rotation.x = -Math.PI / 2; road.rotation.z = -a + Math.PI / 2;
+  road.position.set(Math.cos(a) * 33, .06, Math.sin(a) * 33); road.receiveShadow = true; scene.add(road);
+});
+
+// ── Quảng trường Compass ────────────────────────────────────────────
+const plaza = new THREE.Group();
+const dais = new THREE.Mesh(new THREE.CylinderGeometry(14, 16, 1.8, 32), M(0xd9cdb6));
+dais.position.y = .9; dais.receiveShadow = true; plaza.add(dais);
+const ring = new THREE.Mesh(new THREE.TorusGeometry(10, .7, 10, 40), M(0xa3f56b, { emissive: 0x3a6b1f, emissiveIntensity: .6 }));
+ring.rotation.x = Math.PI / 2; ring.position.y = 2; plaza.add(ring);
+const beacon = new THREE.Mesh(new THREE.CylinderGeometry(1.6, 2.6, 26, 12, 1, true),
+  new THREE.MeshBasicMaterial({ color: 0xa3f56b, transparent: true, opacity: .16, side: THREE.DoubleSide }));
+beacon.position.y = 14; plaza.add(beacon);
+const compassIc = sprite('🧭', 52, 16); compassIc.position.y = 20; plaza.add(compassIc);
+scene.add(plaza);
+
+// ── Mây + sao + đom đóm ─────────────────────────────────────────────
+const clouds = [];
+for (let i = 0; i < 6; i++) {
+  const cl = new THREE.Group();
+  for (let b = 0; b < 3; b++) {
+    const s = new THREE.Mesh(new THREE.SphereGeometry(7 + Math.random() * 5, 10, 10),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: .85 }));
+    s.position.set(b * 8 - 8, Math.random() * 2, Math.random() * 4); s.scale.y = .55; cl.add(s);
+  }
+  cl.position.set((Math.random() - .5) * 380, 70 + Math.random() * 25, (Math.random() - .5) * 380);
+  cl.userData.v = .04 + Math.random() * .05;
+  scene.add(cl); clouds.push(cl);
+}
+const starGeo = new THREE.BufferGeometry();
+starGeo.setAttribute('position', new THREE.Float32BufferAttribute(
+  Array.from({ length: 1200 }, () => (Math.random() - .5) * 900), 3));
+const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xcfe6ff, size: 1.1, transparent: true, opacity: 0 }));
+stars.position.y = 250; scene.add(stars);
+const flyGeo = new THREE.BufferGeometry();
+flyGeo.setAttribute('position', new THREE.Float32BufferAttribute(
+  Array.from({ length: 240 }, () => (Math.random() - .5) * 190), 3));
+const flies = new THREE.Points(flyGeo, new THREE.PointsMaterial({ color: 0xa3f56b, size: .9, transparent: true, opacity: 0 }));
+flies.position.y = 55; scene.add(flies);
+
+// ── Ngày / đêm ──────────────────────────────────────────────────────
+let night = false, blend = 0;
+scene.background = new THREE.Color(DAY.sky);
+document.getElementById('sky-toggle').addEventListener('click', e => {
+  night = !night;
+  e.target.textContent = night ? '☀️ NGÀY' : '🌙 ĐÊM';
+});
+
+// ── Chọn khu (raycast) ──────────────────────────────────────────────
+const ray = new THREE.Raycaster(), ptr = new THREE.Vector2();
+let selected = null;
+renderer.domElement.addEventListener('pointerup', ev => {
+  if (ev.target !== renderer.domElement) return;
+  ptr.set((ev.clientX / innerWidth) * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(ptr, camera);
+  const hits = ray.intersectObjects(districts, true);
+  if (!hits.length) return;
+  let g = hits[0].object; while (g && !g.userData.zone) g = g.parent;
+  if (!g) return;
+  selected = g;
+  // render panel qua map-core (dùng chung dữ liệu ZONES)
+  document.querySelectorAll('.district').forEach(d => d.classList.remove('sel'));
+  window.__renderZone(g.userData.zone);
+});
+// map-core.initMap cần DOM .district — ở mẫu 3D không có, nên expose render trực tiếp:
+window.__renderZone = (id) => {
+  const z = ZONES[id], panel = document.getElementById('zone-panel');
+  panel.innerHTML =
+    `<div class="zp-head"><span class="zp-icon">${z.icon}</span>` +
+    `<div><div class="zp-name">${z.name}</div><div class="zp-tag">${z.tag}</div></div></div>` +
+    `<p class="zp-invite">${z.invite}</p>` +
+    `<div class="zp-apps">` +
+    z.apps.map(([n, u]) => `<a class="zp-app" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join("") +
+    `</div>`;
+};
+window.__renderZone('hoctap');
+
+// ── Vòng lặp ────────────────────────────────────────────────────────
+const clock = new THREE.Clock();
+function tick() {
+  requestAnimationFrame(tick);
+  const t = clock.getElapsedTime();
+  blend += ((night ? 1 : 0) - blend) * .04;
+  const mix = (a, b) => a + (b - a) * blend;
+  scene.background.setHex(0x000000).lerpColors(new THREE.Color(DAY.sky), new THREE.Color(NIGHT.sky), blend);
+  scene.fog.color.lerpColors(new THREE.Color(DAY.fogC), new THREE.Color(NIGHT.fogC), blend);
+  hemi.intensity = mix(DAY.hemi, NIGHT.hemi);
+  sun.intensity = mix(DAY.sun, NIGHT.sun);
+  stars.material.opacity = blend * .9;
+  flies.material.opacity = blend * .8;
+  winMats.forEach(m => m.emissiveIntensity = mix(DAY.win, NIGHT.win));
+  clouds.forEach(c => { c.position.x += c.userData.v; if (c.position.x > 220) c.position.x = -220; });
+  flags.forEach((f, i) => { f.rotation.y = Math.sin(t * 2.2 + i) * .35; });
+  smokes.forEach(puffs => puffs.forEach(p => {
+    p.userData.t += .012; const ph = p.userData.t % 3.3;
+    p.position.y = 18 + ph * 4; p.material.opacity = .38 * (1 - ph / 3.3); p.scale.setScalar(1 + ph * .45);
+  }));
+  ring.rotation.z = t * .4;
+  beacon.material.opacity = .12 + Math.sin(t * 1.6) * .06;
+  districts.forEach(d => {
+    const target = d === selected ? 1.5 + Math.sin(t * 3) * .4 : 0;
+    d.position.y += (target - d.position.y) * .08;
+  });
+  flies.rotation.y = t * .05;
+  controls.update();
+  renderer.render(scene, camera);
+}
+tick();
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
+</script>
+</body>
+</html>

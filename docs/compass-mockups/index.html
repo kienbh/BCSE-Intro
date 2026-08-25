@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compass Mockups — chọn mẫu duyệt</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0b1210; color: #e8efe8;
+    min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+  .wrap { max-width: 760px; width: 100%; }
+  h1 { font-family: 'Space Grotesk'; font-size: 26px; margin-bottom: 6px; }
+  p.sub { color: #93a698; font-size: 14px; margin-bottom: 26px; }
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  a.card { display: block; text-decoration: none; color: inherit; border-radius: 18px; padding: 22px;
+    border: 1px solid rgba(140,220,170,.18); background: #101a16; transition: .25s; }
+  a.card:hover { transform: translateY(-4px); border-color: rgba(163,245,107,.5); }
+  .tag { font-size: 11px; letter-spacing: .1em; color: #a3f56b; font-weight: 600; }
+  h2 { font-family: 'Space Grotesk'; font-size: 19px; margin: 8px 0 6px; }
+  .desc { font-size: 13px; color: #93a698; line-height: 1.6; }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧭 Compass — duyệt mẫu "bản đồ lâu đài"</h1>
+  <p class="sub">Chạm vào từng khu trong mỗi mẫu để thử tương tác. Xem cả trên điện thoại (cùng Wi-Fi).</p>
+  <div class="cards">
+    <a class="card" href="A-the-gioi-3d.html">
+      <div class="tag">MẪU A · THREE.JS (MIT)</div>
+      <h2>🏰 Thế giới 3D low-poly</h2>
+      <div class="desc">Lâu đài 3D xoay/zoom tự do, ngày–đêm, cờ vẫy, khói bay, đom đóm. "Thế giới ảo" đúng nghĩa — cần máy/điện thoại tương đối.</div>
+    </a>
+    <a class="card" href="B-isometric.html">
+      <div class="tag">MẪU B · SVG THUẦN (0 dependency)</div>
+      <h2>🗺 Thành isometric hoạt họa</h2>
+      <div class="desc">Góc nhìn 2.5D ấm áp kiểu Editorial: mây trôi, cờ vẫy, khói bếp, nước lấp lánh. Siêu nhẹ — chạy mượt mọi điện thoại.</div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
