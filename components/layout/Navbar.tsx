@@ -12,7 +12,8 @@ import { Menu, X } from 'lucide-react';
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const loginLabel = lang === 'vi' ? 'Đăng nhập' : lang === 'ja' ? 'ログイン' : 'Sign in';
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -58,10 +59,16 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
             <a
+              href="https://id.bcse-vju.com"
+              className="ml-3 px-4 py-2 text-sm font-semibold border border-sky-400/50 text-sky-300 hover:bg-sky-400/10 rounded-xl transition-colors"
+            >
+              {loginLabel}
+            </a>
+            <a
               href={ctaButton.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-3 px-4 py-2 text-sm font-semibold bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-xl transition-colors"
+              className="ml-2 px-4 py-2 text-sm font-semibold bg-amber-500 hover:bg-amber-400 text-slate-900 rounded-xl transition-colors"
             >
               {t('nav.cta')}
             </a>
@@ -94,6 +101,13 @@ export default function Navbar() {
                 {t(item.labelKey)}
               </Link>
             ))}
+            <a
+              href="https://id.bcse-vju.com"
+              className="block mx-4 mt-3 px-4 py-3 text-center font-semibold border border-sky-400/50 text-sky-300 rounded-xl"
+              onClick={() => setMobileOpen(false)}
+            >
+              {loginLabel}
+            </a>
             <a
               href={ctaButton.href}
               target="_blank"
