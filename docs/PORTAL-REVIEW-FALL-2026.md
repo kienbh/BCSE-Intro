@@ -35,8 +35,8 @@
 - 🟢 **Sạch hoàn toàn** — 0 lỗi console, 0 request fail, login + banner "Xem danh sách KLTN công khai" rõ ràng.
 
 ## sv12 · Code Arena
-- 🟡 **Nav mobile xổ 3 hàng** (7 mục menu không có hamburger) — chiếm ~1/5 màn hình đầu, nhìn rối.
-  → Phiên sv12: thêm hamburger/collapse cho `base.html` (Jinja).
+- 🟡 **Nav mobile xổ 3 hàng** — **✅ fix đã chuẩn bị + smoke test** (25/8, commit trên `oop-grader` main:
+  hamburger + panel mobile, desktop nguyên trạng). → Phiên sv12: pytest + `deploy/sv12_deploy.py`.
 - 🟢 Còn lại sạch: 0 lỗi console, hero rõ.
 
 ## Thứ tự phiên sửa đề xuất (theo mức độ + nhịp A3 gốc)
