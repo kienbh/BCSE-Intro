@@ -315,7 +315,7 @@ export const services: ServiceItem[] = [
     status: 'active',
     category: 'admin',
     journey: ['all'],
-    audience: ['student', 'faculty', 'staff'],
+    audience: ['staff'], // sv04 phuc vu phong ke toan truong — KHONG phai dich vu SV BCSE (dinh chinh 27/8)
   },
   {
     // sv05 (Lab Command Center) đã được tái sử dụng thành BCSE Ops Center — dashboard giám sát
