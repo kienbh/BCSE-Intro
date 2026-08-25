@@ -12,9 +12,9 @@
   - ✅ D1 (24/8) — Server ahead thật: kéo về 26 file (ecosystem.config.js, 21 logo doanh nghiệp, 4 tool script). 3 file khác nội dung: local đúng cả 3 (verify DB prod dùng `proposedLecturerName` — migration local chuẩn; layout.tsx local có Umami chờ D2; t1-packages local có filter mới chưa deploy). Repo sv09 commit + push sạch (`kienbh/bcse-internship-careerpath` master). Auth sv09 = SSH key `bcse_master_ed25519`, KHÔNG phải password.
 > ⚠ **Ghi chú phiên batch 24/8:** D2–D4 (deploy) bị lớp bảo vệ auto-mode chặn khi chạy không giám sát — cần phiên thầy ngồi accept lệnh deploy. D6 nửa data (journey field trong services.ts) hóa ra ĐÃ XONG từ commit N1.1 tháng 7; còn nửa UI (redesign `app/services/Content.tsx` 364 dòng theo chặng + review với SV).
 
-- [ ] **D2 · Umami sv09** — snippet đã chèn sẵn trong layout.tsx từ trước; verify + deploy bằng script đã sửa IP/path. *DoD: mở sv09 thấy `script.js` 200 + `api/send` 200.*
-- [ ] **D3 · Umami sv13 + sv18** — chèn snippet (sv13: Next layout; sv18: `dashboard_assets/*.html` + login.html), deploy, verify. *DoD: cả 2 đo được WAU.*
-- [ ] **D4 · Umami sv12 + sv14** — sv12: reset password VM112 qua Proxmox (đã drift) → cập nhật `vm_inventory.json` → deploy; sv14: chèn + deploy. *DoD: 5/5 Core có analytics. N0 CHỐT SỔ.*
+- [x] **D2 · Umami sv09** ✅ (25/8) — deploy full (kèm filter t1-packages), smoke test pass, snippet live.
+- [x] **D3 · Umami sv13 + sv18** ✅ (25/8) — sv13 deploy full; sv18 deploy full; cả hai verify công khai.
+- [x] **D4 · Umami sv12 + sv14** ✅ (25/8) — sv12: SSH key bcse_master vào được VM112 (không cần reset password), mini-deploy base.html; sv14: mini-deploy layout.tsx + docker rebuild frontend. **5/5 Core có analytics — N0 CHỐT SỔ.** Verify công khai cả 5.
 - [ ] **D5 · Backup ngoài máy** — `vm_inventory.json`, `BCSE-Tracker/data/` (bảng điểm + bcse.db), backup KLTN 1.5GB → Google Drive. *DoD: mất laptop không mất chìa khóa VM và dữ liệu SV.*
 - [ ] **D6 · SV08 journey layout (N1)** — gán trường `journey` cho 20 services trong `data/services.ts`, redesign section theo 5 chặng (Năm 1→4 + Xuyên suốt), app Frozen vào mục "sắp trở lại". *DoD: build pass, deploy.*
 - [ ] **D7 · Nghỉ / buffer / việc nền** (xem Backlog).
