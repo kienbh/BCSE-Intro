@@ -56,7 +56,7 @@
 - [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
 - [ ] A3 · Mobile pass lần lượt: sv14 → sv18 → sv09 → sv13 → sv12 (mỗi app 1 phiên)
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
-- [~] A5 · `/api/health` trả git SHA: ✅ CODE XONG cả 5 Core (26/8, commit+push; đọc file `VERSION` do deployer ghi — B8 sẽ ghi SHA lúc deploy) — còn: deploy 5 app + panel so sánh trên sv05
+- [~] A5 · `/api/health` trả git SHA: ✅ LIVE cả 5/5 Core (verify public 27/8; sv18 miễn auth cho health; sha="unknown" đến khi B8 ghi VERSION lúc deploy) — còn: panel so sánh local↔origin↔server trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
