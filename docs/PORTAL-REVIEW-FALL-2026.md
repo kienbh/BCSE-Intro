@@ -8,9 +8,11 @@
 ## Tổng quan: cả 5 cổng đều KHÔNG tràn ngang mobile, tải 4–6s qua CF, layout đẹp.
 
 ## sv14 · Hardware Lab — ưu tiên sửa cao nhất
-- 🔴 **`/api/auth/refresh` trả 404** — frontend gọi khi tải trang. Nếu flow gia hạn phiên dựa vào
-  endpoint này thì SV sẽ bị văng phiên giữa chừng (nghi backend chưa có route hoặc đổi tên).
-  → Phiên sv14: xác minh route trong FastAPI + hành vi khi token hết hạn.
+- 🔴 **`/api/auth/refresh` trả 404** — ĐÃ XÁC MINH bug thật (25/8): login phát refresh cookie
+  (`issue_refresh_token` + `set_auth_cookies`) nhưng backend KHÔNG có route tiêu thụ; frontend
+  `lib/auth.ts` gọi ở 3 chỗ (fetchMe/apiGet/apiPost) → tab quá TTL 60' là văng phiên dù cookie còn hạn.
+  **✅ Fix + 5 test đã chuẩn bị trên branch `fix/auth-refresh-endpoint`** (repo `bcse vLab`, đã push).
+  → Phiên sv14: chạy pytest (cần PG test DB), thầy review PR, deploy backend.
 - 🟡 `/api/auth/me` 401 khi chưa login — bình thường, nhưng đang in đỏ console; nên bắt lỗi im lặng.
 - 🟢 Mobile đẹp (hero "Truy cập kit thực hành từ Mỹ Đình", badge version API).
 
