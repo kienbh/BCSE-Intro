@@ -66,6 +66,10 @@ export const dict = {
     // Services
     'section.services': 'BCSE Portal',
     'services.subtitle': 'Hệ sinh thái số phục vụ học tập, nghiên cứu và đời sống của BCSE',
+    'services.viewAll': 'Xem tất cả dịch vụ',
+    'careers.showIntegrated': 'Xem các hướng phát triển liên ngành',
+    'careers.hideIntegrated': 'Thu gọn',
+    'projects.viewMore': 'Xem thêm dự án NCKH',
 
     // Projects
     'section.projects': 'Dự án sinh viên',
@@ -226,6 +230,10 @@ export const dict = {
     // Services
     'section.services': 'BCSE Portal',
     'services.subtitle': 'A digital ecosystem for BCSE learning, research and student life',
+    'services.viewAll': 'View all services',
+    'careers.showIntegrated': 'Show interdisciplinary directions',
+    'careers.hideIntegrated': 'Collapse',
+    'projects.viewMore': 'More student projects',
 
     'section.projects': 'Student projects',
 
@@ -373,6 +381,10 @@ export const dict = {
 
     'section.services': 'BCSE Portal',
     'services.subtitle': 'BCSE の学び・研究・学生生活を支えるデジタルエコシステム',
+    'services.viewAll': 'すべてのサービスを見る',
+    'careers.showIntegrated': '学際的なキャリアの方向性を見る',
+    'careers.hideIntegrated': '折りたたむ',
+    'projects.viewMore': 'その他のプロジェクトを見る',
 
     'section.projects': '学生プロジェクト',
 

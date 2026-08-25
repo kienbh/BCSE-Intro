@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import SectionTitle from '@/components/shared/SectionTitle';
@@ -20,6 +21,8 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
 
 export default function CareerOpportunitiesSection() {
   const { t, lang } = useLang();
+  // Lưới "hướng liên ngành" thu gọn sau nút bấm để trang chủ ngắn lại (rút gọn 25/8, chờ thầy duyệt)
+  const [showIntegrated, setShowIntegrated] = useState(false);
   return (
     <section id="careers" className="section-padding">
       <div className="container-max">
@@ -66,11 +69,21 @@ export default function CareerOpportunitiesSection() {
           </div>
         </ScrollReveal>
 
-        {/* Integrated directions */}
+        {/* Integrated directions — thu gọn sau nút bấm */}
         <ScrollReveal delay={0.1}>
           <h3 className="text-lg font-bold text-white mb-2">{t('careers.integrated')}</h3>
           <p className="text-xs text-slate-500 mb-6 max-w-3xl">{t('careers.integratedNote')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+          {!showIntegrated && (
+            <div className="mb-12">
+              <button
+                onClick={() => setShowIntegrated(true)}
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/30 rounded-xl transition-colors"
+              >
+                {t('careers.showIntegrated')} ({integratedDirections.length}) <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 ${showIntegrated ? '' : 'hidden'}`}>
             {integratedDirections.map((dir) => {
               const Icon = getIcon(dir.icon);
               const c = colorMap[dir.color] || colorMap.sky;

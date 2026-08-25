@@ -24,9 +24,11 @@ export default function StudentProjectsSection() {
   const [active, setActive] = useState<string>('all');
   const { t } = useLang();
 
-  const filtered = active === 'all'
+  const matched = active === 'all'
     ? nckhProjects
     : nckhProjects.filter((p) => p.tags.includes(active));
+  // Trang chủ chỉ hiện 6 dự án đầu mỗi tag — đầy đủ ở /research (rút gọn 25/8, chờ thầy duyệt)
+  const filtered = matched.slice(0, 6);
 
   return (
     <section className="section-padding bg-slate-900/50">

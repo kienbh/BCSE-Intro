@@ -1,16 +1,21 @@
 'use client';
 
+import Link from 'next/link';
 import { services } from '@/data/services';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import SectionTitle from '@/components/shared/SectionTitle';
 import GlassCard from '@/components/ui/GlassCard';
-import { ExternalLink } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import { getIcon } from '@/lib/utils';
 import { useLang } from '@/lib/i18n';
 import { pickLocalized } from '@/lib/localized';
 
+// Trang chủ chỉ teaser 6 app đang hoạt động — danh mục đầy đủ ở /services (rút gọn 25/8, chờ thầy duyệt)
+const FEATURED_COUNT = 6;
+
 export default function ServicesPortal() {
   const { t, lang } = useLang();
+  const featured = services.filter((s) => s.status === 'active').slice(0, FEATURED_COUNT);
   return (
     <section className="section-padding">
       <div className="container-max">
@@ -21,7 +26,7 @@ export default function ServicesPortal() {
 
         <ScrollReveal>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.map((service) => {
+            {featured.map((service) => {
               const Icon = getIcon(service.icon);
               const isActive = service.status === 'active';
               const isComingSoon = service.status === 'coming-soon';
@@ -70,6 +75,14 @@ export default function ServicesPortal() {
                 </GlassCard>
               );
             })}
+          </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded-xl transition-colors"
+            >
+              {t('services.viewAll')} ({services.length}) <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </ScrollReveal>
       </div>
