@@ -28,8 +28,8 @@
 
 ## TUẦN 2 (1–7/9) — Nhịp tim SV08 + chuẩn bị onboarding
 
-- [ ] **D8 · SV08 login bcse-id** — onboard SV08 làm OIDC client theo checklist có sẵn của bcse-id. *DoD: đăng nhập Google VJU trên SV08 hoạt động, session bền.*
-- [ ] **D9 · "Tuần này của bạn" v1** — widget sau login: lịch tĩnh theo năm học của SV (chỉ cần biết SV năm mấy), hiện mốc tuần hiện tại + link đúng app đúng lúc. KHÔNG nối API app nào ở v1. *DoD: SV login thấy ngay "việc của tôi tuần này".*
+- [~] **D8 · SV08 login** — ⚙ QUYẾT ĐỊNH KIẾN TRÚC (26/8, chờ thầy xác nhận): SV08 là site TĨNH (`output: export`) không làm OIDC server-side được. Chọn **hướng B**: hub cá nhân hóa đặt tại **dashboard bcse-id** (Next.js, đã có session + registry apps.ts + audience field); SV08 giữ tĩnh, thêm nút "Đăng nhập" → id.bcse-vju.com (✅ đã code + build, chờ deploy). Ưu điểm: không phải chuyển kiến trúc SV08, tái dùng dashboard có sẵn, phân vai tự động sau login.
+- [ ] **D9 · "Tuần này của bạn" v1** — widget đặt trong **dashboard bcse-id** (theo hướng B): lịch tĩnh theo năm học của SV, hiện mốc tuần hiện tại + link đúng app đúng lúc. KHÔNG nối API app nào ở v1. *DoD: SV login thấy ngay "việc của tôi tuần này".*
 - [ ] **D10 · Nạp lịch Fall 2026 thật** — 🧑‍🏫 *thầy cung cấp*: lịch kỳ, mốc HD483/CSE4001, mốc KLTN, lịch cố vấn → Claude nhập vào data lịch tĩnh. *DoD: nội dung tuần nào cũng có ít nhất 1 mốc thật.*
 - [ ] **D11 · Quy trình cấp bcse-id ngày nhập học** — auto-provision từ Google Workspace VJU, test với 2–3 tài khoản thử. *DoD: flow chạy được cho danh sách khóa mới trong <30 phút.*
 - [ ] **D12 · Gói tuần định hướng** — Claude soạn: 1 slide + QR SV08 + checklist SV làm theo (login → xem "Tuần này" → thử Arena nhập môn → biết Hardware Lab tồn tại). 🧑‍🏫 thầy duyệt. *DoD: tài liệu in được.*
@@ -53,10 +53,10 @@
 
 ### Backlog A — đầu việc chính trong kỳ (theo thứ tự)
 - [ ] A1 · Arena gắn điểm thành phần môn thầy dạy Fall 2026 (phổ biến trong đề cương — 🧑‍🏫) + bộ đề tuần
-- [ ] A2 · Bảng mốc HD483 ↔ hành động trên sv09 (1 session lập + 🧑‍🏫 duyệt, đưa vào phổ biến học phần)
+- [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
 - [ ] A3 · Mobile pass lần lượt: sv14 → sv18 → sv09 → sv13 → sv12 (mỗi app 1 phiên)
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
-- [ ] A5 · Chuẩn `/api/health` trả git SHA cho 5 Core + panel so local↔origin↔server trên sv05
+- [~] A5 · `/api/health` trả git SHA: ✅ CODE XONG cả 5 Core (26/8, commit+push; đọc file `VERSION` do deployer ghi — B8 sẽ ghi SHA lúc deploy) — còn: deploy 5 app + panel so sánh trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
