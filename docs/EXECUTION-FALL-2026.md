@@ -51,6 +51,8 @@
 | **Cuối tháng 10** | 📊 Báo cáo WAU đầu tiên → họp triage KEEP/FREEZE bằng số liệu (GĐ0.2) |
 | **Cuối kỳ (12/2026)** | Thí điểm N7: trang distilled OOP + di sản chuẩn nhóm KLTN đầu tiên |
 
+> 🔜 **VIỆC ĐANG DỞ (handoff 27/8 — phiên mới làm TRƯỚC TIÊN):** **A8 · Trang "Nhịp đập hệ sinh thái" CÔNG KHAI tại root sv05** (yêu cầu thầy: show trạng thái hệ cho mọi người, chỉ số liệu tổng hợp an toàn). Thiết kế đã chốt: (1) Kuma status page slug `bcse` tạo qua `uptime-kuma-api` (lib đã cài local, pattern `sv05-ops-center/seed_kuma_monitors.py`, creds Kuma trong `.env.sv05` local); (2) cron mỗi giờ trên VM105: psql `ops_umami_db` → `/opt/ops-center/public/pulse.json` (views/sessions 7 ngày từng cổng); (3) HTML tĩnh public "BCSE Pulse" đọc Kuma heartbeat API + pulse.json; (4) nginx sv05: `/status/*` + `/pulse/*` public (KHÔNG auth_request), root `/` 302 → `/pulse/` (thầy vẫn dùng `/overview` sau SSO). Bối cảnh sẵn: VM105 pass = STUDENT_DEFAULT; Umami v3 (bảng `share` riêng); Umami login admin — pass xem `vm_inventory.json` key UMAMI_ADMIN; analytics.bcse-vju.com đã live sau SSO.
+
 ### Backlog A — đầu việc chính trong kỳ (theo thứ tự)
 - [ ] A1 · Arena gắn điểm thành phần môn thầy dạy Fall 2026 (phổ biến trong đề cương — 🧑‍🏫) + bộ đề tuần
 - [~] A2 · Bảng mốc HD483 ✅ draft (26/8: `bcse-internship-careerpath/docs/HD483-TIMELINE.md` — 9 mốc ↔ state machine + 3 quy tắc) — 🧑‍🏫 **chờ thầy điền tuần thật + duyệt**
