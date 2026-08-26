@@ -73,7 +73,7 @@
 > `bcse-world/docs/CAMPUS-ANALYSIS.md` (2 phân khu thực địa, hồ sơ 8 loại công trình + nội thất
 > 4 phòng, bảng màu hex, spec 30 tile, kế hoạch Tiled 96×64) + `map-blueprint.html` **v2** vẽ lại
 > đúng sơ đồ thầy (commit `6d92e46`). **Việc kế tiếp trục map: build tilemap `campus.json`**
-> (3 câu hỏi nhỏ không chặn build ở CAMPUS-ANALYSIS §8). Việc song song không phụ thuộc map:
+> (3 câu hỏi §8 ✅ thầy chốt 26/8 đêm: torii spawn mép sân chào cờ · Club = bảng tin CLB · v1 2 dorm). Việc song song không phụ thuộc map:
 > push repo GitHub (cần `gh auth login`), SSO bcse-id, chuẩn bị VM115 (cài docker, tăng CPU).
 > Lưu ý sổ sách: quyết định "ẩn dụ lâu đài lên UI" (masterplan §7.2) điều chỉnh thành: lâu đài =
 > ngôn ngữ thiết kế nội bộ; skin thế giới = campus VJU.
