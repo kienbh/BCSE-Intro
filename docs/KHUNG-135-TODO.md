@@ -20,8 +20,11 @@
 - [x] `lib/i18n.tsx` — `hero.bullets` + `curriculum.subtitle` ×3 thứ tiếng ghi cả 2 khung; thêm 12 khóa
       mới `curriculum.fw*/core135/modules135*/gateway/projects135/grad135/plan135` ×3 ✅ (26/8)
 - [x] `app/contact/Content.tsx` — "135 tín chỉ từ khóa 2026 (khóa cũ 152 TC)" ✅ (26/8)
-- [x] `app/curriculum/` — toggle 2 khung (mặc định Khung 2026; khung 152 giữ nguyên board 4 năm
-      + 5 định hướng cũ; khung 135 render cốt lõi/mô đun/dự án/tốt nghiệp/8 kỳ) ✅ (26/8)
+- [x] `app/curriculum/` — toggle 2 khung ✅ (26/8; chỉnh theo thầy 26/8 tối: **152 lên TRƯỚC và là
+      mặc định**, Khung 2026 sau). Khung 152 giữ board 4 năm + 5 định hướng cũ; khung 135 render
+      **kế hoạch học tập chuẩn 8 kỳ** (nạp từ `Ke_hoach_hoc_tap_BCSE_135TC.html` Nộp QA 22/8 —
+      đủ mã HP/TC/tiên quyết/cửa ngõ/kỳ hè) + cốt lõi 23 TC + 5 mô đun **danh mục đầy đủ 31 HP**
+      + 3 Dự án + tốt nghiệp 2 phương án.
 - [x] `data/services.ts` (mô tả sv18 Tracker) — "rà theo khung đúng khóa (152/135)" ✅ (26/8,
       theo quyết định thầy 26/8: tracker chạy khung theo cohort tương ứng)
 
