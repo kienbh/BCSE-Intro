@@ -4,6 +4,8 @@
 
 export interface Semester {
   semester: number;
+  /** TC bắt buộc của kỳ (chưa gồm tự chọn) — chỉ khung 135 dùng */
+  credits?: number;
   required: string[];
   elective: string[];
   note?: string;
@@ -25,7 +27,7 @@ export {
   modules135,
   projects135,
   graduation135,
-  semesterPlan135,
+  yearBlocks135,
 } from './curriculum-135';
 export type { Module135 } from './curriculum-135';
 

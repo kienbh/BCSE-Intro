@@ -21,7 +21,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'Cử nhân Khoa học và Kỹ thuật Máy tính',
-    'hero.bullets': '5 định hướng chuyên ngành • 135 tín chỉ từ khóa 2026 (khóa cũ 152) • Giảng viên TS. tốt nghiệp các nước phát triển • NCKH từ năm nhất',
+    'hero.bullets': '5 định hướng chuyên ngành • 152 tín chỉ (từ khóa 2026: 135) • Giảng viên TS. tốt nghiệp các nước phát triển • NCKH từ năm nhất',
     'hero.ctaPrimary': 'Khám phá chương trình',
     'hero.ctaSecondary': 'Đăng ký tuyển sinh',
 
@@ -49,7 +49,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'Chương trình đào tạo',
-    'curriculum.subtitle': '2 khung song hành — 135 TC (từ khóa 2026) · 152 TC (khóa 2025 về trước)',
+    'curriculum.subtitle': '2 khung song hành — 152 TC (khóa 2025 về trước) · 135 TC (từ khóa 2026)',
 
     // Research
     'section.research': 'Nghiên cứu & Dự án học phần',
@@ -136,7 +136,7 @@ export const dict = {
     'curriculum.gateway': 'Cửa ngõ',
     'curriculum.projects135': '3 Dự án xuyên suốt (HK5–HK7)',
     'curriculum.grad135': 'Tốt nghiệp — chọn 1 trong 2 phương án',
-    'curriculum.plan135': 'Lộ trình 8 học kỳ — tín chỉ bắt buộc mỗi kỳ (chưa gồm tự chọn)',
+    'curriculum.plan135': 'Kế hoạch học tập chuẩn — 8 học kỳ (lộ trình gợi ý, điều chỉnh theo tư vấn học tập)',
 
     // Page: Facilities
     'facilities.equipment': 'Thiết bị & Hạ tầng',
@@ -196,7 +196,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'Bachelor of Computer Science and Engineering',
-    'hero.bullets': '5 specializations • 135 credits from 2026 intake (legacy 152) • Faculty with PhDs from developed countries • Research from year 1',
+    'hero.bullets': '5 specializations • 152 credits (135 from 2026 intake) • Faculty with PhDs from developed countries • Research from year 1',
     'hero.ctaPrimary': 'Explore the program',
     'hero.ctaSecondary': 'Apply now',
 
@@ -224,7 +224,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'Curriculum',
-    'curriculum.subtitle': 'Two parallel curricula — 135 credits (2026 intake onward) · 152 credits (up to 2025)',
+    'curriculum.subtitle': 'Two parallel curricula — 152 credits (up to 2025) · 135 credits (2026 intake onward)',
 
     // Research
     'section.research': 'Research & Course Projects',
@@ -307,7 +307,7 @@ export const dict = {
     'curriculum.gateway': 'Gateway',
     'curriculum.projects135': '3 spine projects (Semesters 5–7)',
     'curriculum.grad135': 'Graduation — choose one of two options',
-    'curriculum.plan135': '8-semester plan — required credits per semester (electives not included)',
+    'curriculum.plan135': 'Standard study plan — 8 semesters (suggested path, adjust with academic advising)',
 
     'facilities.equipment': 'Equipment & Infrastructure',
 
@@ -362,7 +362,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'コンピュータサイエンス・工学 学士課程',
-    'hero.bullets': '5 専攻分野 • 2026 年度から 135 単位(旧課程 152)• 先進国で博士号を取得した高水準の教員陣 • 1 年次から研究開始',
+    'hero.bullets': '5 専攻分野 • 152 単位(2026 年度から 135)• 先進国で博士号を取得した高水準の教員陣 • 1 年次から研究開始',
     'hero.ctaPrimary': 'プログラムを見る',
     'hero.ctaSecondary': '出願する',
 
@@ -390,7 +390,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'カリキュラム',
-    'curriculum.subtitle': '2 つの課程が並行 — 135 単位(2026 年度〜)・152 単位(2025 年度以前)',
+    'curriculum.subtitle': '2 つの課程が並行 — 152 単位(2025 年度以前)・135 単位(2026 年度〜)',
 
     'section.research': '研究・授業プロジェクト',
     'research.subtitle': '1 年次からのプロジェクト型学習と研究 — 3 研究室稼働中: λ Lambda、Δ Demeter、Υ Hygieia',
@@ -467,7 +467,7 @@ export const dict = {
     'curriculum.gateway': '入門必修',
     'curriculum.projects135': '3 つのプロジェクト(第 5〜7 学期)',
     'curriculum.grad135': '卒業 — 2 方式から選択',
-    'curriculum.plan135': '8 学期プラン — 各学期の必修単位(選択科目を除く)',
+    'curriculum.plan135': '標準履修プラン — 8 学期(推奨ルート・履修指導で調整)',
 
     'facilities.equipment': '設備・インフラ',
 

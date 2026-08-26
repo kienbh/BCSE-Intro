@@ -9,8 +9,8 @@ export interface StatItem {
 
 export const stats: StatItem[] = [
   {
-    value: 135, suffix: '',
-    label: { vi: 'Tín chỉ (từ khóa 2026)', en: 'Credits (2026 intake)', ja: '総単位数(2026 年度〜)' },
+    value: 152, suffix: '',
+    label: { vi: 'Tín chỉ · từ khóa 2026: 135', en: 'Credits · 135 from 2026', ja: '総単位数・2026 年度から 135' },
     icon: 'BookOpen',
   },
   {

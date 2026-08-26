@@ -1,6 +1,7 @@
 // Khung ĐIỀU CHỈNH 135 TC — mã ngành 7480101, áp dụng từ khóa tuyển sinh 2026.
-// Nguồn chuẩn: QUYEN_KHUNG_CHUONG_TRINH_BCSE_135TC.docx (Nộp QA 22/8/2026).
-// Chạy song hành với khung hiện hành 152 TC (curriculum-152.ts) cho khóa cũ.
+// Nguồn chuẩn: QUYEN_KHUNG_CHUONG_TRINH_BCSE_135TC.docx + Ke_hoach_hoc_tap_BCSE_135TC.html
+// (Nộp QA 22/8/2026). Chạy song hành với khung hiện hành 152 TC (curriculum-152.ts).
+import type { YearBlock } from './curriculum';
 
 export const programStructure135 = {
   totalCredits: 135,
@@ -41,42 +42,84 @@ export interface Module135 {
   nameEN: string;
   gateway?: string;
   desc: string;
+  courses: { code: string; name: string; credits: number }[];
 }
 
 // II.2.2 — 5 mô đun định hướng (2 trụ không cửa ngõ + 3 mô đun cửa ngõ)
 export const modules135: Module135[] = [
   {
-    id: 'se',
-    name: 'Công nghệ phần mềm',
-    nameEN: 'Software Engineering',
-    desc: 'Trụ không cửa ngõ — học sâu ngay từ nền bắt buộc.',
-  },
-  {
     id: 'dsai',
     name: 'KHDL & Trí tuệ nhân tạo',
     nameEN: 'Data Science & AI',
-    desc: 'Trụ không cửa ngõ — học sâu ngay từ nền bắt buộc.',
+    desc: 'Trụ không cửa ngõ — mở tiếp từ nền bắt buộc.',
+    courses: [
+      { code: 'CSE3051', name: 'Kỹ nghệ AI và MLOps', credits: 3 },
+      { code: 'CSE3062', name: 'Thị giác máy tính', credits: 3 },
+      { code: 'CSE3082', name: 'Xử lý ngôn ngữ tự nhiên', credits: 3 },
+      { code: 'CSE3083', name: 'Học tăng cường', credits: 3 },
+      { code: 'CSE3084', name: 'Học máy trên đồ thị', credits: 3 },
+      { code: 'CSE3060', name: 'Tính toán song song', credits: 3 },
+      { code: 'CSE3064', name: 'Vận trù học', credits: 3 },
+      { code: 'CSE3085', name: 'Khoa học nhận thức', credits: 3 },
+    ],
+  },
+  {
+    id: 'se',
+    name: 'Công nghệ phần mềm',
+    nameEN: 'Software Engineering',
+    desc: 'Trụ không cửa ngõ — mở tiếp từ nền bắt buộc.',
+    courses: [
+      { code: 'CSE3052', name: 'Phát triển ứng dụng Web', credits: 3 },
+      { code: 'CSE3053', name: 'Phát triển ứng dụng di động', credits: 3 },
+      { code: 'CSE3056', name: 'Phát triển ứng dụng nâng cao', credits: 3 },
+      { code: 'CSE3059', name: 'Điện toán đám mây', credits: 3 },
+      { code: 'CSE3061', name: 'Tương tác người – máy', credits: 3 },
+      { code: 'CSE3066', name: 'Đánh giá hiệu năng hệ thống', credits: 3 },
+      { code: 'CSE3077', name: 'Đảm bảo chất lượng phần mềm', credits: 3 },
+      { code: 'CSE3086', name: 'Lập trình với trí tuệ nhân tạo', credits: 3 },
+    ],
   },
   {
     id: 'aiot',
-    name: 'AIoT',
+    name: 'AIoT — Trí tuệ nhân tạo vạn vật',
     nameEN: 'AIoT',
-    gateway: 'CSE3069 · Phát triển ứng dụng IoT',
-    desc: 'Kỹ thuật máy tính liên ngành: IoT thông minh, hệ nhúng.',
+    gateway: 'CSE3069',
+    desc: 'Qua cửa ngõ CSE3069 trước khi học chuyên sâu.',
+    courses: [
+      { code: 'CSE3069', name: 'Phát triển ứng dụng IoT', credits: 3 },
+      { code: 'CSE3070', name: 'Mạng cảm biến không dây', credits: 3 },
+      { code: 'CSE3073', name: 'Lập trình nhúng nâng cao (RTOS/STM32)', credits: 3 },
+      { code: 'CSE3075', name: 'Điện toán biên và AIoT (Edge AI)', credits: 3 },
+      { code: 'CSE3076', name: 'An toàn hệ thống nhúng và IoT', credits: 3 },
+    ],
   },
   {
     id: 'ic',
     name: 'Thiết kế vi mạch',
     nameEN: 'IC Design',
-    gateway: 'CSE3043 · Mạch logic và kỹ thuật số',
-    desc: 'Thiết kế vi mạch số, phần cứng chuyên dụng.',
+    gateway: 'CSE3043',
+    desc: 'Qua cửa ngõ CSE3043 trước khi học chuyên sâu.',
+    courses: [
+      { code: 'CSE3043', name: 'Mạch logic và kỹ thuật số', credits: 3 },
+      { code: 'CSE3036', name: 'Thiết kế luận lý số (FPGA)', credits: 3 },
+      { code: 'CSE3047', name: 'Thiết kế hệ thống số với HDL', credits: 3 },
+      { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3 },
+      { code: 'CSE3078', name: 'Thiết kế vi mạch số', credits: 3 },
+    ],
   },
   {
     id: 'fintech',
     name: 'Công nghệ tài chính',
     nameEN: 'Fintech',
-    gateway: 'CSE3042 · Công nghệ tài chính',
-    desc: 'Liên ngành công nghệ – tài chính, phân tích dữ liệu tài chính.',
+    gateway: 'CSE3042',
+    desc: 'Qua cửa ngõ CSE3042 trước khi học chuyên sâu.',
+    courses: [
+      { code: 'CSE3042', name: 'Công nghệ tài chính', credits: 3 },
+      { code: 'CSE3054', name: 'Quản lý và phân tích dữ liệu tài chính', credits: 3 },
+      { code: 'CSE3055', name: 'Công nghệ tài chính và ứng dụng', credits: 3 },
+      { code: 'CSE3067', name: 'Học máy trong kinh tế và tài chính', credits: 3 },
+      { code: 'CSE3087', name: 'Mật mã ứng dụng và an toàn giao dịch', credits: 3 },
+    ],
   },
 ];
 
@@ -103,14 +146,151 @@ export const graduation135 = [
   },
 ];
 
-// Tải tín chỉ BẮT BUỘC theo kỳ (chưa gồm tự chọn) — validate tổng = 135
-export const semesterPlan135 = [
-  { sem: 1, credits: 20 },
-  { sem: 2, credits: 19, note: 'Hè: GDQP–AN' },
-  { sem: 3, credits: 14 },
-  { sem: 4, credits: 11 },
-  { sem: 5, credits: 13, note: 'Dự án I' },
-  { sem: 6, credits: 13, note: 'Dự án II · Hè: Thực tập 5 TC' },
-  { sem: 7, credits: 2, note: 'Dự án III + tự chọn mô đun' },
-  { sem: 8, credits: 10, note: 'Tốt nghiệp' },
+// Kế hoạch học tập chuẩn 8 kỳ — theo Ke_hoach_hoc_tap_BCSE_135TC.html (lộ trình gợi ý,
+// SV điều chỉnh theo tư vấn học tập). credits = TC bắt buộc của kỳ, chưa gồm tự chọn.
+export const yearBlocks135: YearBlock[] = [
+  {
+    year: 1,
+    title: 'Nền tảng đại cương',
+    titleEN: 'Foundation',
+    theme: 'Toán, vật lý, lập trình, tiếng Anh, tiếng Nhật, đại cương VJU',
+    color: 'sky',
+    semesters: [
+      {
+        semester: 1,
+        credits: 20,
+        required: [
+          'PHI1006 · Triết học Mác – Lênin (3 TC)',
+          'VNU1001 · Nhập môn công nghệ số & ứng dụng AI (3 TC)',
+          'FLF1107 · Tiếng Anh B1 (5 TC)',
+          'VJU2031 · Tiếng Nhật sơ cấp 1 (3 TC)',
+          'VJU2002 · Giải tích 1 (2 TC)',
+          'VJU2005 · Vật lý 1 (2 TC)',
+          'AET2014 · Nhập môn lập trình (2 TC)',
+          'Giáo dục thể chất · Kỹ năng bổ trợ (điều kiện)',
+        ],
+        elective: ['Tự chọn I.2.2 — 1 học phần (2 TC) · khuyến nghị Nhóm A (Khoa học bền vững)'],
+      },
+      {
+        semester: 2,
+        credits: 19,
+        required: [
+          'PEC1008 · Kinh tế chính trị Mác – Lênin (2 TC)',
+          'FLF1108 · Tiếng Anh B2 (5 TC)',
+          'VJU2032 · Tiếng Nhật sơ cấp 2 (2 TC)',
+          'CSE3001 · Giải tích 2 (3 TC)',
+          'VJU2030 · Đại số tuyến tính 2 (3 TC)',
+          'VJU2006 · Vật lý 2 (2 TC)',
+          'THL1057 · Nhà nước và pháp luật đại cương (2 TC)',
+          'Giáo dục thể chất · Kỹ năng bổ trợ (điều kiện)',
+        ],
+        elective: ['Tự chọn I.2.2 — 1 học phần (2 TC) · Nhóm B–E'],
+        note: 'Kỳ hè: Giáo dục quốc phòng – an ninh (điều kiện)',
+      },
+    ],
+  },
+  {
+    year: 2,
+    title: 'Cơ sở ngành & cửa ngõ',
+    titleEN: 'Core Foundation & Gateways',
+    theme: 'Cấu trúc dữ liệu, kiến trúc máy tính, CSDL, CNPM — mở cửa ngõ mô đun',
+    color: 'indigo',
+    semesters: [
+      {
+        semester: 3,
+        credits: 14,
+        required: [
+          'PHI1002 · Chủ nghĩa xã hội khoa học (2 TC)',
+          'VJU2001 · Phương pháp luận nghiên cứu khoa học (2 TC)',
+          'CSE3003 · Toán rời rạc (3 TC)',
+          'CSE3013 · Xác suất – Thống kê (3 TC)',
+          'CSE3034 · Cấu trúc dữ liệu và giải thuật (2 TC)',
+          'CSE3014 · Phương pháp số (2 TC)',
+        ],
+        elective: ['Tự chọn I.2.2 — 1–2 học phần (2–4 TC) · Nhóm B–E'],
+      },
+      {
+        semester: 4,
+        credits: 11,
+        required: [
+          'HIS1001 · Lịch sử Đảng Cộng sản Việt Nam (2 TC)',
+          'CSE3015 · Lập trình hướng đối tượng (2 TC)',
+          'CSE3032 · Kiến trúc máy tính (3 TC)',
+          'CSE3012 · Nhập môn cơ sở dữ liệu (2 TC)',
+          'CSE3041 · Công nghệ phần mềm (2 TC)',
+        ],
+        elective: [
+          'Tự chọn I.2.2 — 1–2 học phần (2–4 TC)',
+          'Ngoại ngữ chuyên ngành (chọn 1, 2 TC): CSE3016 Tiếng Anh · CSE3017 Tiếng Nhật',
+          '◇ Cửa ngõ mô đun (3 TC/HP): CSE3069 IoT · CSE3043 Mạch logic · CSE3042 Công nghệ tài chính',
+        ],
+        note: 'Mở cửa ngõ 3 mô đun định hướng (AIoT · Vi mạch · Fintech)',
+      },
+    ],
+  },
+  {
+    year: 3,
+    title: 'Cốt lõi 2 trụ & Dự án I–II',
+    titleEN: 'Core Pillars & Projects I–II',
+    theme: 'SE + DS·AI cho mọi sinh viên, an ninh thông tin, thực tập hè',
+    color: 'purple',
+    semesters: [
+      {
+        semester: 5,
+        credits: 13,
+        required: [
+          'POL1001 · Tư tưởng Hồ Chí Minh (2 TC)',
+          'CSE3030 · Mạng máy tính và truyền thông (3 TC)',
+          'CSE3033 · Nguyên lý hệ điều hành (2 TC)',
+          'CSE3010 · Lập trình nâng cao (2 TC)',
+          'CSE3050 · Trí tuệ nhân tạo (2 TC)',
+          'CSE3079 · Dự án I (2 TC)',
+        ],
+        elective: [
+          'Tự chọn cốt lõi 3–6 TC — hướng SE (Web, Mobile, Cloud…)',
+          '◇ Cửa ngõ mô đun nếu chưa học ở HK4',
+        ],
+        note: 'Dự án I — củng cố nền tảng chung',
+      },
+      {
+        semester: 6,
+        credits: 13,
+        required: [
+          'CSE3040 · Khoa học dữ liệu (3 TC)',
+          'CSE3057 · Học máy (3 TC, tiên quyết CSE3050)',
+          'CSE3065 · Phân tích và thiết kế hệ thống (2 TC)',
+          'CSE3080 · Dự án II (2 TC)',
+          'CSE3021 · An ninh thông tin (3 TC)',
+        ],
+        elective: ['Tự chọn cốt lõi 3–6 TC — hướng AI (Thị giác máy tính, NLP, Học tăng cường…)'],
+        note: 'Dự án II — đào sâu định hướng (SE / DS·AI) · Kỳ hè: CSE4001 Thực tập nghề nghiệp (5 TC)',
+      },
+    ],
+  },
+  {
+    year: 4,
+    title: 'Định hướng sâu & Tốt nghiệp',
+    titleEN: 'Specialization & Graduation',
+    theme: 'Dự án III, 12 TC mô đun định hướng, khóa luận / dự án tốt nghiệp',
+    color: 'amber',
+    semesters: [
+      {
+        semester: 7,
+        credits: 2,
+        required: ['CSE3081 · Dự án III (2 TC)'],
+        elective: ['Tự chọn cốt lõi 12 TC — 4 học phần trong 5 mô đun định hướng'],
+        note: 'Dự án III — bước đệm tốt nghiệp',
+      },
+      {
+        semester: 8,
+        credits: 10,
+        required: [
+          'Phương án 1: CSE4050 · Khóa luận tốt nghiệp (10 TC) — GPA ≥ 3,0',
+          'Phương án 2: CSE4051 · Dự án tốt nghiệp (4 TC) + 2 học phần tự chọn tốt nghiệp (6 TC)',
+        ],
+        elective: [],
+        note: 'GPA dưới 3,0 bắt buộc Phương án 2 · học phần PA2 không trùng tự chọn cốt lõi',
+      },
+    ],
+  },
 ];

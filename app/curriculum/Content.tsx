@@ -3,15 +3,16 @@
 import { useState } from 'react';
 import {
   yearBlocks152,
+  yearBlocks135,
   programStructure152,
   programStructure135,
   coreRequired135,
   modules135,
   projects135,
   graduation135,
-  semesterPlan135,
   teachingMethods,
   internshipPartners,
+  type YearBlock,
 } from '@/data/curriculum';
 import { specializations } from '@/data/specializations';
 import SectionTitle from '@/components/shared/SectionTitle';
@@ -26,12 +27,81 @@ const colorClasses: Record<string, { border: string; accent: string; bg: string 
   amber: { border: 'border-amber-500/30', accent: 'text-amber-400', bg: 'bg-amber-500/10' },
 };
 
-type Framework = '135' | '152';
+type Framework = '152' | '135';
 
 export default function CurriculumContent() {
   const { t, lang } = useLang();
-  const [fw, setFw] = useState<Framework>('135');
+  const [fw, setFw] = useState<Framework>('152');
   const ps = fw === '135' ? programStructure135 : programStructure152;
+
+  const renderYearBoard = (blocks: YearBlock[]) => (
+    <div className="space-y-8 mb-16">
+      {blocks.map((block) => {
+        const c = colorClasses[block.color] || colorClasses.sky;
+        return (
+          <div key={block.year} className={`rounded-2xl border ${c.border} bg-slate-800/30 overflow-hidden`}>
+            <div className="p-5 border-b border-white/[0.04] flex items-center gap-4">
+              <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${c.bg} flex items-center justify-center`}>
+                <span className={`text-xl font-display font-bold ${c.accent}`}>{block.year}</span>
+              </div>
+              <div>
+                <h4 className="text-lg font-bold text-white">{t('curriculum.year')} {block.year} — {block.title}</h4>
+                <p className="text-xs text-slate-500">{block.titleEN} · {block.theme}</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/[0.04]">
+              {block.semesters.map((sem) => (
+                <div key={sem.semester} className="p-5">
+                  <h5 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                    <span className={`w-6 h-6 rounded-lg ${c.bg} flex items-center justify-center text-xs ${c.accent} font-mono`}>
+                      {sem.semester}
+                    </span>
+                    {t('curriculum.semester')} {sem.semester}
+                    {sem.credits != null && <span className="text-[10px] text-slate-500 font-normal">· {sem.credits} TC</span>}
+                  </h5>
+
+                  {sem.note && (
+                    <p className="text-[10px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1 mb-3 flex items-center gap-1">
+                      <Star className="w-3 h-3" /> {sem.note}
+                    </p>
+                  )}
+
+                  {sem.required.length > 0 && (
+                    <div className="mb-3">
+                      <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{t('curriculum.required')}</p>
+                      <ul className="space-y-1">
+                        {sem.required.map((s, i) => (
+                          <li key={i} className="text-xs text-slate-300 flex items-start gap-1.5">
+                            <span className="w-1 h-1 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {sem.elective.length > 0 && (
+                    <div>
+                      <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{t('curriculum.elective')}</p>
+                      <ul className="space-y-1">
+                        {sem.elective.map((s, i) => (
+                          <li key={i} className="text-xs text-slate-500 flex items-start gap-1.5">
+                            <span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
 
   return (
     <div className="pt-20">
@@ -43,7 +113,7 @@ export default function CurriculumContent() {
           />
 
           <div className="flex justify-center gap-2 mb-3">
-            {(['135', '152'] as Framework[]).map((key) => (
+            {(['152', '135'] as Framework[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setFw(key)}
@@ -75,9 +145,12 @@ export default function CurriculumContent() {
 
           {fw === '135' ? (
             <>
-              <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.core135')}
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.plan135')}
               </h3>
+              {renderYearBoard(yearBlocks135)}
+
+              <h3 className="text-xl font-bold text-white mb-2">{t('curriculum.core135')}</h3>
               <div className="flex flex-wrap gap-2 mb-16">
                 {coreRequired135.map((c) => (
                   <span key={c.code} className="px-3 py-1.5 text-xs rounded-lg bg-slate-800/60 border border-white/[0.06] text-slate-300">
@@ -96,11 +169,25 @@ export default function CurriculumContent() {
                     <h4 className="text-sm font-bold text-white mb-1">{m.name}</h4>
                     <p className="text-xs text-sky-400 font-mono mb-2">{m.nameEN}</p>
                     <p className="text-xs text-slate-500 mb-3">{m.desc}</p>
-                    {m.gateway && (
-                      <p className="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1 inline-flex items-center gap-1.5">
-                        <KeyRound className="w-3 h-3" /> {t('curriculum.gateway')}: {m.gateway}
-                      </p>
-                    )}
+                    <ul className="space-y-1 border-t border-white/[0.04] pt-3">
+                      {m.courses.map((course) => {
+                        const isGate = m.gateway === course.code;
+                        return (
+                          <li key={course.code} className="text-[11px] flex items-start gap-1.5 leading-snug">
+                            <span className={`w-1 h-1 rounded-full ${isGate ? 'bg-amber-400' : 'bg-emerald-400'} mt-1.5 flex-shrink-0`} />
+                            <span className={`flex-1 ${isGate ? 'text-amber-300' : 'text-slate-300'}`}>
+                              <span className="font-mono text-slate-500">{course.code}</span> {course.name}
+                              {isGate && (
+                                <span className="inline-flex items-center gap-0.5 text-[9px] text-amber-400 ml-1">
+                                  <KeyRound className="w-2.5 h-2.5" /> {t('curriculum.gateway')}
+                                </span>
+                              )}
+                              <span className="text-slate-600"> · {course.credits} TC</span>
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 ))}
               </div>
@@ -131,89 +218,13 @@ export default function CurriculumContent() {
                   </div>
                 ))}
               </div>
-
-              <h3 className="text-xl font-bold text-white mb-2">{t('curriculum.plan135')}</h3>
-              <div className="grid grid-cols-4 md:grid-cols-8 gap-2 mb-16">
-                {semesterPlan135.map((s) => (
-                  <div key={s.sem} className="p-3 rounded-xl bg-slate-800/40 border border-white/[0.06] text-center">
-                    <p className="text-[10px] text-slate-500">HK{s.sem}</p>
-                    <p className="text-lg font-display font-bold text-white">{s.credits}</p>
-                    {s.note && <p className="text-[9px] text-amber-400 mt-1 leading-tight">{s.note}</p>}
-                  </div>
-                ))}
-              </div>
             </>
           ) : (
             <>
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.path')}
               </h3>
-
-              <div className="space-y-8 mb-16">
-                {yearBlocks152.map((block) => {
-                  const c = colorClasses[block.color] || colorClasses.sky;
-                  return (
-                    <div key={block.year} className={`rounded-2xl border ${c.border} bg-slate-800/30 overflow-hidden`}>
-                      <div className="p-5 border-b border-white/[0.04] flex items-center gap-4">
-                        <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${c.bg} flex items-center justify-center`}>
-                          <span className={`text-xl font-display font-bold ${c.accent}`}>{block.year}</span>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-bold text-white">{t('curriculum.year')} {block.year} — {block.title}</h4>
-                          <p className="text-xs text-slate-500">{block.titleEN} · {block.theme}</p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/[0.04]">
-                        {block.semesters.map((sem) => (
-                          <div key={sem.semester} className="p-5">
-                            <h5 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                              <span className={`w-6 h-6 rounded-lg ${c.bg} flex items-center justify-center text-xs ${c.accent} font-mono`}>
-                                {sem.semester}
-                              </span>
-                              {t('curriculum.semester')} {sem.semester}
-                            </h5>
-
-                            {sem.note && (
-                              <p className="text-[10px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1 mb-3 flex items-center gap-1">
-                                <Star className="w-3 h-3" /> {sem.note}
-                              </p>
-                            )}
-
-                            {sem.required.length > 0 && (
-                              <div className="mb-3">
-                                <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{t('curriculum.required')}</p>
-                                <ul className="space-y-1">
-                                  {sem.required.map((s, i) => (
-                                    <li key={i} className="text-xs text-slate-300 flex items-start gap-1.5">
-                                      <span className="w-1 h-1 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
-                                      {s}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-
-                            {sem.elective.length > 0 && (
-                              <div>
-                                <p className="text-[10px] text-slate-500 uppercase tracking-wider mb-1.5">{t('curriculum.elective')}</p>
-                                <ul className="space-y-1">
-                                  {sem.elective.map((s, i) => (
-                                    <li key={i} className="text-xs text-slate-500 flex items-start gap-1.5">
-                                      <span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
-                                      {s}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              {renderYearBoard(yearBlocks152)}
 
               <h3 className="text-xl font-bold text-white mb-2">{t('curriculum.specializationsTitle')}</h3>
               <p className="text-xs text-slate-500 mb-4">{t('curriculum.specializationsNote')}</p>
