@@ -64,6 +64,13 @@
 > (tileset Kenney CC0); (3) SSO bcse-id; (4) deploy VM115 (probe xong: cần docker, tăng 1→2 CPU).
 > ⚠ Gotcha học đêm nay: KHÔNG dùng PowerShell Get/Set-Content sửa file UTF-8 tiếng Việt — vỡ mojibake;
 > chỉ dùng Edit/Write tool.
+> **Cập nhật sáng 26/8:** thầy đổi concept quần đảo → **khuôn viên VJU Hòa Lạc thật** (ảnh tham chiếu
+> `bcse-world/VJU images/`). Đã phác ✅ `bcse-world/docs/map-blueprint.html` (SVG top-down phỏng ảnh
+> toàn cảnh: 6 dãy giảng đường mái xanh, torii đỏ = quảng trường spawn, hồ, nhà kính, nhà hiệu bộ)
+> + `MAP-PLAN.md` (mapping tòa ↔ khu masterplan + kỹ thuật giữ layer names của Game.ts). Phiên tới:
+> build tilemap Tiled `campus.json` theo blueprint (tileset Kenney CC0 + ~30 tile tự vẽ chất VJU).
+> Lưu ý sổ sách: quyết định "ẩn dụ lâu đài lên UI" (masterplan §7.2) điều chỉnh thành: lâu đài =
+> ngôn ngữ thiết kế nội bộ; skin thế giới = campus VJU.
 
 > 🔜 **HANDOFF 25/8 (cuối ngày) — phiên mới đọc mục này trước:**
 > 1. ✅ **sv08 trang chủ rút gọn DEPLOY LIVE** (25/8 tối) — thầy duyệt demo → `deploy_bcse_intro.py` (build trên server, nginx reload, HTTP 200) → verify công khai markers `line-clamp-3` ×3 + `hidden sm:block` ×36 trên sv08.bcse-vju.com. **HANDOFF 25/8 SẠCH HOÀN TOÀN (mục 1-2-3 đều ✅).**
