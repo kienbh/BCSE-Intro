@@ -21,7 +21,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'Cử nhân Khoa học và Kỹ thuật Máy tính',
-    'hero.bullets': '5 định hướng chuyên ngành • 152 tín chỉ • Giảng viên TS. tốt nghiệp các nước phát triển • NCKH từ năm nhất',
+    'hero.bullets': '5 định hướng chuyên ngành • 135 tín chỉ từ khóa 2026 (khóa cũ 152) • Giảng viên TS. tốt nghiệp các nước phát triển • NCKH từ năm nhất',
     'hero.ctaPrimary': 'Khám phá chương trình',
     'hero.ctaSecondary': 'Đăng ký tuyển sinh',
 
@@ -49,7 +49,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'Chương trình đào tạo',
-    'curriculum.subtitle': '152 tín chỉ, 4 năm — 2 năm nền tảng + 2 năm chuyên ngành',
+    'curriculum.subtitle': '2 khung song hành — 135 TC (từ khóa 2026) · 152 TC (khóa 2025 về trước)',
 
     // Research
     'section.research': 'Nghiên cứu & Dự án học phần',
@@ -126,6 +126,17 @@ export const dict = {
     'curriculum.legendStar': '(*) = môn cốt lõi của định hướng',
     'curriculum.teachingMethods': 'Phương pháp giảng dạy',
     'curriculum.internshipPartners': 'Đối tác thực tập',
+    'curriculum.fwNew': 'Khung 2026 — 135 TC',
+    'curriculum.fwOld': 'Khung cũ — 152 TC',
+    'curriculum.fwNewNote': 'Áp dụng từ khóa tuyển sinh 2026 · mã ngành 7480101',
+    'curriculum.fwOldNote': 'Khóa 2025 trở về trước · mã thí điểm 7480204',
+    'curriculum.core135': 'Cốt lõi ngành bắt buộc — 23 TC phủ 2 trụ SE + DS·AI',
+    'curriculum.modules135': '5 mô đun định hướng — tự chọn ≥18 TC',
+    'curriculum.modules135Note': 'Định hướng ghi trên văn bằng: ≥12 TC trong mô đun + đồ án capstone cùng lĩnh vực. Mô đun có khóa phải học học phần cửa ngõ trước khi học sâu.',
+    'curriculum.gateway': 'Cửa ngõ',
+    'curriculum.projects135': '3 Dự án xuyên suốt (HK5–HK7)',
+    'curriculum.grad135': 'Tốt nghiệp — chọn 1 trong 2 phương án',
+    'curriculum.plan135': 'Lộ trình 8 học kỳ — tín chỉ bắt buộc mỗi kỳ (chưa gồm tự chọn)',
 
     // Page: Facilities
     'facilities.equipment': 'Thiết bị & Hạ tầng',
@@ -185,7 +196,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'Bachelor of Computer Science and Engineering',
-    'hero.bullets': '5 specializations • 152 credits • Faculty with PhDs from developed countries • Research from year 1',
+    'hero.bullets': '5 specializations • 135 credits from 2026 intake (legacy 152) • Faculty with PhDs from developed countries • Research from year 1',
     'hero.ctaPrimary': 'Explore the program',
     'hero.ctaSecondary': 'Apply now',
 
@@ -213,7 +224,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'Curriculum',
-    'curriculum.subtitle': '152 credits, 4 years — 2 years of foundation + 2 years of specialization',
+    'curriculum.subtitle': 'Two parallel curricula — 135 credits (2026 intake onward) · 152 credits (up to 2025)',
 
     // Research
     'section.research': 'Research & Course Projects',
@@ -286,6 +297,17 @@ export const dict = {
     'curriculum.legendStar': '(*) = core course of the specialization',
     'curriculum.teachingMethods': 'Teaching methods',
     'curriculum.internshipPartners': 'Internship partners',
+    'curriculum.fwNew': '2026 curriculum — 135 cr.',
+    'curriculum.fwOld': 'Legacy — 152 cr.',
+    'curriculum.fwNewNote': 'For intakes from 2026 · major code 7480101',
+    'curriculum.fwOldNote': 'Intakes up to 2025 · pilot code 7480204',
+    'curriculum.core135': 'Required core — 23 credits covering both SE and DS·AI pillars',
+    'curriculum.modules135': '5 specialisation modules — electives, 18+ credits',
+    'curriculum.modules135Note': 'Specialisation on the diploma: 12+ credits in a module plus a capstone in the same field. Modules with a key require the gateway course before advanced study.',
+    'curriculum.gateway': 'Gateway',
+    'curriculum.projects135': '3 spine projects (Semesters 5–7)',
+    'curriculum.grad135': 'Graduation — choose one of two options',
+    'curriculum.plan135': '8-semester plan — required credits per semester (electives not included)',
 
     'facilities.equipment': 'Equipment & Infrastructure',
 
@@ -340,7 +362,7 @@ export const dict = {
     'hero.title2': 'Computer Science',
     'hero.title3': '& Engineering',
     'hero.tagline': 'コンピュータサイエンス・工学 学士課程',
-    'hero.bullets': '5 専攻分野 • 152 単位 • 先進国で博士号を取得した高水準の教員陣 • 1 年次から研究開始',
+    'hero.bullets': '5 専攻分野 • 2026 年度から 135 単位(旧課程 152)• 先進国で博士号を取得した高水準の教員陣 • 1 年次から研究開始',
     'hero.ctaPrimary': 'プログラムを見る',
     'hero.ctaSecondary': '出願する',
 
@@ -368,7 +390,7 @@ export const dict = {
 
     // Curriculum
     'section.curriculum': 'カリキュラム',
-    'curriculum.subtitle': '152 単位、4 年間 — 2 年の基礎 + 2 年の専門',
+    'curriculum.subtitle': '2 つの課程が並行 — 135 単位(2026 年度〜)・152 単位(2025 年度以前)',
 
     'section.research': '研究・授業プロジェクト',
     'research.subtitle': '1 年次からのプロジェクト型学習と研究 — 3 研究室稼働中: λ Lambda、Δ Demeter、Υ Hygieia',
@@ -435,6 +457,17 @@ export const dict = {
     'curriculum.legendStar': '(*) = 専攻のコア科目',
     'curriculum.teachingMethods': '教授法',
     'curriculum.internshipPartners': 'インターンシップ提携先',
+    'curriculum.fwNew': '2026 課程 — 135 単位',
+    'curriculum.fwOld': '旧課程 — 152 単位',
+    'curriculum.fwNewNote': '2026 年度入学から適用・専攻コード 7480101',
+    'curriculum.fwOldNote': '2025 年度以前の入学者・試行コード 7480204',
+    'curriculum.core135': '必修コア — 23 単位(SE と DS·AI の 2 本柱)',
+    'curriculum.modules135': '5 つの専攻モジュール — 選択 18 単位以上',
+    'curriculum.modules135Note': '学位記への専攻表記:モジュール内 12 単位以上+同分野のキャップストーン。鍵印のモジュールは入門必修科目の修得が先。',
+    'curriculum.gateway': '入門必修',
+    'curriculum.projects135': '3 つのプロジェクト(第 5〜7 学期)',
+    'curriculum.grad135': '卒業 — 2 方式から選択',
+    'curriculum.plan135': '8 学期プラン — 各学期の必修単位(選択科目を除く)',
 
     'facilities.equipment': '設備・インフラ',
 

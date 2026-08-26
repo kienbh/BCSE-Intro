@@ -111,7 +111,7 @@ export default function ContactContent() {
                 <ul className="space-y-2">
                   {[
                     `${contactInfo.programEN}`,
-                    '152 tín chỉ, 4 năm đào tạo',
+                    '135 tín chỉ từ khóa 2026 (khóa cũ 152 TC), 4 năm đào tạo',
                     '5 định hướng: AI, Software, IC Design, IoT, Fintech',
                     'Giảng viên có trình độ cao, tốt nghiệp tiến sĩ tại các nước phát triển (Nhật Bản, Đài Loan, Singapore)',
                     `Hợp tác với ${admissionInfo.partnerUniversities}`,

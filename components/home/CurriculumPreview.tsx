@@ -1,6 +1,6 @@
 'use client';
 
-import { yearBlocks } from '@/data/curriculum';
+import { yearBlocks152 as yearBlocks } from '@/data/curriculum';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import SectionTitle from '@/components/shared/SectionTitle';
 import Link from 'next/link';
