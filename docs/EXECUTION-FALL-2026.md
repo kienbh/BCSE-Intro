@@ -72,12 +72,17 @@
 > 5510832d… + screenshot + 3 tờ nháp chì). Phiên phân tích ảnh đã chạy: đọc đủ 20/20 ảnh →
 > `bcse-world/docs/CAMPUS-ANALYSIS.md` (2 phân khu thực địa, hồ sơ 8 loại công trình + nội thất
 > 4 phòng, bảng màu hex, spec 30 tile, kế hoạch Tiled 96×64) + `map-blueprint.html` **v2** vẽ lại
-> đúng sơ đồ thầy (commit `6d92e46`). ✅ **MAP CAMPUS v1 ĐÃ BUILD & CHẠY (26/8 khuya, commit `e6727fc`)**:
-> `tools/build_campus.py` vẽ 85 tile VJU + sinh `campus.json` 96×64 đúng sơ đồ thầy (3 quyết định
-> đã chốt: torii spawn · Club bảng tin CLB · 2 dorm); GĐ1 cutaway classroom pod bàn ghế + 3 máy tính;
-> 3 whiteboard (bảng lớp · "Tuần này" · CLB) + 2 máy bán nước; verify selenium 0 lỗi console,
-> spawn + di chuyển OK; preview `docs/campus-preview.png`. **Việc kế tiếp trục map (v2):** nội thất
-> các tòa còn lại, Dom 3–6 custom room, NPC/bảng tương tác mở app thật. Việc song song không phụ thuộc map:
+> đúng sơ đồ thầy (commit `6d92e46`). ✅ **MAP CAMPUS v2 BUILD & CHẠY (27/8 rạng sáng, commit `45a4eb1`; v1 `e6727fc`)**:
+> `tools/build_campus.py` (85 tile VJU tự vẽ + sinh `campus.json` 96×64). v2 theo góp ý thầy đêm 26/8:
+> **ao gọn góc đông-bắc sát Dorm** + khu tự học ven ao (~14 chỗ NGỒI ĐƯỢC); **6 phòng học VÀO ĐƯỢC**
+> (GĐ2 12 ghế · GĐ1 pod máy tính · Hội trường 18 ghế bảng đôi · Lab1 · Club/GĐ3/Căng tin có bảng tin
+> CLB + 2 máy bán nước trong phòng · Lab2/Thư viện pod + 10 ghế); 10 whiteboard. Verify selenium
+> 0 lỗi. **Toàn quyền vẽ map cho thầy:** `docs/tile-catalog.png` (danh mục 85 tile + item) +
+> `docs/VE-MAP-GUIDE.md` (2 cách sửa: script hoặc Tiled editor — campus.json mở thẳng bằng Tiled).
+> **Deep thinking theo đặt hàng thầy:** `bcse-world/docs/THANH-DUONG-MON-HOC.md` (commit `643dd09`) —
+> thánh đường môn học, 4 hoạt cảnh senpai–kohai, quest + ledger bcse-id, P0 chạy tay 0 code ngay
+> tuần định hướng. 🧑‍🏫 **Chờ thầy chốt 3 lựa chọn P0:** môn hall đầu (đề xuất OOP) · giờ (đề xuất
+> tối T3 20h) · hall keeper (= 2 SV owner D16). Việc song song: push GitHub (`gh auth login`) + VM115. Việc song song không phụ thuộc map:
 > push repo GitHub (cần `gh auth login`), SSO bcse-id, chuẩn bị VM115 (cài docker, tăng CPU).
 > Lưu ý sổ sách: quyết định "ẩn dụ lâu đài lên UI" (masterplan §7.2) điều chỉnh thành: lâu đài =
 > ngôn ngữ thiết kế nội bộ; skin thế giới = campus VJU.
