@@ -67,8 +67,11 @@
 > **Cập nhật sáng 26/8:** thầy đổi concept quần đảo → **khuôn viên VJU Hòa Lạc thật** (ảnh tham chiếu
 > `bcse-world/VJU images/`). Đã phác ✅ `bcse-world/docs/map-blueprint.html` (SVG top-down phỏng ảnh
 > toàn cảnh: 6 dãy giảng đường mái xanh, torii đỏ = quảng trường spawn, hồ, nhà kính, nhà hiệu bộ)
-> + `MAP-PLAN.md` (mapping tòa ↔ khu masterplan + kỹ thuật giữ layer names của Game.ts). Phiên tới:
-> build tilemap Tiled `campus.json` theo blueprint (tileset Kenney CC0 + ~30 tile tự vẽ chất VJU).
+> + `MAP-PLAN.md` (mapping tòa ↔ khu masterplan + kỹ thuật giữ layer names của Game.ts). ⏸ **TẠM DỪNG map
+> (26/8): 🧑‍🏫 thầy sẽ TỰ VẼ layout campus cụ thể hơn rồi đưa Claude** — khi có bản vẽ của thầy
+> mới build tilemap Tiled `campus.json` (tileset Kenney CC0 + ~30 tile tự vẽ chất VJU).
+> Trong lúc chờ, việc BCSE World làm được ngay không phụ thuộc map: push repo GitHub (cần
+> `gh auth login`), SSO bcse-id, chuẩn bị VM115 (cài docker, tăng CPU).
 > Lưu ý sổ sách: quyết định "ẩn dụ lâu đài lên UI" (masterplan §7.2) điều chỉnh thành: lâu đài =
 > ngôn ngữ thiết kế nội bộ; skin thế giới = campus VJU.
 
