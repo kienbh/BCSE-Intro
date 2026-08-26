@@ -72,8 +72,12 @@
 > 5510832d… + screenshot + 3 tờ nháp chì). Phiên phân tích ảnh đã chạy: đọc đủ 20/20 ảnh →
 > `bcse-world/docs/CAMPUS-ANALYSIS.md` (2 phân khu thực địa, hồ sơ 8 loại công trình + nội thất
 > 4 phòng, bảng màu hex, spec 30 tile, kế hoạch Tiled 96×64) + `map-blueprint.html` **v2** vẽ lại
-> đúng sơ đồ thầy (commit `6d92e46`). **Việc kế tiếp trục map: build tilemap `campus.json`**
-> (3 câu hỏi §8 ✅ thầy chốt 26/8 đêm: torii spawn mép sân chào cờ · Club = bảng tin CLB · v1 2 dorm). Việc song song không phụ thuộc map:
+> đúng sơ đồ thầy (commit `6d92e46`). ✅ **MAP CAMPUS v1 ĐÃ BUILD & CHẠY (26/8 khuya, commit `e6727fc`)**:
+> `tools/build_campus.py` vẽ 85 tile VJU + sinh `campus.json` 96×64 đúng sơ đồ thầy (3 quyết định
+> đã chốt: torii spawn · Club bảng tin CLB · 2 dorm); GĐ1 cutaway classroom pod bàn ghế + 3 máy tính;
+> 3 whiteboard (bảng lớp · "Tuần này" · CLB) + 2 máy bán nước; verify selenium 0 lỗi console,
+> spawn + di chuyển OK; preview `docs/campus-preview.png`. **Việc kế tiếp trục map (v2):** nội thất
+> các tòa còn lại, Dom 3–6 custom room, NPC/bảng tương tác mở app thật. Việc song song không phụ thuộc map:
 > push repo GitHub (cần `gh auth login`), SSO bcse-id, chuẩn bị VM115 (cài docker, tăng CPU).
 > Lưu ý sổ sách: quyết định "ẩn dụ lâu đài lên UI" (masterplan §7.2) điều chỉnh thành: lâu đài =
 > ngôn ngữ thiết kế nội bộ; skin thế giới = campus VJU.
