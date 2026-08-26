@@ -24,7 +24,7 @@
   - Quyết định thầy: **cổng dịch vụ thuần sinh viên** — bỏ role switcher (SV/GV/CBQL), app tiện ích tự nói công dụng nên KHÔNG ép chia theo năm.
   - Mặc định "Dịch vụ" (theo nhóm như cũ); "🗺 Bản đồ 4 năm" (journey 5 chặng + lời dẫn 3 thứ tiếng) thành chế độ xem phụ; app coming-soon gom mục "Sắp ra mắt".
   - Thêm trường `audience` (student/faculty/staff) gán tay 20 app — E-Office thuần GV/CBQL ẩn khỏi trang; audience để dành cho dashboard bcse-id lọc tự động sau login (N2).
-- [ ] **D7 · Nghỉ / buffer / việc nền** (xem Backlog).
+- [x] **D7 · Buffer** ✅ (26/8) — dùng chạy checklist **KHUNG-135** sau khi thầy lưu 2 skill khung + chốt nguyên tắc **2 khung SONG HÀNH** (landing & Tracker theo cohort): tách `curriculum-152/135.ts`, toggle 2 khung tại `/curriculum` (mặc định Khung 2026), hero/stats/contact/services ghi cả hai khung ×3 thứ tiếng, sửa 4 chỗ "146" sai trong skill `bcse-clo-de-cuong`. Commit `90437160` push + **deploy sv08 LIVE, verify công khai** (marker 7480101/CSE3069/CSE3041/Khung 2026). Còn treo việc riêng: sv18 mapping khung 135 theo cohort (cần trước khi K2026 có điểm), bcse-id mốc TC theo cohort — xem `docs/KHUNG-135-TODO.md`.
 
 ## TUẦN 2 (1–7/9) — Nhịp tim SV08 + chuẩn bị onboarding
 
@@ -33,7 +33,7 @@
 - [ ] **D10 · Nạp lịch Fall 2026 thật** — 🧑‍🏫 *thầy cung cấp*: lịch kỳ, mốc HD483/CSE4001, mốc KLTN, lịch cố vấn → Claude nhập vào data lịch tĩnh. *DoD: nội dung tuần nào cũng có ít nhất 1 mốc thật.*
 - [x] **D11 · ~~Cấp bcse-id hàng loạt~~ — KHÔNG CẦN** (đính chính thầy 27/8): bcse-id tự định danh khi SV đăng nhập Google VJU lần đầu, hồ sơ đi kèm sẵn. Việc còn lại gộp vào D12: hướng dẫn "đăng nhập lần đầu" trong gói định hướng. Bonus 27/8: id.bcse-vju.com đã gắn Umami (website `3849789c`) — từ giờ đo được lượt đăng nhập SSO.
 - [~] **D12 · Gói tuần định hướng** — ✅ draft (25/8): `docs/onboarding-2026/goi-dinh-huong.html` + `.pdf` (A4 2 trang). ⏸ **GÁC LẠI theo quyết định thầy 25/8**: hoàn thiện toàn hệ trước, thầy tự làm hướng dẫn sau. Placeholder khi quay lại: tên bài Arena nhập môn (khớp A1), email hỗ trợ.
-- [~] **D13 · Mobile pass SV08** — ✅ pass tự động 390×844 (25/8): sv08 (hero/services/careers/footer), id login+home, Pulse — **0 tràn ngang, layout đẹp**. 🔴 **Bắt & sửa sự cố**: bcse-id MẤT CSS toàn site từ deploy cohort 09:26 (thiếu bước copy `.next/static` → `.next/standalone/.next/` sau build) — đã fix trên VM108 + vá `deploy_bcse_id_cohort_stats.py` chống tái diễn. 2 quan sát cho thầy: (a) trang chủ sv08 dài ~34 màn hình mobile — cân nhắc rút gọn; (b) hero sv08 ghi "**152 tín chỉ**" nhưng tài liệu CTĐT ghi **146 TC** — số nào đúng? Còn lại: 🧑‍🏫 thầy thử flow login Google thật trên điện thoại (không tự động hóa được).
+- [~] **D13 · Mobile pass SV08** — ✅ pass tự động 390×844 (25/8): sv08 (hero/services/careers/footer), id login+home, Pulse — **0 tràn ngang, layout đẹp**. 🔴 **Bắt & sửa sự cố**: bcse-id MẤT CSS toàn site từ deploy cohort 09:26 (thiếu bước copy `.next/static` → `.next/standalone/.next/` sau build) — đã fix trên VM108 + vá `deploy_bcse_id_cohort_stats.py` chống tái diễn. 2 quan sát cho thầy: (a) trang chủ sv08 dài ~34 màn hình mobile — cân nhắc rút gọn; (b) ~~hero sv08 ghi "152 tín chỉ" vs tài liệu 146 TC~~ → ✅ giải quyết 26/8: 146 là số SAI; 2 khung song hành, hero ghi cả hai (135 từ K2026 · khóa cũ 152). Còn lại: 🧑‍🏫 thầy thử flow login Google thật trên điện thoại (không tự động hóa được).
 - [ ] **D14 · Tổng duyệt + buffer.**
 
 ## TUẦN ĐỊNH HƯỚNG (~8/9) — 🧑‍🏫 việc của thầy, Claude standby sửa nóng
