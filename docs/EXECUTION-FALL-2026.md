@@ -100,6 +100,13 @@
 - [ ] A4 · "Tuần này" v2: nối API thật đầu tiên — deadline Arena (lực kéo mạnh nhất)
 - [~] A5 · `/api/health` trả git SHA: ✅ LIVE cả 5/5 Core (verify public 27/8; sv18 miễn auth cho health; sha="unknown" đến khi B8 ghi VERSION lúc deploy) — còn: panel so sánh local↔origin↔server trên sv05
 - [ ] A6 · Kokoro phân phối mùa thi: banner SV08 + 1 dòng gợi ý trong phiếu cố vấn Tracker (N9)
+- [ ] A7 · **sv02 tái thiết kế thành LANDING HỌC VỤ** (quyết định thầy 27/8, thay vai Advisor): thông tin
+      + tips + khung 152/135 (từ 2 skill khung) + điều kiện học phần + **đọc data sv18** (tích lũy TC,
+      đề nghị đăng ký — sv18 có sẵn /student + logic tư vấn). Bước 1: mockup cho thầy duyệt;
+      cập nhật COMPASS-DESIGN.md theo hướng mới.
+- [ ] A8b · **Thu hồi sv01** (quyết định thầy 27/8): 🧑‍🏫 thầy báo GV đang dùng → backup app GV
+      (tar + DB, app không có repo local) → format VM101 về trạng thái sạch → đổi monitor Kuma.
+      KHÔNG format trước khi có backup + GV đã được báo.
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
 - [x] B1–B6 · Git đợt 2 ✅ (24/8 batch): 12 repo mới lên GitHub private (lambda-codex, delta/hygieia-platform+landing, kiensensei-lms, demeter-codex, hygieia-food-health, xuathoadon, ai-career-trends, aurabrew-v1/-backend/-ver2-be). Phát hiện: bcse-advisor có repo git LỒNG BÊN TRONG (`bcse-advisor/bcse-advisor`, remote kienbh/bcse-advisor, master **behind 8** so origin — WIP 14 file đã bảo toàn ở nhánh `local-wip-2026-08-24`, cần thầy hợp nhất). Bỏ qua: `BCSE LAB MANAGEMENT` (rỗng), `qdrant` (data dir).
