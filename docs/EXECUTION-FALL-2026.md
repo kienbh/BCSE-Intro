@@ -72,7 +72,13 @@
 > 5510832d… + screenshot + 3 tờ nháp chì). Phiên phân tích ảnh đã chạy: đọc đủ 20/20 ảnh →
 > `bcse-world/docs/CAMPUS-ANALYSIS.md` (2 phân khu thực địa, hồ sơ 8 loại công trình + nội thất
 > 4 phòng, bảng màu hex, spec 30 tile, kế hoạch Tiled 96×64) + `map-blueprint.html` **v2** vẽ lại
-> đúng sơ đồ thầy (commit `6d92e46`). ✅ **MAP CAMPUS v2 BUILD & CHẠY (27/8 rạng sáng, commit `45a4eb1`; v1 `e6727fc`)**:
+> đúng sơ đồ thầy (commit `6d92e46`). ✅ **BCSE WORLD DEPLOY LIVE sv15 (27/8): [sv15.bcse-vju.com](https://sv15.bcse-vju.com)** — campus VJU 2D
+> công khai, WSS qua CF Tunnel OK (selenium remote join lobby thật). Kiến trúc 1-process (Colyseus
+> serve luôn client tĩnh). Gotcha: build node_modules prod-only ở local (bcryptjs pure-JS) upload
+> thẳng vì colyseus 0.14 kéo mongoose metadata làm npm treo trên VM 1-CPU. Guild freeze. Kuma+Umami
+> đã gắn. Việc tiếp World (v3): nội thất các tòa, NPC/bảng mở app, Dom 3–6 phòng lớp.
+>
+✅ **MAP CAMPUS v2 BUILD & CHẠY (27/8 rạng sáng, commit `45a4eb1`; v1 `e6727fc`)**:
 > `tools/build_campus.py` (85 tile VJU tự vẽ + sinh `campus.json` 96×64). v2 theo góp ý thầy đêm 26/8:
 > **ao gọn góc đông-bắc sát Dorm** + khu tự học ven ao (~14 chỗ NGỒI ĐƯỢC); **6 phòng học VÀO ĐƯỢC**
 > (GĐ2 12 ghế · GĐ1 pod máy tính · Hội trường 18 ghế bảng đôi · Lab1 · Club/GĐ3/Căng tin có bảng tin
