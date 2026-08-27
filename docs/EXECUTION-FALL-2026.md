@@ -104,9 +104,11 @@
       + tips + khung 152/135 (từ 2 skill khung) + điều kiện học phần + **đọc data sv18** (tích lũy TC,
       đề nghị đăng ký — sv18 có sẵn /student + logic tư vấn). Bước 1: mockup cho thầy duyệt;
       cập nhật COMPASS-DESIGN.md theo hướng mới.
-- [ ] A8b · **Thu hồi sv01** (quyết định thầy 27/8): 🧑‍🏫 thầy báo GV đang dùng → backup app GV
-      (tar + DB, app không có repo local) → format VM101 về trạng thái sạch → đổi monitor Kuma.
-      KHÔNG format trước khi có backup + GV đã được báo.
+- [x] A8b · **Thu hồi sv01 + reset sv11** ✅ (27/8, GV đã được thầy báo): backup đủ về
+      `Server Management\backups\reset-20260827\` (app GV 73MB + mongo; review-hub 142MB +
+      pg_dump QA 480KB) → pm2/mongod/postgres/minio/litellm-tunnel dọn sạch → 2 VM TRỐNG serve
+      trang "cổng trống" (verify công khai) → Kuma đổi tên "SVxx (trống — chờ app mới)".
+      Script: `reset_sv01_sv11.py`. Gotcha: sv11 chỉ SSH được bằng key bcse_master.
 
 ### Backlog B — việc nền (ngày trống mới làm, mỗi lần 1 mục)
 - [x] B1–B6 · Git đợt 2 ✅ (24/8 batch): 12 repo mới lên GitHub private (lambda-codex, delta/hygieia-platform+landing, kiensensei-lms, demeter-codex, hygieia-food-health, xuathoadon, ai-career-trends, aurabrew-v1/-backend/-ver2-be). Phát hiện: bcse-advisor có repo git LỒNG BÊN TRONG (`bcse-advisor/bcse-advisor`, remote kienbh/bcse-advisor, master **behind 8** so origin — WIP 14 file đã bảo toàn ở nhánh `local-wip-2026-08-24`, cần thầy hợp nhất). Bỏ qua: `BCSE LAB MANAGEMENT` (rỗng), `qdrant` (data dir).
