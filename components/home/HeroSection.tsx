@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative min-h-screen overflow-hidden bg-slate-950"
+      className="relative min-h-screen overflow-hidden bg-bg"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -79,7 +79,7 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 flex min-h-screen items-center px-5 sm:px-8 lg:px-12">
+      <div className="on-media relative z-10 flex min-h-screen items-center px-5 sm:px-8 lg:px-12">
         <div className="w-full max-w-7xl mx-auto pt-24 pb-24 animate-fade-in">
           <div className="max-w-3xl">
             <div className="mb-6 inline-flex items-center gap-3">
@@ -90,7 +90,7 @@ export default function HeroSection() {
             </div>
 
             <h1
-              className="mb-5 font-sans text-[4.6rem] font-extrabold leading-[0.86] text-white drop-shadow-[0_24px_70px_rgba(0,0,0,0.45)] sm:text-[6.2rem] md:text-[7.4rem] lg:text-[8.2rem]"
+              className="mb-5 font-sans text-[4.6rem] font-extrabold leading-[0.86] text-ink drop-shadow-[0_24px_70px_rgba(0,0,0,0.45)] sm:text-[6.2rem] md:text-[7.4rem] lg:text-[8.2rem]"
               style={{ letterSpacing: '0' }}
             >
               <span className="gold-shine-text" data-text="BCSE">
@@ -98,7 +98,7 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="max-w-3xl text-2xl font-semibold leading-tight text-white sm:text-3xl md:text-4xl" style={{ letterSpacing: '0' }}>
+            <p className="max-w-3xl text-2xl font-semibold leading-tight text-ink sm:text-3xl md:text-4xl" style={{ letterSpacing: '0' }}>
               {t('hero.title1')}{' '}
               <span className="bg-gradient-to-r from-amber-200 to-orange-300 bg-clip-text text-transparent">
                 {t('hero.title2')}
@@ -118,7 +118,7 @@ export default function HeroSection() {
               )}
             </p>
 
-            <p className="mt-5 max-w-2xl text-base font-normal leading-8 text-slate-300 md:text-lg">
+            <p className="mt-5 max-w-2xl text-base font-normal leading-8 text-ink-3 md:text-lg">
               {t('hero.tagline')}
             </p>
 
@@ -126,7 +126,7 @@ export default function HeroSection() {
               {t('hero.bullets').split('•').map((item) => (
                 <span
                   key={item.trim()}
-                  className="rounded-full border border-white/10 bg-white/[0.045] px-3 py-1.5 text-xs font-medium text-slate-300 backdrop-blur-sm"
+                  className="rounded-full border border-line/10 bg-fill/[0.045] px-3 py-1.5 text-xs font-medium text-ink-3 backdrop-blur-sm"
                 >
                   {item.trim()}
                 </span>
@@ -142,7 +142,7 @@ export default function HeroSection() {
               </a>
               <Link
                 href="/contact"
-                className="px-8 py-3.5 text-sm font-semibold rounded-xl border border-white/15 bg-white/[0.035] text-white/90 backdrop-blur-md transition-all hover:border-amber-300/50 hover:bg-amber-300/[0.08] hover:text-amber-100"
+                className="px-8 py-3.5 text-sm font-semibold rounded-xl border border-line/15 bg-fill/[0.035] text-ink/90 backdrop-blur-md transition-all hover:border-amber-300/50 hover:bg-amber-300/[0.08] hover:text-amber-100"
               >
                 {t('hero.ctaSecondary')}
               </Link>
@@ -157,7 +157,7 @@ export default function HeroSection() {
                   onClick={() => setIdx(i)}
                   aria-label={`Slide ${i + 1}`}
                   className={`h-1 rounded-full transition-all ${
-                    i === idx ? 'w-9 bg-gradient-to-r from-amber-300 to-sky-300' : 'w-1.5 bg-white/20 hover:bg-white/40'
+                    i === idx ? 'w-9 bg-gradient-to-r from-amber-300 to-sky-300' : 'w-1.5 bg-fill/20 hover:bg-fill/40'
                   }`}
                 />
               ))}

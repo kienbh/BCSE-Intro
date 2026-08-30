@@ -28,7 +28,7 @@
 
 ## TUẦN 2 (1–7/9) — Nhịp tim SV08 + chuẩn bị onboarding
 
-- [~] **D8 · SV08 login** — ⚙ QUYẾT ĐỊNH KIẾN TRÚC (26/8, chờ thầy xác nhận): SV08 là site TĨNH (`output: export`) không làm OIDC server-side được. Chọn **hướng B**: hub cá nhân hóa đặt tại **dashboard bcse-id** (Next.js, đã có session + registry apps.ts + audience field); SV08 giữ tĩnh, thêm nút "Đăng nhập" → id.bcse-vju.com (✅ đã code + build, chờ deploy). Ưu điểm: không phải chuyển kiến trúc SV08, tái dùng dashboard có sẵn, phân vai tự động sau login.
+- [x] **D8 · SV08 login** ✅ (chốt sổ 29/8 — thực tế đã LIVE từ deploy 26/8) — ⚙ hướng B: hub cá nhân hóa tại **dashboard bcse-id**; SV08 giữ tĩnh, nút "Đăng nhập" → id.bcse-vju.com. Verify công khai 29/8: navbar desktop có `<a href="https://id.bcse-vju.com">Đăng nhập</a>` trong HTML tĩnh + bản mobile menu trong bundle (Navbar.tsx:62/105) — nút đã đi kèm deploy khung-135 26/8, sổ chưa tick. Ưu điểm giữ nguyên: không chuyển kiến trúc SV08, tái dùng dashboard, phân vai tự động sau login.
 - [x] **D9 · "Tuần này của bạn" v1** ✅ (27/8, LIVE trên id.bcse-vju.com) — widget trong dashboard bcse-id (hướng B): lịch tĩnh `src/data/week-calendar.ts` (6 mốc seed Fall 2026, lọc theo cohort, badge "Cần làm", link đúng app), chỉ hiện cho role student. Mốc HD483/KLTN đang là "(dự kiến)" — 🧑‍🏫 thầy chốt tuần trong 1 file duy nhất `week-calendar.ts` (hoặc điền HD483-TIMELINE.md rồi Claude đổ vào). Deploy: mini-sync 3 file + pnpm build + pm2 reload (bcse-id chạy port 3010, VM108).
 - [ ] **D10 · Nạp lịch Fall 2026 thật** — 🧑‍🏫 *thầy cung cấp*: lịch kỳ, mốc HD483/CSE4001, mốc KLTN, lịch cố vấn → Claude nhập vào data lịch tĩnh. *DoD: nội dung tuần nào cũng có ít nhất 1 mốc thật.*
 - [x] **D11 · ~~Cấp bcse-id hàng loạt~~ — KHÔNG CẦN** (đính chính thầy 27/8): bcse-id tự định danh khi SV đăng nhập Google VJU lần đầu, hồ sơ đi kèm sẵn. Việc còn lại gộp vào D12: hướng dẫn "đăng nhập lần đầu" trong gói định hướng. Bonus 27/8: id.bcse-vju.com đã gắn Umami (website `3849789c`) — từ giờ đo được lượt đăng nhập SSO.
@@ -129,6 +129,15 @@
   - B12.3 · Tái sử dụng 2 VM giải phóng: (a) **VM staging + CI runner** cho 5 app Core (hiện deploy thẳng prod — gốc của "chưa ổn định"), (b) VM backup tập trung (pg_dump hằng đêm + Drive sync). KHÔNG build app SV mới trước triage tháng 10.
 
 ## 🧭 MÓN CHỐT HẠ — BCSE Compass (sv02) · *sau MASTERPLAN "lâu đài" + triage tháng 10*
+
+> ✅ **v1 ĐÃ BUILD (27/8 tối)** — repo `d:\files\bcse-compass`, Next.js 14, build PASS.
+> SSO bcse-id (client `sv02-compass`) + session JWT stateless (không DB, đúng §50) + **cắm hồ sơ
+> bảng điểm cá nhân từ SV18** qua cầu nối service-token (verify roundtrip đã test OK) + bản đồ hành
+> trình 8 kỳ 2 khung (135/152 theo cohort, data chuẩn từ `curriculum-*.ts`) + gợi ý môn kỳ tới +
+> chặng tốt nghiệp + nhịp tiến bộ + launcher 6 cổng + Hỏi la bàn. Đã sửa Tracker (compass_bridge +
+> /api/me/summary) + đăng ký apps.ts bcse-id. **Preview UI:** artifact (link trong phiên chat 27/8).
+> **Còn lại = DEPLOY** (VM102 + OidcClient + secret Tracker) — checklist `bcse-compass/DEPLOY.md`.
+> Chi tiết trạng thái: memory `sv02-compass-development`.
 
 > **Cập nhật thầy 25/8 (tối):** Compass chuyển **sv04 → sv02** — tái định nghĩa cổng AI Advisor theo
 > concept Compass, kế thừa VM102 + chatbot RAG (thành tính năng "Hỏi la bàn"). Compass = **hub chính

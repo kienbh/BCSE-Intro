@@ -31,7 +31,7 @@ export default function StudentProjectsSection() {
   const filtered = matched.slice(0, 6);
 
   return (
-    <section className="section-padding bg-slate-900/50">
+    <section className="section-padding bg-surface/50">
       <div className="container-max">
         <SectionTitle
           title={t('section.projects')}
@@ -47,7 +47,7 @@ export default function StudentProjectsSection() {
                 className={`px-4 py-1.5 text-xs rounded-full transition-all ${
                   active === tag
                     ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                    : 'text-slate-500 hover:text-slate-300 border border-white/5 hover:border-white/15'
+                    : 'text-ink-5 hover:text-ink-3 border border-line/5 hover:border-line/15'
                 }`}
               >
                 {tag === 'all' ? 'All' : tag}
@@ -60,16 +60,16 @@ export default function StudentProjectsSection() {
               <GlassCard key={p.id}>
                 <div className="flex items-start gap-2 mb-3">
                   <Users className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                  <h3 className="text-sm font-bold text-white leading-tight">{p.title}</h3>
+                  <h3 className="text-sm font-bold text-ink leading-tight">{p.title}</h3>
                 </div>
-                <p className="text-xs text-slate-300 mb-1"><span className="text-slate-500">SV:</span> {p.students}</p>
-                <p className="hidden sm:block text-xs text-slate-300 mb-3"><span className="text-slate-500">HD:</span> {p.supervisors}</p>
-                <p className="text-xs text-slate-400 leading-relaxed mb-3 line-clamp-2 sm:line-clamp-none">{p.summary}</p>
+                <p className="text-xs text-ink-3 mb-1"><span className="text-ink-5">SV:</span> {p.students}</p>
+                <p className="hidden sm:block text-xs text-ink-3 mb-3"><span className="text-ink-5">HD:</span> {p.supervisors}</p>
+                <p className="text-xs text-ink-4 leading-relaxed mb-3 line-clamp-2 sm:line-clamp-none">{p.summary}</p>
                 <div className="flex flex-wrap gap-1">
                   {p.tags.map((t) => (
                     <span
                       key={t}
-                      className={`text-[10px] px-2 py-0.5 rounded-full border ${tagColors[t] || 'bg-white/5 text-slate-400 border-white/10'}`}
+                      className={`text-[10px] px-2 py-0.5 rounded-full border ${tagColors[t] || 'bg-fill/5 text-ink-4 border-line/10'}`}
                     >
                       {t}
                     </span>

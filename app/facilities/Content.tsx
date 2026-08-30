@@ -18,8 +18,8 @@ export default function FacilitiesContent() {
 
           <div className="space-y-8 mb-16">
             {rooms.map((room) => (
-              <div key={room.id} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
-                <div className="flex h-48 w-full flex-shrink-0 items-center justify-center rounded-xl bg-slate-950/55 p-3 md:w-64">
+              <div key={room.id} className="flex flex-col md:flex-row gap-6 p-6 rounded-2xl bg-surface-2/40 border border-line/[0.06]">
+                <div className="flex h-48 w-full flex-shrink-0 items-center justify-center rounded-xl bg-bg/55 p-3 md:w-64">
                   <ImagePlaceholder
                     src={room.image}
                     alt={room.name}
@@ -28,14 +28,14 @@ export default function FacilitiesContent() {
                   />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-white">{room.name}</h3>
+                  <h3 className="text-xl font-bold text-ink">{room.name}</h3>
                   <p className="text-sm text-sky-400 mb-2">
                     {[room.location, room.building].filter(Boolean).join(' — ')}
                   </p>
-                  <p className="text-sm text-slate-400 mb-4">{room.description}</p>
+                  <p className="text-sm text-ink-4 mb-4">{room.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {room.specs.map((s) => (
-                      <span key={s} className="text-xs px-3 py-1 rounded-lg bg-white/5 text-slate-400">{s}</span>
+                      <span key={s} className="text-xs px-3 py-1 rounded-lg bg-fill/5 text-ink-4">{s}</span>
                     ))}
                   </div>
                 </div>
@@ -43,11 +43,11 @@ export default function FacilitiesContent() {
             ))}
           </div>
 
-          <h3 className="text-xl font-bold text-white mb-6">{t('facilities.equipment')}</h3>
+          <h3 className="text-xl font-bold text-ink mb-6">{t('facilities.equipment')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {equipmentCategories.map((cat) => (
-              <div key={cat.id} className="p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06]">
-                <div className="relative w-full aspect-[16/10] rounded-xl mb-4 overflow-hidden bg-slate-950/55 p-4">
+              <div key={cat.id} className="p-6 rounded-2xl bg-surface-2/40 border border-line/[0.06]">
+                <div className="relative w-full aspect-[16/10] rounded-xl mb-4 overflow-hidden bg-bg/55 p-4">
                   <ImagePlaceholder
                     src={cat.image}
                     alt={cat.name}
@@ -55,11 +55,11 @@ export default function FacilitiesContent() {
                     className="h-full w-full object-contain"
                   />
                 </div>
-                <h4 className="text-base font-bold text-white mb-1">{cat.name}</h4>
-                <p className="text-xs text-slate-400 mb-3">{cat.description}</p>
+                <h4 className="text-base font-bold text-ink mb-1">{cat.name}</h4>
+                <p className="text-xs text-ink-4 mb-3">{cat.description}</p>
                 <ul className="space-y-1.5">
                   {cat.items.map((item, i) => (
-                    <li key={i} className="text-xs text-slate-500 flex items-center gap-2">
+                    <li key={i} className="text-xs text-ink-5 flex items-center gap-2">
                       <span className="w-1 h-1 rounded-full bg-sky-500/40" />
                       {item.name}{item.count ? ` (${item.count})` : ''}{item.specs ? ` — ${item.specs}` : ''}
                     </li>

@@ -36,7 +36,7 @@ export default function StatCounter({ value, suffix = '', label, icon }: StatCou
       <div className="text-4xl md:text-5xl font-display font-bold text-sky-400 mb-1">
         {displayed}{suffix}
       </div>
-      <div className="text-sm text-slate-400">{label}</div>
+      <div className="text-sm text-ink-4">{label}</div>
     </div>
   );
 }

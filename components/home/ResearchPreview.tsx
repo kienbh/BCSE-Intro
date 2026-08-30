@@ -36,11 +36,11 @@ export default function ResearchPreview() {
                   className="w-12 h-12 rounded-xl object-contain"
                 />
                 <div>
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <h3 className="text-lg font-bold text-ink flex items-center gap-2">
                     {lambdaLab.name}
-                    <span className="text-sm font-normal text-slate-500">— {lambdaLab.fullName}</span>
+                    <span className="text-sm font-normal text-ink-5">— {lambdaLab.fullName}</span>
                   </h3>
-                  <p className="text-sm text-slate-400">{lambdaLab.tagline}</p>
+                  <p className="text-sm text-ink-4">{lambdaLab.tagline}</p>
                 </div>
               </div>
               <ExternalLink className="w-5 h-5 text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -61,12 +61,12 @@ export default function ResearchPreview() {
                   topicCount={area.topics.length}
                   className="w-full h-32 rounded-xl mb-4 hidden sm:block"
                 />
-                <h3 className="text-sm font-bold text-white mb-1">{area.name}</h3>
+                <h3 className="text-sm font-bold text-ink mb-1">{area.name}</h3>
                 <p className="text-xs text-sky-400 mb-2">{area.supervisors.join(', ')}</p>
-                <p className="text-xs text-slate-500 mb-3 line-clamp-2 sm:line-clamp-none">{area.description}</p>
+                <p className="text-xs text-ink-5 mb-3 line-clamp-2 sm:line-clamp-none">{area.description}</p>
                 <div className="flex flex-wrap gap-1">
                   {area.topics.slice(0, 3).map((t) => (
-                    <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-500">{t}</span>
+                    <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-5">{t}</span>
                   ))}
                 </div>
               </GlassCard>
@@ -76,11 +76,11 @@ export default function ResearchPreview() {
 
         {/* Recent Publications */}
         <ScrollReveal>
-          <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.04]">
+          <div className="p-6 rounded-2xl bg-fill/[0.02] border border-line/[0.04]">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
                 <FileText className="w-5 h-5 text-sky-400" />
-                <h3 className="text-sm font-semibold text-white">Recent Publications</h3>
+                <h3 className="text-sm font-semibold text-ink">Recent Publications</h3>
               </div>
               <a
                 href={lambdaLab.url}
@@ -94,8 +94,8 @@ export default function ResearchPreview() {
             <div className="space-y-3">
               {publications.map((pub, i) => (
                 <div key={i} className={`text-xs ${i >= 3 ? 'hidden sm:block' : ''}`}>
-                  <p className="text-slate-300">{pub.title}</p>
-                  <p className="text-slate-500">{pub.authors} — <span className="text-sky-500">{pub.venue}</span> ({pub.year})</p>
+                  <p className="text-ink-3">{pub.title}</p>
+                  <p className="text-ink-5">{pub.authors} — <span className="text-sky-500">{pub.venue}</span> ({pub.year})</p>
                 </div>
               ))}
             </div>

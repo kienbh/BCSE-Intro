@@ -33,23 +33,23 @@ export default function CurriculumPreview() {
               return (
                 <div
                   key={block.year}
-                  className={`rounded-2xl border ${c.border} bg-slate-800/40 p-6 hover:bg-slate-800/60 transition-colors`}
+                  className={`rounded-2xl border ${c.border} bg-surface-2/40 p-6 hover:bg-surface-2/60 transition-colors`}
                 >
                   <div className={`inline-flex items-center justify-center w-10 h-10 rounded-xl ${c.bg} mb-4`}>
                     <span className={`font-display font-bold ${c.accent}`}>{block.year}</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-0.5">{block.title}</h3>
-                  <p className="text-xs text-slate-500 font-mono mb-3">{block.titleEN}</p>
-                  <p className="text-xs text-slate-400 mb-4">{block.theme}</p>
+                  <h3 className="text-lg font-bold text-ink mb-0.5">{block.title}</h3>
+                  <p className="text-xs text-ink-5 font-mono mb-3">{block.titleEN}</p>
+                  <p className="text-xs text-ink-4 mb-4">{block.theme}</p>
                   <ul className="space-y-1.5">
                     {previewSubjects.map((h, i) => (
-                      <li key={i} className="text-xs text-slate-500 flex items-start gap-2">
+                      <li key={i} className="text-xs text-ink-5 flex items-start gap-2">
                         <span className={`w-1 h-1 rounded-full ${c.bg} mt-1.5 flex-shrink-0`} />
                         {h}
                       </li>
                     ))}
                     {block.semesters[0]?.required.length > 4 && (
-                      <li className="text-xs text-slate-600">+{block.semesters[0].required.length - 4} môn khác...</li>
+                      <li className="text-xs text-ink-6">+{block.semesters[0].required.length - 4} môn khác...</li>
                     )}
                   </ul>
                 </div>

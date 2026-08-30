@@ -50,7 +50,7 @@ export default function ImagePlaceholder({
     return (
       <div
         className={cn(
-          'flex items-center justify-center bg-gradient-to-br from-sky-600 to-indigo-600 text-white font-bold',
+          'flex items-center justify-center bg-gradient-to-br from-sky-600 to-indigo-600 text-ink font-bold',
           className,
         )}
         style={{ width, height }}
@@ -63,12 +63,12 @@ export default function ImagePlaceholder({
   return (
     <div
       className={cn(
-        'flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900',
+        'flex items-center justify-center bg-gradient-to-br from-surface-2 to-surface',
         className,
       )}
       style={{ width, height }}
     >
-      <Icon className="w-10 h-10 text-white/20" />
+      <Icon className="w-10 h-10 text-ink/20" />
     </div>
   );
 }

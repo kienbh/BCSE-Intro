@@ -15,10 +15,10 @@ const themeScript = `
   try {
     var t = localStorage.getItem('theme') || 'dark';
     var l = localStorage.getItem('lang') || 'vi';
-    document.documentElement.classList.add(t);
+    document.documentElement.setAttribute('data-theme', t);
     document.documentElement.lang = l;
   } catch (e) {
-    document.documentElement.classList.add('dark');
+    document.documentElement.setAttribute('data-theme', 'dark');
   }
 })();
 `;

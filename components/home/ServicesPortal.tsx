@@ -52,12 +52,12 @@ export default function ServicesPortal() {
                       </span>
                     )}
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">{name}</h3>
-                  <p className="text-xs text-slate-500 mb-3 line-clamp-2 sm:line-clamp-none">{description}</p>
+                  <h3 className="text-sm font-bold text-ink mb-1">{name}</h3>
+                  <p className="text-xs text-ink-5 mb-3 line-clamp-2 sm:line-clamp-none">{description}</p>
                   {/* Bullet chi tiết ẩn trên mobile — ít chữ, giữ cỡ chữ đọc được */}
                   <ul className="hidden sm:block space-y-1 mb-4">
                     {features.slice(0, 3).map((f) => (
-                      <li key={f} className="text-[11px] text-slate-600 flex items-center gap-1.5">
+                      <li key={f} className="text-[11px] text-ink-6 flex items-center gap-1.5">
                         <span className="w-1 h-1 rounded-full bg-sky-500/40" />
                         {f}
                       </li>

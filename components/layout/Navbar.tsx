@@ -13,7 +13,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t, lang } = useLang();
-  const loginLabel = lang === 'vi' ? 'Đăng nhập' : lang === 'ja' ? 'ログイン' : 'Sign in';
+  // SV08 là CỬA VÀO cả hệ sinh thái (entrance hub), không tự xử lý đăng nhập —
+  // nút dẫn sang bcse-id (SSO chung). Nhãn nói "vào hệ", không phải "đăng nhập".
+  const enterLabel = lang === 'vi' ? 'Vào hệ BCSE' : lang === 'ja' ? 'BCSEに入る' : 'Enter BCSE';
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -26,7 +28,7 @@ export default function Navbar() {
       className={cn(
         'fixed top-0 w-full z-50 transition-all duration-300',
         scrolled
-          ? 'bg-slate-900/95 backdrop-blur-xl border-b border-white/[0.06] shadow-lg'
+          ? 'bg-surface/95 backdrop-blur-xl border-b border-line/[0.06] shadow-lg'
           : 'bg-transparent',
       )}
     >
@@ -40,7 +42,7 @@ export default function Navbar() {
             />
             <div className="flex flex-col leading-tight">
               <span className="font-display font-bold text-2xl text-sky-400">BCSE</span>
-              <span className="text-[11px] text-slate-400 hidden sm:inline">Vietnam Japan University — ĐHQGHN</span>
+              <span className="text-[11px] text-ink-4 hidden sm:inline">Vietnam Japan University — ĐHQGHN</span>
             </div>
           </Link>
 
@@ -49,20 +51,21 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm text-slate-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                className="px-3 py-2 text-sm text-ink-3 hover:text-ink transition-colors rounded-lg hover:bg-fill/5"
               >
                 {t(item.labelKey)}
               </Link>
             ))}
-            <div className="flex items-center gap-1 ml-2 pl-2 border-l border-white/10">
+            <div className="flex items-center gap-1 ml-2 pl-2 border-l border-line/10">
               <LanguageToggle />
               <ThemeToggle />
             </div>
             <a
               href="https://id.bcse-vju.com"
+              title={lang === 'vi' ? 'Đăng nhập bằng tài khoản VJU để vào hệ sinh thái BCSE' : lang === 'ja' ? 'VJUアカウントでBCSEエコシステムへ' : 'Sign in with your VJU account to enter the BCSE ecosystem'}
               className="ml-3 px-4 py-2 text-sm font-semibold border border-sky-400/50 text-sky-300 hover:bg-sky-400/10 rounded-xl transition-colors"
             >
-              {loginLabel}
+              {enterLabel}
             </a>
             <a
               href={ctaButton.href}
@@ -78,7 +81,7 @@ export default function Navbar() {
             <LanguageToggle />
             <ThemeToggle />
             <button
-              className="p-2 text-slate-300 hover:text-white"
+              className="p-2 text-ink-3 hover:text-ink"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
@@ -89,13 +92,13 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden bg-slate-900/98 backdrop-blur-xl border-t border-white/[0.06]">
+        <div className="lg:hidden bg-surface/98 backdrop-blur-xl border-t border-line/[0.06]">
           <div className="px-4 py-4 space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                className="block px-4 py-3 text-ink-3 hover:text-ink hover:bg-fill/5 rounded-lg transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {t(item.labelKey)}
@@ -106,7 +109,7 @@ export default function Navbar() {
               className="block mx-4 mt-3 px-4 py-3 text-center font-semibold border border-sky-400/50 text-sky-300 rounded-xl"
               onClick={() => setMobileOpen(false)}
             >
-              {loginLabel}
+              {enterLabel}
             </a>
             <a
               href={ctaButton.href}

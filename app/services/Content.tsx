@@ -113,14 +113,14 @@ export default function ServicesContent() {
 
           {/* View mode: theo nhóm tiện ích (mặc định) / bản đồ hành trình 4 năm */}
           <div className="mb-6 flex justify-center">
-            <div className="inline-flex rounded-lg border border-white/10 bg-slate-900/60 p-0.5 text-xs">
+            <div className="inline-flex rounded-lg border border-line/10 bg-surface/60 p-0.5 text-xs">
               {(['category', 'journey'] as ViewMode[]).map((m) => (
                 <button
                   key={m}
                   type="button"
                   onClick={() => setViewMode(m)}
                   className={`rounded-md px-4 py-1.5 font-semibold transition ${
-                    viewMode === m ? 'bg-amber-400 text-slate-950' : 'text-slate-400 hover:text-slate-200'
+                    viewMode === m ? 'bg-amber-400 text-slate-950' : 'text-ink-4 hover:text-ink-2'
                   }`}
                 >
                   {m === 'journey'
@@ -134,19 +134,19 @@ export default function ServicesContent() {
           {/* Toolbar: search + status filter */}
           <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="relative flex-1 md:max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-5" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={lang === 'vi' ? 'Tìm dịch vụ…' : lang === 'ja' ? 'サービス検索…' : 'Search services…'}
-                className="w-full rounded-lg border border-white/10 bg-slate-900/60 py-2 pl-9 pr-9 text-sm text-white placeholder:text-slate-500 focus:border-sky-500/40 focus:outline-none"
+                className="w-full rounded-lg border border-line/10 bg-surface/60 py-2 pl-9 pr-9 text-sm text-ink placeholder:text-ink-5 focus:border-sky-500/40 focus:outline-none"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-slate-500 hover:text-slate-300"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-ink-5 hover:text-ink-3"
                   aria-label="clear"
                 >
                   <X className="h-3.5 w-3.5" />
@@ -154,7 +154,7 @@ export default function ServicesContent() {
               )}
             </div>
 
-            <div className="inline-flex rounded-lg border border-white/10 bg-slate-900/60 p-0.5 text-xs">
+            <div className="inline-flex rounded-lg border border-line/10 bg-surface/60 p-0.5 text-xs">
               {(['all', 'active', 'coming-soon'] as StatusFilter[]).map((s) => (
                 <button
                   key={s}
@@ -162,8 +162,8 @@ export default function ServicesContent() {
                   onClick={() => setStatusFilter(s)}
                   className={`rounded-md px-3 py-1.5 font-semibold transition ${
                     statusFilter === s
-                      ? 'bg-sky-500 text-white'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-sky-500 text-ink'
+                      : 'text-ink-4 hover:text-ink-2'
                   }`}
                 >
                   {s === 'all'
@@ -193,13 +193,13 @@ export default function ServicesContent() {
                 onClick={() => setCategoryFilter(c)}
                 label={CATEGORY_META[c][lang]}
                 count={counts.cat[c] ?? 0}
-                activeClass={`${CATEGORY_META[c].chipActive} text-white`}
+                activeClass={`${CATEGORY_META[c].chipActive} text-ink`}
               />
             ))}
           </div>
 
           {/* Result counter */}
-          <p className="mb-4 text-xs text-slate-500">
+          <p className="mb-4 text-xs text-ink-5">
             {filtered.length === 0
               ? lang === 'vi' ? 'Không tìm thấy dịch vụ phù hợp.' : lang === 'ja' ? '該当するサービスがありません。' : 'No services found.'
               : lang === 'vi'
@@ -222,9 +222,9 @@ export default function ServicesContent() {
                       <h2 className={`text-base font-bold tracking-wide ${accent.text}`}>
                         {jm[lang]}
                       </h2>
-                      <span className="text-xs text-slate-500">({group.items.length})</span>
+                      <span className="text-xs text-ink-5">({group.items.length})</span>
                     </div>
-                    <p className="mb-4 ml-12 text-sm italic text-slate-400">
+                    <p className="mb-4 ml-12 text-sm italic text-ink-4">
                       {JOURNEY_INTRO[group.stage][lang]}
                     </p>
                     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -252,12 +252,12 @@ export default function ServicesContent() {
                 <div>
                   <div className="mb-1 flex items-center gap-2">
                     <span className="h-1.5 w-10 rounded-full bg-slate-600" />
-                    <h2 className="text-base font-bold tracking-wide text-slate-400">
+                    <h2 className="text-base font-bold tracking-wide text-ink-4">
                       {lang === 'vi' ? 'Sắp ra mắt & sắp trở lại' : lang === 'ja' ? '近日公開・再開予定' : 'Coming soon & returning'}
                     </h2>
-                    <span className="text-xs text-slate-500">({comingSoon.length})</span>
+                    <span className="text-xs text-ink-5">({comingSoon.length})</span>
                   </div>
-                  <p className="mb-4 ml-12 text-sm italic text-slate-500">
+                  <p className="mb-4 ml-12 text-sm italic text-ink-5">
                     {lang === 'vi'
                       ? 'Những dịch vụ đang ấp ủ — sẽ mở khi có đúng người vận hành và đúng thời điểm.'
                       : lang === 'ja'
@@ -293,7 +293,7 @@ export default function ServicesContent() {
                       <h2 className={`text-sm font-bold uppercase tracking-wider ${meta.text}`}>
                         {meta[lang]}
                       </h2>
-                      <span className="text-xs text-slate-500">({group.items.length})</span>
+                      <span className="text-xs text-ink-5">({group.items.length})</span>
                     </div>
                   )}
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -331,7 +331,7 @@ function CategoryChip({
 }) {
   const base = active
     ? activeClass
-    : 'bg-slate-900/40 text-slate-300 border-white/10 hover:border-white/20';
+    : 'bg-surface/40 text-ink-3 border-line/10 hover:border-line/20';
   return (
     <button
       type="button"
@@ -366,7 +366,7 @@ function ServiceCard({
   const iconText = accent?.text ?? meta.text;
   const hoverBorder = accent?.hoverBorder ?? meta.hoverBorder;
   const bullet = accent?.bullet ?? meta.bullet;
-  const titleClass = accent?.titleClass ?? 'text-white';
+  const titleClass = accent?.titleClass ?? 'text-ink';
   const name = pickLocalized(service.name, lang);
   const description = pickLocalized(service.description, lang);
   const features = pickLocalized(service.features, lang);
@@ -374,7 +374,7 @@ function ServiceCard({
   return (
     <div
       id={anchorId}
-      className={`scroll-mt-24 group relative flex flex-col rounded-xl border border-white/[0.06] bg-slate-800/40 p-4 transition-all ${hoverBorder} ${
+      className={`scroll-mt-24 group relative flex flex-col rounded-xl border border-line/[0.06] bg-surface-2/40 p-4 transition-all ${hoverBorder} ${
         !isActive ? 'opacity-70' : ''
       }`}
     >
@@ -404,7 +404,7 @@ function ServiceCard({
 
       {/* Description — clamped to 2 lines */}
       <p
-        className="mt-3 text-xs leading-snug text-slate-400"
+        className="mt-3 text-xs leading-snug text-ink-4"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: 2,
@@ -417,9 +417,9 @@ function ServiceCard({
 
       {/* Expandable features */}
       {expanded && (
-        <ul className="mt-3 space-y-1 border-t border-white/5 pt-3">
+        <ul className="mt-3 space-y-1 border-t border-line/5 pt-3">
           {features.map((f) => (
-            <li key={f} className="flex items-start gap-2 text-[11px] leading-snug text-slate-500">
+            <li key={f} className="flex items-start gap-2 text-[11px] leading-snug text-ink-5">
               <span className={`mt-1 h-1 w-1 flex-shrink-0 rounded-full ${bullet}`} />
               <span>{f}</span>
             </li>
@@ -432,7 +432,7 @@ function ServiceCard({
         <button
           type="button"
           onClick={onToggleExpand}
-          className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-500 hover:text-slate-300"
+          className="inline-flex items-center gap-1 text-[11px] font-medium text-ink-5 hover:text-ink-3"
         >
           <ChevronDown className={`h-3 w-3 transition-transform ${expanded ? 'rotate-180' : ''}`} />
           {expanded
@@ -450,7 +450,7 @@ function ServiceCard({
             <ExternalLink className="h-3 w-3" />
           </a>
         ) : (
-          <span className="text-[11px] text-slate-600">—</span>
+          <span className="text-[11px] text-ink-6">—</span>
         )}
       </div>
     </div>

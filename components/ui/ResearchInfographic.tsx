@@ -128,8 +128,8 @@ export default function ResearchInfographic({ icon, color, pattern, topicCount, 
         <Icon className={cn('w-12 h-12 drop-shadow-lg', c.icon)} strokeWidth={1.5} />
       </div>
       {topicCount !== undefined && (
-        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-slate-900/70 backdrop-blur-sm border border-white/10">
-          <span className="text-[10px] font-mono text-white">{topicCount} topics</span>
+        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-surface/70 backdrop-blur-sm border border-line/10">
+          <span className="text-[10px] font-mono text-ink">{topicCount} topics</span>
         </div>
       )}
     </div>
