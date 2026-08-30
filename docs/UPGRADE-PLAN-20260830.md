@@ -58,7 +58,7 @@ Front door đang nói sai → mất niềm tin. Đa số là data + vài dòng r
 |---|---|---|---|---|---|
 | 13 | **S1** — **seed tài khoản K2026 lên bcse-id** từ danh sách SV | bcse-id | — | S | ✅ chốt: cần file xlsx của thầy |
 | 14 | **I6** — gói tân SV K2026 (banner "bắt đầu tại đây") | SV08 | F9,F13 | S–M | ✅ sau S1 |
-| 15 | **L1** — SV03 trung thực hóa + đổi thành trang chỉ đường "email tới GV theo định hướng" | SV03 | — | S | ✅ chốt: KHÔNG mở đợt tuyển mùa |
+| 15 | **L1** — SV03 trung thực hóa + đổi thành trang chỉ đường "email tới GV theo định hướng" | SV03 | — | S | ✅ **ĐÃ LÀM + DEPLOY 30/8** — hồ sơ: `lambda-lab-platform/docs/CLEANUP-SV03-20260830.md` (seed dọn demo, /groups chỉ đường + 6 mailto, CTA landing→/groups, /recruitment hết chu kỳ mùa giả) |
 
 ### 🏅 Đợt 4 — NỢ CHẤT LƯỢNG (không khẩn, xếp lịch sau)
 | Lệnh | App | Nội dung | Effort |
