@@ -13,7 +13,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { t, lang } = useLang();
-  const loginLabel = lang === 'vi' ? 'Đăng nhập' : lang === 'ja' ? 'ログイン' : 'Sign in';
+  // SV08 là CỬA VÀO cả hệ sinh thái (entrance hub), không tự xử lý đăng nhập —
+  // nút dẫn sang bcse-id (SSO chung). Nhãn nói "vào hệ", không phải "đăng nhập".
+  const enterLabel = lang === 'vi' ? 'Vào hệ BCSE' : lang === 'ja' ? 'BCSEに入る' : 'Enter BCSE';
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50);
@@ -60,9 +62,10 @@ export default function Navbar() {
             </div>
             <a
               href="https://id.bcse-vju.com"
+              title={lang === 'vi' ? 'Đăng nhập bằng tài khoản VJU để vào hệ sinh thái BCSE' : lang === 'ja' ? 'VJUアカウントでBCSEエコシステムへ' : 'Sign in with your VJU account to enter the BCSE ecosystem'}
               className="ml-3 px-4 py-2 text-sm font-semibold border border-sky-400/50 text-sky-300 hover:bg-sky-400/10 rounded-xl transition-colors"
             >
-              {loginLabel}
+              {enterLabel}
             </a>
             <a
               href={ctaButton.href}
@@ -106,7 +109,7 @@ export default function Navbar() {
               className="block mx-4 mt-3 px-4 py-3 text-center font-semibold border border-sky-400/50 text-sky-300 rounded-xl"
               onClick={() => setMobileOpen(false)}
             >
-              {loginLabel}
+              {enterLabel}
             </a>
             <a
               href={ctaButton.href}
