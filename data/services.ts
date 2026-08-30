@@ -171,6 +171,45 @@ export const CATEGORY_META: Record<ServiceCategory, CategoryMeta> = {
 
 export const services: ServiceItem[] = [
   {
+    id: 'bcse-books',
+    name: {
+      vi: 'Tủ sách BCSE — Giáo trình & Học liệu',
+      en: 'BCSE Bookshelf — Textbooks & Learning Materials',
+      ja: 'BCSE 本棚 — 教科書・学習資料',
+    },
+    description: {
+      vi: 'Môn này học sách gì, mượn ở đâu? Tra cứu giáo trình theo từng học phần khung 135TC — kèm Tủ sách trao tay: giáo trình cũ khóa trước tặng lại khóa sau.',
+      en: 'Which textbook for which course, and where to borrow it? Look up textbooks per course (135-credit curriculum) — plus a hand-me-down shelf where seniors donate used textbooks to juniors.',
+      ja: 'どの科目にどの教科書？どこで借りる？135単位課程の科目別教科書検索と、先輩から後輩へ教科書を譲る「回し読み本棚」。',
+    },
+    features: {
+      vi: [
+        '107 học phần · 425 đầu sách kèm nơi mượn',
+        'Trạng thái rõ: mượn được ngay / sắp về / gợi ý đọc',
+        'Nút tra thẳng OPAC thư viện ĐHQGHN (không cần đăng nhập)',
+        'Tủ sách trao tay: khóa trước tặng, CTV thống kê, khóa sau mượn',
+      ],
+      en: [
+        '107 courses · 425 titles with borrow locations',
+        'Clear status: borrowable now / arriving / suggested reading',
+        'Direct VNU library OPAC lookup (no login needed)',
+        'Hand-me-down shelf: seniors donate, volunteers track, juniors borrow',
+      ],
+      ja: [
+        '107 科目・425 冊、貸出場所つき',
+        '状態表示：貸出可／入荷予定／おすすめ',
+        'VNU 図書館 OPAC を直接検索（ログイン不要）',
+        '回し読み本棚：先輩が寄贈、ボランティアが管理、後輩が借りる',
+      ],
+    },
+    url: 'https://sv01.bcse-vju.com',
+    icon: 'BookMarked',
+    status: 'active',
+    category: 'learning',
+    journey: ['all'],
+    audience: ['student'],
+  },
+  {
     id: 'lab-booking',
     name: {
       vi: 'Đặt lịch phòng Lab & In 3D',
