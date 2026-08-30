@@ -35,14 +35,17 @@
   --surface-3: 203 213 225; /* #cbd5e1 */
   --line: 15 23 42;         /* border/fill overlay = navy trên nền sáng */
   --fill: 15 23 42;
-  --ink: 15 23 42;          /* chữ chính → navy đậm */
-  --ink-1: 15 23 42;
-  --ink-2: 30 41 59;
-  --ink-3: 51 65 85;
-  --ink-4: 71 85 105;
-  --ink-5: 100 116 139;
-  --ink-6: 100 116 139;
-  --ink-7: 51 65 85;
+  /* Thang chữ light: hạ đậm hơn để dễ đọc CẢ trên nền trang lẫn trên card
+     (surface #f1f5f9 / surface-2 #e2e8f0). Trước đây ink-5/6 = #64748b quá nhạt
+     trên card → khó nhìn; nay dịch xuống 1 bậc. */
+  --ink: 15 23 42;          /* #0f172a — chữ chính, ~16:1 */
+  --ink-1: 15 23 42;        /* #0f172a */
+  --ink-2: 30 41 59;        /* #1e293b */
+  --ink-3: 51 65 85;        /* #334155 — ~9:1 */
+  --ink-4: 51 65 85;        /* #334155 — body phụ, đọc rõ trên card */
+  --ink-5: 71 85 105;       /* #475569 — caption, ~7:1 (trước #64748b quá nhạt) */
+  --ink-6: 71 85 105;       /* #475569 */
+  --ink-7: 51 65 85;        /* #334155 */
 }
 
 @layer base {
