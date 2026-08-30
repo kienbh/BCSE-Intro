@@ -11,6 +11,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Semantic tokens (đảo theo theme, hỗ trợ opacity qua <alpha-value>).
+        // Định nghĩa kênh RGB trong globals.css (:root / [data-theme]).
+        bg: 'rgb(var(--bg) / <alpha-value>)',
+        surface: {
+          DEFAULT: 'rgb(var(--surface) / <alpha-value>)',
+          2: 'rgb(var(--surface-2) / <alpha-value>)',
+          3: 'rgb(var(--surface-3) / <alpha-value>)',
+        },
+        line: 'rgb(var(--line) / <alpha-value>)',
+        fill: 'rgb(var(--fill) / <alpha-value>)',
+        ink: {
+          DEFAULT: 'rgb(var(--ink) / <alpha-value>)',
+          1: 'rgb(var(--ink-1) / <alpha-value>)',
+          2: 'rgb(var(--ink-2) / <alpha-value>)',
+          3: 'rgb(var(--ink-3) / <alpha-value>)',
+          4: 'rgb(var(--ink-4) / <alpha-value>)',
+          5: 'rgb(var(--ink-5) / <alpha-value>)',
+          6: 'rgb(var(--ink-6) / <alpha-value>)',
+          7: 'rgb(var(--ink-7) / <alpha-value>)',
+        },
         bcse: {
           primary: '#0ea5e9',
           secondary: '#6366f1',

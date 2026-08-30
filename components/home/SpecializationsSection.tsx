@@ -44,7 +44,7 @@ const colorMap: Record<string, { icon: string; bg: string; border: string; shado
 export default function SpecializationsSection() {
   const { t, lang } = useLang();
   return (
-    <section className="section-padding bg-slate-900/50">
+    <section className="section-padding bg-surface/50">
       <div className="container-max">
         <SectionTitle
           title={t('specializations.title')}
@@ -63,12 +63,12 @@ export default function SpecializationsSection() {
                   <div className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl border ${colors.bg} ${colors.border} ${colors.shadow} transition-transform duration-300 group-hover:-translate-y-1 group-hover:scale-105`}>
                     <Icon className={`h-8 w-8 ${colors.icon}`} strokeWidth={2.35} />
                   </div>
-                  <h3 className="text-sm font-bold text-white mb-1">{specName}</h3>
-                  <p className="text-xs text-slate-500 font-mono mb-3">{spec.nameEN}</p>
-                  <p className="text-xs text-slate-400 leading-relaxed mb-3">{pickLocalized(spec.description, lang)}</p>
+                  <h3 className="text-sm font-bold text-ink mb-1">{specName}</h3>
+                  <p className="text-xs text-ink-5 font-mono mb-3">{spec.nameEN}</p>
+                  <p className="text-xs text-ink-4 leading-relaxed mb-3">{pickLocalized(spec.description, lang)}</p>
                   <div className="flex flex-wrap gap-1 justify-center">
                     {spec.careers.slice(0, 2).map((c) => (
-                      <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-500">
+                      <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-5">
                         {c}
                       </span>
                     ))}

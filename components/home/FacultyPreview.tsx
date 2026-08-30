@@ -10,7 +10,7 @@ import { useLang } from '@/lib/i18n';
 export default function FacultyPreview() {
   const { t } = useLang();
   return (
-    <section className="section-padding bg-slate-900/50">
+    <section className="section-padding bg-surface/50">
       <div className="container-max">
         <SectionTitle
           title={t('section.faculty')}
@@ -22,13 +22,13 @@ export default function FacultyPreview() {
             {coreFaculty.map((member) => {
               const initials = member.name.split(' ').map(w => w[0]).join('').slice(-2).toUpperCase();
               return (
-                <div key={member.id} className="p-4 rounded-xl bg-slate-800/40 border border-white/[0.06] hover:border-white/[0.12] transition-colors">
+                <div key={member.id} className="p-4 rounded-xl bg-surface-2/40 border border-line/[0.06] hover:border-line/[0.12] transition-colors">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                    <div className="on-media w-10 h-10 rounded-full bg-gradient-to-br from-sky-600 to-indigo-600 flex items-center justify-center text-ink text-xs font-bold flex-shrink-0">
                       {initials}
                     </div>
                     <div className="min-w-0">
-                      <h3 className="text-xs font-bold text-white truncate">{member.title} {member.name}</h3>
+                      <h3 className="text-xs font-bold text-ink truncate">{member.title} {member.name}</h3>
                       <p className="text-[10px] text-sky-400 truncate">{member.position}</p>
                     </div>
                   </div>
@@ -43,7 +43,7 @@ export default function FacultyPreview() {
                     </span>
                   )}
                   {member.specialization.length > 0 && (
-                    <p className="text-[10px] text-slate-600 mt-1.5 line-clamp-1">{member.specialization.join(', ')}</p>
+                    <p className="text-[10px] text-ink-6 mt-1.5 line-clamp-1">{member.specialization.join(', ')}</p>
                   )}
                 </div>
               );

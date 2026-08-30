@@ -19,7 +19,7 @@ const PILLAR_COLORS = [
 export default function PhilosophySection() {
   const { t, lang } = useLang();
   return (
-    <section id="philosophy" className="section-padding bg-slate-900/50">
+    <section id="philosophy" className="section-padding bg-surface/50">
       <div className="container-max">
         <SectionTitle
           title={t('philosophy.title')}
@@ -39,16 +39,16 @@ export default function PhilosophySection() {
               return (
                 <div
                   key={i}
-                  className="group p-6 rounded-2xl bg-slate-800/40 border border-white/[0.06] hover:border-white/[0.12] transition-all duration-300 text-center"
+                  className="group p-6 rounded-2xl bg-surface-2/40 border border-line/[0.06] hover:border-line/[0.12] transition-all duration-300 text-center"
                 >
                   <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl border mb-5 ${c.bg} ${c.border}`}>
                     <Icon className={`w-7 h-7 ${c.icon}`} />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-1">{title}</h3>
+                  <h3 className="text-lg font-semibold text-ink mb-1">{title}</h3>
                   {lang !== 'en' && (
                     <p className={`text-xs font-mono mb-3 ${c.icon}`}>{pillar.titleEN}</p>
                   )}
-                  <p className="text-sm text-slate-400 leading-relaxed line-clamp-3 sm:line-clamp-none">{desc}</p>
+                  <p className="text-sm text-ink-4 leading-relaxed line-clamp-3 sm:line-clamp-none">{desc}</p>
                 </div>
               );
             })}
@@ -59,21 +59,21 @@ export default function PhilosophySection() {
         <ScrollReveal delay={0.1}>
           <figure className="mb-16 max-w-3xl mx-auto">
             <div className="relative pl-6 border-l-2 border-amber-500/40 py-2">
-              <p className="font-serif text-base md:text-lg text-slate-300 italic leading-relaxed">
+              <p className="font-serif text-base md:text-lg text-ink-3 italic leading-relaxed">
                 &ldquo;{t('philosophy.quote')}&rdquo;
               </p>
             </div>
             <figcaption className="mt-6 flex flex-wrap items-center gap-3 pl-6 text-sm">
               <span className="text-amber-400 font-semibold">{t('philosophy.quoteAuthor')}</span>
-              <span className="text-slate-600">—</span>
-              <span className="text-slate-500">{t('philosophy.quoteTitle')}</span>
+              <span className="text-ink-6">—</span>
+              <span className="text-ink-5">{t('philosophy.quoteTitle')}</span>
             </figcaption>
           </figure>
         </ScrollReveal>
 
         {/* Distinct Features */}
         <ScrollReveal delay={0.2}>
-          <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-slate-500 mb-6 text-center">
+          <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink-5 mb-6 text-center">
             {t('philosophy.distinct')}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -82,13 +82,13 @@ export default function PhilosophySection() {
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-amber-500/15 hover:bg-amber-500/[0.02] transition-colors"
+                  className="flex items-start gap-3 p-4 rounded-xl bg-fill/[0.02] border border-line/[0.04] hover:border-amber-500/15 hover:bg-amber-500/[0.02] transition-colors"
                 >
                   <Icon className="w-4 h-4 text-amber-400/70 mt-0.5 flex-shrink-0" />
                   <div>
-                    <h4 className="text-sm font-semibold text-white mb-1">{pickLocalized(feature.title, lang)}</h4>
+                    <h4 className="text-sm font-semibold text-ink mb-1">{pickLocalized(feature.title, lang)}</h4>
                     {/* Mobile ít chữ: chỉ giữ tiêu đề feature */}
-                    <p className="hidden sm:block text-xs text-slate-500 leading-relaxed">{pickLocalized(feature.description, lang)}</p>
+                    <p className="hidden sm:block text-xs text-ink-5 leading-relaxed">{pickLocalized(feature.description, lang)}</p>
                   </div>
                 </div>
               );

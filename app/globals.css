@@ -4,12 +4,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================================
+   SEMANTIC TOKENS (30/8) — thay mô hình "blocklist override" bằng token đảo
+   theo theme. Giá trị là KÊNH "R G B" để dùng được opacity modifier
+   (vd bg-surface-2/40). DARK = đúng giá trị slate cũ → dark mode GIỮ NGUYÊN
+   pixel; LIGHT = bảng sáng. Ánh xạ 1-1:
+     slate-950→bg · slate-900→surface · slate-800→surface-2 · slate-700→surface-3
+     white(border/fill)→line/fill · slate-100..600 + white→ink-*
+   ========================================================================= */
+:root, [data-theme='dark'] {
+  --bg: 2 6 23;             /* slate-950 */
+  --surface: 15 23 42;      /* slate-900 */
+  --surface-2: 30 41 59;    /* slate-800 */
+  --surface-3: 51 65 85;    /* slate-700 */
+  --line: 255 255 255;      /* border/fill overlay = trắng trên nền tối */
+  --fill: 255 255 255;
+  --ink: 255 255 255;       /* text-white */
+  --ink-1: 241 245 249;     /* slate-100 */
+  --ink-2: 226 232 240;     /* slate-200 */
+  --ink-3: 203 213 225;     /* slate-300 */
+  --ink-4: 148 163 184;     /* slate-400 */
+  --ink-5: 100 116 139;     /* slate-500 */
+  --ink-6: 71 85 105;       /* slate-600 */
+  --ink-7: 51 65 85;        /* slate-700 */
+}
+[data-theme='light'] {
+  --bg: 248 250 252;        /* #f8fafc */
+  --surface: 241 245 249;   /* #f1f5f9 */
+  --surface-2: 226 232 240; /* #e2e8f0 */
+  --surface-3: 203 213 225; /* #cbd5e1 */
+  --line: 15 23 42;         /* border/fill overlay = navy trên nền sáng */
+  --fill: 15 23 42;
+  --ink: 15 23 42;          /* chữ chính → navy đậm */
+  --ink-1: 15 23 42;
+  --ink-2: 30 41 59;
+  --ink-3: 51 65 85;
+  --ink-4: 71 85 105;
+  --ink-5: 100 116 139;
+  --ink-6: 100 116 139;
+  --ink-7: 51 65 85;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-slate-950 text-slate-100 font-sans antialiased;
+    @apply bg-bg text-ink-1 font-sans antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
     text-rendering: geometricPrecision;
   }
@@ -25,16 +66,19 @@
     mix-blend-mode: overlay;
   }
   ::selection {
-    @apply bg-amber-500/30 text-white;
+    @apply bg-amber-500/30 text-ink;
   }
   ::-webkit-scrollbar {
     @apply w-2;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-slate-900;
+    @apply bg-surface;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-700 rounded-full hover:bg-slate-600;
+    @apply bg-surface-3 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--ink-5));
   }
 }
 
@@ -109,10 +153,10 @@
     70% { opacity: 0.42; filter: brightness(1.18); }
   }
   .glass {
-    @apply bg-slate-800/60 backdrop-blur-xl border border-white/[0.06];
+    @apply bg-surface-2/60 backdrop-blur-xl border border-line/[0.06];
   }
   .glass-hover {
-    @apply hover:bg-slate-800/80 hover:border-white/[0.12] transition-all duration-300;
+    @apply hover:bg-surface-2/80 hover:border-line/[0.12] transition-all duration-300;
   }
   .section-padding {
     /* Mobile gọn hơn (quy tắc thầy 25/8: mobile ít chữ/ít khoảng trống, không thu nhỏ chữ) */
@@ -230,83 +274,62 @@
 }
 
 /* =========================================================================
-   LIGHT MODE — overrides via html.light cascade (no refactor of slate-*)
+   LIGHT MODE — 30/8: ĐÃ CHUYỂN SANG SEMANTIC TOKEN (xem :root/[data-theme] đầu file).
+   Blocklist override slate + white cũ ĐÃ GỠ — surface/text/border nay do token lo.
+   Chỉ còn lại 3 thứ token KHÔNG diễn đạt được: (1) chữ trắng trên ẢNH/overlay tối
+   (.on-media) & trên nút solid màu; (2) hạ tông accent pastel trên nền sáng; (3) card
+   research nền trắng đặc. Tất cả target [data-theme='light'].
    ========================================================================= */
-html.light body {
-  background-color: #f8fafc;
-  color: #0f172a;
-}
-html.light ::-webkit-scrollbar-track { background-color: #e2e8f0; }
-html.light ::-webkit-scrollbar-thumb { background-color: #94a3b8; }
-html.light ::-webkit-scrollbar-thumb:hover { background-color: #64748b; }
-html.light ::selection { background-color: rgba(14, 165, 233, 0.3); color: #0f172a; }
 
-/* Page backgrounds */
-html.light .bg-slate-950 { background-color: #f8fafc !important; }
-html.light .bg-slate-900 { background-color: #f1f5f9 !important; }
-html.light .bg-slate-900\/50 { background-color: rgba(241, 245, 249, 0.7) !important; }
-html.light .bg-slate-900\/80 { background-color: rgba(248, 250, 252, 0.9) !important; }
-html.light .bg-slate-900\/95 { background-color: rgba(255, 255, 255, 0.92) !important; }
-html.light .bg-slate-900\/98 { background-color: rgba(255, 255, 255, 0.98) !important; }
-html.light .bg-slate-800\/40 { background-color: rgba(226, 232, 240, 0.6) !important; }
-html.light .bg-slate-800\/60 { background-color: rgba(226, 232, 240, 0.7) !important; }
-html.light .bg-slate-800\/80 { background-color: rgba(226, 232, 240, 0.85) !important; }
+/* (1a) Chữ giữ TRẮNG trên ảnh/overlay tối (Hero) — token ink sẽ đảo thành đen ở light,
+        nhưng vùng .on-media nằm trên ảnh tối nên phải ép trắng lại. */
+[data-theme='light'] .on-media,
+[data-theme='light'] .on-media .text-ink,
+[data-theme='light'] .on-media .text-ink-1 { color: #ffffff !important; }
+[data-theme='light'] .on-media .text-ink-3 { color: rgba(255, 255, 255, 0.82) !important; }
+[data-theme='light'] .on-media .text-ink-4 { color: rgba(255, 255, 255, 0.70) !important; }
+/* accent sáng trên ảnh giữ nguyên tông (không hạ) */
+[data-theme='light'] .on-media .text-amber-400, [data-theme='light'] .on-media .text-amber-300,
+[data-theme='light'] .on-media .text-sky-400, [data-theme='light'] .on-media .text-sky-300 { color: revert !important; }
 
-/* Section gradient overlays */
-html.light .from-slate-950 { --tw-gradient-from: #f8fafc var(--tw-gradient-from-position) !important; }
-html.light .via-slate-900 { --tw-gradient-via: #f1f5f9 var(--tw-gradient-via-position) !important; }
-html.light .to-slate-950 { --tw-gradient-to: #f8fafc var(--tw-gradient-to-position) !important; }
+/* (1b) Nút/nhãn SOLID màu bão hoà + chữ (text-ink cũ là text-white): giữ chữ trắng. */
+[data-theme='light'] .bg-sky-500.text-ink, [data-theme='light'] .bg-sky-600.text-ink,
+[data-theme='light'] .bg-indigo-500.text-ink, [data-theme='light'] .bg-indigo-600.text-ink,
+[data-theme='light'] .bg-emerald-500.text-ink, [data-theme='light'] .bg-emerald-600.text-ink,
+[data-theme='light'] .bg-rose-500.text-ink, [data-theme='light'] .bg-rose-600.text-ink,
+[data-theme='light'] .bg-violet-500.text-ink, [data-theme='light'] .bg-purple-600.text-ink,
+[data-theme='light'] .bg-teal-600.text-ink, [data-theme='light'] .bg-cyan-600.text-ink { color: #ffffff !important; }
 
-/* Text */
-html.light .text-white { color: #0f172a !important; }
-html.light .text-slate-100 { color: #0f172a !important; }
-html.light .text-slate-200 { color: #1e293b !important; }
-html.light .text-slate-300 { color: #334155 !important; }
-html.light .text-slate-400 { color: #475569 !important; }
-html.light .text-slate-500 { color: #64748b !important; }
-html.light .text-slate-600 { color: #94a3b8 !important; }
-
-/* Accent text stays */
-html.light .text-sky-400 { color: #0284c7 !important; }
-html.light .text-sky-300 { color: #0369a1 !important; }
-
-/* Borders on white overlays */
-html.light .border-white\/\[0\.02\] { border-color: rgba(15, 23, 42, 0.04) !important; }
-html.light .border-white\/\[0\.04\] { border-color: rgba(15, 23, 42, 0.08) !important; }
-html.light .border-white\/\[0\.06\] { border-color: rgba(15, 23, 42, 0.1) !important; }
-html.light .border-white\/\[0\.08\] { border-color: rgba(15, 23, 42, 0.12) !important; }
-html.light .border-white\/\[0\.12\] { border-color: rgba(15, 23, 42, 0.16) !important; }
-html.light .border-white\/10 { border-color: rgba(15, 23, 42, 0.14) !important; }
-html.light .border-white\/20 { border-color: rgba(15, 23, 42, 0.22) !important; }
-
-/* White overlay backgrounds */
-html.light .bg-white\/\[0\.02\] { background-color: rgba(15, 23, 42, 0.03) !important; }
-html.light .bg-white\/\[0\.04\] { background-color: rgba(15, 23, 42, 0.04) !important; }
-html.light .bg-white\/5 { background-color: rgba(15, 23, 42, 0.05) !important; }
-html.light .bg-white\/10 { background-color: rgba(15, 23, 42, 0.08) !important; }
-
-/* Navbar/CTA hover */
-html.light .hover\:bg-white\/5:hover { background-color: rgba(15, 23, 42, 0.05) !important; }
-html.light .hover\:bg-white\/10:hover { background-color: rgba(15, 23, 42, 0.08) !important; }
-html.light .hover\:text-white:hover { color: #0f172a !important; }
-html.light .hover\:border-white\/\[0\.12\]:hover { border-color: rgba(15, 23, 42, 0.16) !important; }
-
-/* Glass utility */
-html.light .glass { background-color: rgba(255, 255, 255, 0.7) !important; border-color: rgba(15, 23, 42, 0.08) !important; }
+/* (2) Accent pastel -300/-400 quá nhạt trên nền sáng → hạ tông về -600/-700. */
+[data-theme='light'] .text-sky-400 { color: #0284c7 !important; }
+[data-theme='light'] .text-sky-300 { color: #0369a1 !important; }
+[data-theme='light'] .text-sky-500 { color: #0284c7 !important; }
+[data-theme='light'] .text-indigo-400, [data-theme='light'] .text-indigo-300 { color: #4f46e5 !important; }
+[data-theme='light'] .text-violet-400, [data-theme='light'] .text-violet-300 { color: #7c3aed !important; }
+[data-theme='light'] .text-purple-400, [data-theme='light'] .text-purple-300 { color: #7e22ce !important; }
+[data-theme='light'] .text-emerald-400, [data-theme='light'] .text-emerald-300 { color: #059669 !important; }
+[data-theme='light'] .text-teal-400, [data-theme='light'] .text-teal-300 { color: #0d9488 !important; }
+[data-theme='light'] .text-rose-400, [data-theme='light'] .text-rose-300 { color: #e11d48 !important; }
+[data-theme='light'] .text-pink-400, [data-theme='light'] .text-pink-300 { color: #db2777 !important; }
+[data-theme='light'] .text-amber-400, [data-theme='light'] .text-amber-300 { color: #b45309 !important; }
+[data-theme='light'] .text-orange-400, [data-theme='light'] .text-orange-300 { color: #c2410c !important; }
+[data-theme='light'] .text-cyan-400, [data-theme='light'] .text-cyan-300 { color: #0891b2 !important; }
+[data-theme='light'] .text-red-400 { color: #dc2626 !important; }
 
 /* Research page: keep light mode neutral and readable; color stays as accent only. */
-html.light .research-card,
-html.light .research-lab-card {
+/* (3) Card research: nền trắng đặc + shadow ở light (đẹp hơn token translucent). */
+[data-theme='light'] .research-card,
+[data-theme='light'] .research-lab-card {
   background: rgba(255, 255, 255, 0.86) !important;
   border-color: rgba(15, 23, 42, 0.1) !important;
   box-shadow: 0 12px 34px rgba(15, 23, 42, 0.06);
 }
-html.light .research-lab-card.bg-gradient-to-br {
+[data-theme='light'] .research-lab-card.bg-gradient-to-br {
   background-image: none !important;
 }
-html.light .research-visual {
+[data-theme='light'] .research-visual {
   background-color: rgba(248, 250, 252, 0.94) !important;
 }
-html.light .research-visual::after {
+[data-theme='light'] .research-visual::after {
   opacity: 0.25;
 }

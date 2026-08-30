@@ -338,7 +338,7 @@ export default function ResearchPage() {
 
           {/* 3-Lab Grid */}
           <div className="mb-14">
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-500 mb-4 text-center">
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink-5 mb-4 text-center">
               {copy.labsEyebrow}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -358,19 +358,19 @@ export default function ResearchPage() {
                         <span className={`font-display text-2xl font-bold leading-none ${c.letter}`}>{lab.letter}</span>
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-sm font-bold text-white leading-tight">
+                        <h3 className="text-sm font-bold text-ink leading-tight">
                           {lab.name}
                         </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">{lab.fullName}</p>
+                        <p className="text-xs text-ink-5 mt-0.5">{lab.fullName}</p>
                         <div className="flex items-center gap-1.5 mt-1">
                           <span className={`w-1.5 h-1.5 rounded-full animate-pulse ${c.dot}`} />
-                          <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wide">{copy.active}</span>
+                          <span className="text-[10px] font-mono text-ink-5 uppercase tracking-wide">{copy.active}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* Tagline */}
-                    <p className="text-xs text-slate-400 leading-relaxed mb-4 flex-1">
+                    <p className="text-xs text-ink-4 leading-relaxed mb-4 flex-1">
                       {lang === 'vi' ? lab.tagline : LAB_COPY[lab.fullName as keyof typeof LAB_COPY]?.[lang as 'en' | 'ja'] ?? lab.tagline}
                     </p>
 
@@ -394,7 +394,7 @@ export default function ResearchPage() {
 
           {/* Research Areas */}
           <div className="mb-2">
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-slate-500 mb-4">
+            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-ink-5 mb-4">
               {copy.areasEyebrow}
             </p>
           </div>
@@ -405,7 +405,7 @@ export default function ResearchPage() {
               const areaDescription = areaCopy?.description ?? area.description;
               const areaTopics = areaCopy?.topics ?? area.topics;
               return (
-              <div key={area.id} className="research-card p-5 rounded-2xl bg-slate-800/40 border border-white/[0.06] hover:border-indigo-500/20 transition-colors">
+              <div key={area.id} className="research-card p-5 rounded-2xl bg-surface-2/40 border border-line/[0.06] hover:border-indigo-500/20 transition-colors">
                 <ResearchInfographic
                   icon={area.icon}
                   color={area.color}
@@ -413,12 +413,12 @@ export default function ResearchPage() {
                   topicCount={area.topics.length}
                   className="research-visual w-full h-32 rounded-xl mb-4"
                 />
-                <h3 className="text-sm font-bold text-white mb-1">{areaName}</h3>
+                <h3 className="text-sm font-bold text-ink mb-1">{areaName}</h3>
                 <p className="text-xs text-sky-400 mb-2">{area.supervisors.join(', ')}</p>
-                <p className="text-xs text-slate-500 mb-3 leading-relaxed">{areaDescription}</p>
+                <p className="text-xs text-ink-5 mb-3 leading-relaxed">{areaDescription}</p>
                 <div className="flex flex-wrap gap-1">
                   {areaTopics.map((topic) => (
-                    <span key={topic} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-400">{topic}</span>
+                    <span key={topic} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-4">{topic}</span>
                   ))}
                 </div>
               </div>
@@ -429,7 +429,7 @@ export default function ResearchPage() {
       </section>
 
       {/* Publications */}
-      <section className="section-padding bg-slate-900/50">
+      <section className="section-padding bg-surface/50">
         <div className="container-max">
           <SectionTitle
             title={t('research.pubs')}
@@ -445,7 +445,7 @@ export default function ResearchPage() {
                 className={`px-4 py-1.5 text-xs rounded-full transition-all ${
                   pubTab === tab.key
                     ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30'
-                    : 'text-slate-500 hover:text-slate-300 border border-white/5 hover:border-white/15'
+                    : 'text-ink-5 hover:text-ink-3 border border-line/5 hover:border-line/15'
                 }`}
               >
                 {tab.label}
@@ -455,7 +455,7 @@ export default function ResearchPage() {
 
           <div className="space-y-3">
             {filteredPubs.map((pub) => (
-              <div key={pub.id} className="grid grid-cols-[60px_1fr_auto] gap-4 items-start p-5 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/10 transition-colors">
+              <div key={pub.id} className="grid grid-cols-[60px_1fr_auto] gap-4 items-start p-5 rounded-xl bg-fill/[0.02] border border-line/[0.04] hover:border-line/10 transition-colors">
                 <div className="text-lg font-mono font-bold text-sky-400">{pub.year}</div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1">
@@ -463,13 +463,13 @@ export default function ResearchPage() {
                       {pub.type}
                     </span>
                     {pub.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded font-mono uppercase bg-white/5 text-slate-500 border border-white/10">{tag}</span>
+                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded font-mono uppercase bg-fill/5 text-ink-5 border border-line/10">{tag}</span>
                     ))}
                   </div>
-                  <p className="text-sm text-white font-medium mb-1">{pub.title}</p>
-                  <p className="text-xs text-slate-500">{pub.authors}</p>
+                  <p className="text-sm text-ink font-medium mb-1">{pub.title}</p>
+                  <p className="text-xs text-ink-5">{pub.authors}</p>
                   <p className="text-xs text-sky-500 mt-0.5">{pub.venue}</p>
-                  {pub.keywords && <p className="text-[11px] text-slate-600 mt-1">{copy.keywords}: {pub.keywords}</p>}
+                  {pub.keywords && <p className="text-[11px] text-ink-6 mt-1">{copy.keywords}: {pub.keywords}</p>}
                 </div>
                 <div>
                   {pub.doi ? (
@@ -477,13 +477,13 @@ export default function ResearchPage() {
                       DOI <ExternalLink className="w-3 h-3" />
                     </a>
                   ) : (
-                    <span className="text-xs text-slate-700">{copy.noDoi}</span>
+                    <span className="text-xs text-ink-7">{copy.noDoi}</span>
                   )}
                 </div>
               </div>
             ))}
             {filteredPubs.length === 0 && (
-              <p className="text-center text-sm text-slate-500 py-10">{t('research.noResults')}</p>
+              <p className="text-center text-sm text-ink-5 py-10">{t('research.noResults')}</p>
             )}
           </div>
 
@@ -512,7 +512,7 @@ export default function ResearchPage() {
                 className={`px-4 py-1.5 text-xs rounded-full transition-all ${
                   blogTab === tab.key
                     ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
-                    : 'text-slate-500 hover:text-slate-300 border border-white/5 hover:border-white/15'
+                    : 'text-ink-5 hover:text-ink-3 border border-line/5 hover:border-line/15'
                 }`}
               >
                 {tab.label}
@@ -526,26 +526,26 @@ export default function ResearchPage() {
               return (
               <div
                 key={b.id}
-                className={`p-6 rounded-2xl border transition-colors ${b.pinned ? 'md:col-span-2 bg-amber-500/[0.04] border-amber-500/20' : 'bg-slate-800/40 border-white/[0.06] hover:border-white/15'}`}
+                className={`p-6 rounded-2xl border transition-colors ${b.pinned ? 'md:col-span-2 bg-amber-500/[0.04] border-amber-500/20' : 'bg-surface-2/40 border-line/[0.06] hover:border-line/15'}`}
               >
                 {b.pinned && (
                   <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase text-amber-400 mb-2">
                     <Pin className="w-3 h-3" /> Pinned
                   </span>
                 )}
-                <p className="text-xs text-slate-500 mb-2">{b.date} · {b.author}</p>
-                <h3 className="text-base font-bold text-white mb-2">{bCopy?.title ?? b.title}</h3>
-                <p className="text-sm text-slate-400 mb-3 leading-relaxed">{bCopy?.summary ?? b.summary}</p>
+                <p className="text-xs text-ink-5 mb-2">{b.date} · {b.author}</p>
+                <h3 className="text-base font-bold text-ink mb-2">{bCopy?.title ?? b.title}</h3>
+                <p className="text-sm text-ink-4 mb-3 leading-relaxed">{bCopy?.summary ?? b.summary}</p>
                 <div className="flex flex-wrap gap-1">
                   {b.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-400 border border-white/10">{tag}</span>
+                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-4 border border-line/10">{tag}</span>
                   ))}
                 </div>
               </div>
               );
             })}
             {filteredBlogs.length === 0 && (
-              <p className="col-span-full text-center text-sm text-slate-500 py-10">{t('research.noPosts')}</p>
+              <p className="col-span-full text-center text-sm text-ink-5 py-10">{t('research.noPosts')}</p>
             )}
           </div>
 
@@ -558,7 +558,7 @@ export default function ResearchPage() {
       </section>
 
       {/* NCKH-SV projects */}
-      <section className="section-padding bg-slate-900/50">
+      <section className="section-padding bg-surface/50">
         <div className="container-max">
           <SectionTitle
             title={t('research.sProjects')}
@@ -570,17 +570,17 @@ export default function ResearchPage() {
             {nckhProjects.map((p) => {
               const pCopy = lang === 'vi' ? null : PROJECT_COPY[p.id as keyof typeof PROJECT_COPY]?.[lang as 'en' | 'ja'];
               return (
-              <div key={p.id} className="p-5 rounded-2xl bg-slate-800/40 border border-white/[0.06] hover:border-white/15 transition-colors">
+              <div key={p.id} className="p-5 rounded-2xl bg-surface-2/40 border border-line/[0.06] hover:border-line/15 transition-colors">
                 <div className="flex items-start gap-2 mb-3">
                   <Users className="w-4 h-4 text-sky-400 mt-0.5 flex-shrink-0" />
-                  <h3 className="text-sm font-bold text-white">{pCopy?.title ?? p.title}</h3>
+                  <h3 className="text-sm font-bold text-ink">{pCopy?.title ?? p.title}</h3>
                 </div>
-                <p className="text-xs text-slate-300 mb-1"><span className="text-slate-500">{t('research.studentsLabel')}:</span> {p.students}</p>
-                <p className="text-xs text-slate-300 mb-3"><span className="text-slate-500">{t('research.supervisorLabel')}:</span> {p.supervisors}</p>
-                <p className="text-xs text-slate-400 leading-relaxed mb-3">{pCopy?.summary ?? p.summary}</p>
+                <p className="text-xs text-ink-3 mb-1"><span className="text-ink-5">{t('research.studentsLabel')}:</span> {p.students}</p>
+                <p className="text-xs text-ink-3 mb-3"><span className="text-ink-5">{t('research.supervisorLabel')}:</span> {p.supervisors}</p>
+                <p className="text-xs text-ink-4 leading-relaxed mb-3">{pCopy?.summary ?? p.summary}</p>
                 <div className="flex flex-wrap gap-1">
                   {p.tags.map((tag) => (
-                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-slate-400 border border-white/10">{tag}</span>
+                    <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-4 border border-line/10">{tag}</span>
                   ))}
                 </div>
               </div>

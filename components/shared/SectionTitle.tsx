@@ -19,16 +19,16 @@ export default function SectionTitle({
   return (
     <div className={`mb-16 ${isCenter ? 'text-center' : ''} ${className}`}>
       {eyebrow && (
-        <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-slate-500 mb-3">
+        <p className="font-mono text-[10px] tracking-[0.22em] uppercase text-ink-5 mb-3">
           {eyebrow}
         </p>
       )}
       {/* Fraunces serif — academic editorial, không còn generic Inter Bold */}
-      <h2 className="text-3xl md:text-4xl font-serif font-semibold text-white mb-4 tracking-tight leading-tight">
+      <h2 className="text-3xl md:text-4xl font-serif font-semibold text-ink mb-4 tracking-tight leading-tight">
         {title}
       </h2>
       {subtitle && (
-        <p className={`text-base text-slate-400 leading-relaxed ${isCenter ? 'max-w-2xl mx-auto' : 'max-w-2xl'}`}>
+        <p className={`text-base text-ink-4 leading-relaxed ${isCenter ? 'max-w-2xl mx-auto' : 'max-w-2xl'}`}>
           {subtitle}
         </p>
       )}
