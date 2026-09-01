@@ -85,6 +85,11 @@ const CSS = `
   --c-coso: #3B7A8C; --c-coso-bg: #E4F0F2;
   --c-nen: #2B5CE6; --c-nen-bg: #E5ECFD;
   --c-se: #7A56B8; --c-se-bg: #EEE7F8;
+  /* 5 mô đun định hướng — khớp bảng màu bản 135 */
+  --c-ai: #C0392B; --c-ai-bg: #FBE9E7;
+  --c-iot: #2E8B57; --c-iot-bg: #E4F3EA;
+  --c-ic: #B8860B; --c-ic-bg: #F7EFDA;
+  --c-fintech: #1F7A8C; --c-fintech-bg: #E0F0F3;
   color: var(--ink); line-height: 1.5;
 }
 .cflow152 * { box-sizing: border-box; }
@@ -97,6 +102,10 @@ const CSS = `
   --c-coso: #6BB6C7; --c-coso-bg: #1a2e33;
   --c-nen: #6E97FF; --c-nen-bg: #1a2540;
   --c-se: #A98FE0; --c-se-bg: #241d33;
+  --c-ai: #E8756A; --c-ai-bg: #331d1a;
+  --c-iot: #5FBE86; --c-iot-bg: #172d20;
+  --c-ic: #D6A94A; --c-ic-bg: #2d2510;
+  --c-fintech: #56AEC0; --c-fintech-bg: #16292d;
 }
 :root[data-theme="light"] .cflow152 {
   --accent: #2B5CE6; --grad: #6D28D9; --grad-bg: #F3EEFC;
@@ -106,6 +115,10 @@ const CSS = `
   --c-coso: #3B7A8C; --c-coso-bg: #E4F0F2;
   --c-nen: #2B5CE6; --c-nen-bg: #E5ECFD;
   --c-se: #7A56B8; --c-se-bg: #EEE7F8;
+  --c-ai: #C0392B; --c-ai-bg: #FBE9E7;
+  --c-iot: #2E8B57; --c-iot-bg: #E4F3EA;
+  --c-ic: #B8860B; --c-ic-bg: #F7EFDA;
+  --c-fintech: #1F7A8C; --c-fintech-bg: #E0F0F3;
 }
 
 .cflow152 .cf-header { border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 8px; }
@@ -175,13 +188,14 @@ const CSS = `
 .cflow152 .cf-catalog { margin-top: 34px; }
 .cflow152 .cf-catalog > h3 { font-size: 16px; margin: 0 0 4px; letter-spacing: -.01em; color: var(--ink); }
 .cflow152 .cf-catalog > .lead { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 16px; line-height: 1.55; }
-.cflow152 .cf-cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
-.cflow152 .cf-cat-col { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-se); border-radius: 10px; padding: 12px 14px 13px; box-shadow: var(--shadow); }
-.cflow152 .cf-cat-col h4 { font-size: 12.5px; font-weight: 800; color: var(--c-se); margin: 0 0 8px; letter-spacing: .01em; }
-.cflow152 .cf-cat-note { font-size: 11px; color: var(--ink-soft, #667); margin: 0 0 8px; line-height: 1.4; }
-.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--ink); padding: 3px 0; border-top: 1px solid var(--line-soft); line-height: 1.35; }
-.cflow152 .cf-cat-item:first-of-type { border-top: none; }
-.cflow152 .cf-cat-item .oc { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--c-se); flex: none; min-width: 60px; }
+.cflow152 .cf-cat-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1100px) { .cflow152 .cf-cat-grid { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); } }
+.cflow152 .cf-cat-col { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--cat, var(--c-se)); border-radius: 10px; padding: 0 0 12px; box-shadow: var(--shadow); overflow: hidden; }
+.cflow152 .cf-cat-col h4 { font-size: 12.5px; font-weight: 800; color: var(--cat, var(--c-se)); margin: 0; padding: 10px 13px 9px; letter-spacing: .01em; background: var(--cat-bg, var(--c-se-bg)); border-bottom: 1px solid var(--line-soft); }
+.cflow152 .cf-cat-note { font-size: 10.5px; color: var(--ink-soft); margin: 8px 13px 4px; line-height: 1.4; }
+.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--ink); padding: 3px 13px; border-top: 1px solid var(--line-soft); line-height: 1.35; margin-top: 5px; }
+.cflow152 .cf-cat-item:first-of-type, .cflow152 .cf-cat-note + .cf-cat-item { border-top: none; margin-top: 8px; }
+.cflow152 .cf-cat-item .oc { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--cat, var(--c-se)); flex: none; min-width: 60px; }
 .cflow152 .cf-cat-item .on { flex: 1; }
 .cflow152 .cf-cat-item .ot { font-size: 10.5px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; flex: none; }
 
@@ -453,7 +467,7 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
 
               {s.summer && s.summer.length > 0 && (
                 <>
-                  <div className="cf-sec-label cf-sec-summer">☀ Kỳ hè (sau HK6)</div>
+                  <div className="cf-sec-label cf-sec-summer">{s.summerLabel ?? '☀ Kỳ hè'}</div>
                   {s.summer.map((c, j) => (
                     <div
                       key={j}
@@ -463,7 +477,7 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
                       <span className="code" style={{ color: 'var(--summer)' }}>{c.code}</span>
                       <span className="name">{c.name}</span>
                       <div className="foot">
-                        <span className="tc">{c.credits} TC</span>
+                        <span className="tc">{typeof c.credits === 'number' ? `${c.credits} TC` : c.credits}</span>
                         <span className="cf-badge" style={{ background: 'var(--summer)', color: '#fff' }}>KỲ HÈ</span>
                       </div>
                     </div>
@@ -484,7 +498,11 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
         </p>
         <div className="cf-cat-grid">
           {electiveCatalog152.map((el, i) => (
-            <div className="cf-cat-col" key={i}>
+            <div
+              className="cf-cat-col"
+              key={i}
+              style={el.color ? { ['--cat' as string]: `var(--c-${el.color === 'ft' ? 'fintech' : el.color})`, ['--cat-bg' as string]: `var(--c-${el.color === 'ft' ? 'fintech' : el.color}-bg)` } : undefined}
+            >
               <h4>{el.group}</h4>
               {el.note && <p className="cf-cat-note">{el.note}</p>}
               {el.items.map((it, j) => (

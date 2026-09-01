@@ -37,6 +37,9 @@ export interface Flow152Course {
   /** Mã học phần tiên quyết (nếu có) */
   pre?: string;
 }
+/** Khóa màu mô đun định hướng — khớp bảng màu bản 135 (KIND). */
+export type Flow152Color = 'ai' | 'se' | 'iot' | 'ic' | 'ft';
+
 export interface Flow152Elective {
   /** Tên nhóm/định hướng, vd "AI & DS", "Nhóm A · Khoa học bền vững" */
   group: string;
@@ -44,6 +47,15 @@ export interface Flow152Elective {
   items: { code?: string; name: string; credits?: number }[];
   /** true = chỉ hiện con trỏ gọn trong cột kỳ (danh mục đầy đủ ở mục dưới) */
   compact?: boolean;
+  /** Màu mô đun (dùng cho danh mục 5 định hướng — mỗi khung một màu) */
+  color?: Flow152Color;
+}
+
+/** Học phần kỳ hè — tc có thể là số (Thực tập) hoặc 'ĐK' (điều kiện, GDQP-AN). */
+export interface Flow152Summer {
+  code: string;
+  name: string;
+  credits: number | string;
 }
 
 export interface Flow152Term {
@@ -51,8 +63,10 @@ export interface Flow152Term {
   hk: string;
   required: Flow152Course[];
   electives?: Flow152Elective[];
-  /** Học phần kỳ hè (thực tập) hiển thị sau kỳ */
-  summer?: Flow152Course[];
+  /** Học phần kỳ hè (thực tập / GDQP-AN) hiển thị sau kỳ */
+  summer?: Flow152Summer[];
+  /** Nhãn kỳ hè (vd "☀ Kỳ hè (sau HK2)") */
+  summerLabel?: string;
   /** Kỳ tốt nghiệp (khóa luận) */
   grad?: boolean;
 }
@@ -60,6 +74,7 @@ export interface Flow152Term {
 // Danh mục tự chọn ngành M5 gom theo ĐỊNH HƯỚNG (dùng lại ở các kỳ chuyên ngành).
 const AIDS_ELECTIVE: Flow152Elective = {
   group: 'AI & Khoa học dữ liệu',
+  color: 'ai',
   items: [
     { code: 'CSE3050', name: 'Trí tuệ nhân tạo', credits: 3 },
     { code: 'CSE3057', name: 'Học máy', credits: 3 },
@@ -74,6 +89,7 @@ const AIDS_ELECTIVE: Flow152Elective = {
 };
 const SE_ELECTIVE: Flow152Elective = {
   group: 'Công nghệ phần mềm (SE)',
+  color: 'se',
   items: [
     { code: 'CSE3052', name: 'Phát triển ứng dụng Web', credits: 3 },
     { code: 'CSE3053', name: 'Phát triển ứng dụng di động', credits: 3 },
@@ -87,6 +103,7 @@ const SE_ELECTIVE: Flow152Elective = {
 };
 const IOT_ELECTIVE: Flow152Elective = {
   group: 'Hệ thống nhúng & IoT',
+  color: 'iot',
   items: [
     { code: 'CSE3069', name: 'Phát triển ứng dụng IoT', credits: 3 },
     { code: 'CSE3070', name: 'Mạng cảm biến không dây', credits: 3 },
@@ -96,6 +113,7 @@ const IOT_ELECTIVE: Flow152Elective = {
 };
 const IC_ELECTIVE: Flow152Elective = {
   group: 'Thiết kế vi mạch (IC)',
+  color: 'ic',
   note: 'Nền cửa ngõ là các HP bắt buộc: Mạch logic & KT số (HK4) · Thiết kế luận lý số (HK5) · Thiết kế hệ thống số với HDL, SoC (HK6).',
   items: [
     { code: 'CSE3078', name: 'Thiết kế vi mạch số', credits: 3 },
@@ -103,6 +121,7 @@ const IC_ELECTIVE: Flow152Elective = {
 };
 const FINTECH_ELECTIVE: Flow152Elective = {
   group: 'Fintech',
+  color: 'ft',
   items: [
     { code: 'CSE3042', name: 'Công nghệ tài chính', credits: 3 },
     { code: 'CSE3054', name: 'Quản lý và phân tích dữ liệu tài chính', credits: 3 },
@@ -142,7 +161,7 @@ export const flow152: Flow152Term[] = [
     hk: 'Học kỳ 1',
     required: [
       { code: 'PHI1006', name: 'Triết học Mác – Lênin', credits: 3, block: 'M1' },
-      { code: 'VJU1001', name: 'Tin học cơ sở', credits: 3, block: 'M1' },
+      { code: 'VNU1001', name: 'Nhập môn công nghệ số & ứng dụng AI', credits: 3, block: 'M1' },
       { code: 'FLF1107', name: 'Tiếng Anh B1', credits: 5, block: 'M1' },
       { code: 'VJU2031', name: 'Tiếng Nhật sơ cấp 1', credits: 3, block: 'M2' },
       { code: 'VJU2002', name: 'Giải tích 1', credits: 2, block: 'M2' },
@@ -175,6 +194,8 @@ export const flow152: Flow152Term[] = [
         ],
       },
     ],
+    summerLabel: '☀ Kỳ hè (sau HK2)',
+    summer: [{ code: '—', name: 'Giáo dục quốc phòng – an ninh', credits: 'ĐK' }],
   },
   {
     year: 'Năm 2',
@@ -243,9 +264,10 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, block: 'M5' },
     ],
     electives: [ELECTIVE_HINT],
+    summerLabel: '☀ Kỳ hè (sau HK6)',
     summer: [
-      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, block: 'M5' },
-      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, block: 'M5' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3 },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2 },
     ],
   },
   {
@@ -276,7 +298,7 @@ export const yearBlocks152: YearBlock[] = [
         semester: 1,
         required: [
           'Triết học Mác – Lênin',
-          'Tin học cơ sở',
+          'Nhập môn công nghệ số & ứng dụng AI',
           'Tiếng Anh B1',
           'Giải tích 1',
           'Đại số tuyến tính 2',
