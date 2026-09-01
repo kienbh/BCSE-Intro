@@ -232,7 +232,7 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3005', name: 'Phương pháp số', credits: 2, block: 'M3' },
       { code: 'CSE3043', name: 'Mạch logic và kỹ thuật số', credits: 3, block: 'M4' },
     ],
-    conds: ['Giáo dục thể chất', 'Giáo dục quốc phòng – an ninh (hè)'],
+    conds: ['Giáo dục thể chất'],
     electives: [
       {
         group: 'Tự chọn theo khối ngành (M3 · 2/6 TC)',
