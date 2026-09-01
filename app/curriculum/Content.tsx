@@ -162,7 +162,9 @@ export default function CurriculumContent() {
                     careers: s.careers,
                     color: SPEC_COLOR[s.id],
                     items: s.courses.map((c) => ({
+                      code: c.code,
                       name: c.name,
+                      credits: c.credits,
                       semester: c.semester,
                       star: c.star,
                       type: c.type,

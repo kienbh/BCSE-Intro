@@ -43,7 +43,7 @@ export interface Flow152Direction {
   desc?: string;
   careers?: string[];
   color?: Flow152Color;
-  items: { name: string; semester?: string; star?: boolean; type: 'required' | 'elective' | 'practice' }[];
+  items: { code?: string; name: string; credits?: number; semester?: string; star?: boolean; type: 'required' | 'elective' | 'practice' }[];
 }
 interface Props {
   creditBlocks?: CreditBlock[];
@@ -218,10 +218,13 @@ const CSS = `
 .cflow152 .cf-cat-careers { display: flex; flex-wrap: wrap; gap: 4px; padding: 7px 13px 3px; }
 .cflow152 .cf-cat-careers .chip { font-size: 9px; padding: 1px 7px; border-radius: 999px; background: color-mix(in srgb, var(--cat, var(--c-se)) 12%, transparent); color: var(--cat, var(--c-se)); font-weight: 600; }
 .cflow152 .cf-cat-list { margin-top: 7px; }
-.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 7px; font-size: 11.5px; color: var(--ink); padding: 2.5px 13px; line-height: 1.35; }
+.cflow152 .cf-cat-item { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; font-size: 11.5px; color: var(--ink); padding: 4px 13px; line-height: 1.35; border-top: 1px solid var(--line-soft); }
+.cflow152 .cf-cat-item:first-child { border-top: none; }
 .cflow152 .cf-cat-item .dot { width: 6px; height: 6px; border-radius: 50%; flex: none; position: relative; top: 4px; }
-.cflow152 .cf-cat-item .on { flex: 1; }
-.cflow152 .cf-cat-item .sem { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; color: var(--ink-soft); flex: none; white-space: nowrap; }
+.cflow152 .cf-cat-item .oc { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; font-weight: 700; letter-spacing: .02em; color: var(--cat, var(--c-se)); flex: none; }
+.cflow152 .cf-cat-item .on { flex: 1 1 55%; min-width: 0; }
+.cflow152 .cf-cat-item .tc2 { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; font-weight: 700; color: var(--ink); flex: none; }
+.cflow152 .cf-cat-item .sem { font-family: "IBM Plex Mono", monospace; font-size: 9px; color: var(--ink-soft); flex: none; white-space: nowrap; }
 
 .cflow152 .cf-grad-box { border: 1.5px solid var(--grad); background: var(--grad-bg); border-radius: 9px; padding: 8px 10px 10px; margin-top: 4px; }
 .cflow152 .cf-grad-box .gh { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--grad); margin-bottom: 5px; }
@@ -552,10 +555,12 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits, directio
                   {d.items.map((it, j) => (
                     <div className={`cf-cat-item t-${'type' in it ? it.type : 'elective'}`} key={j}>
                       <span className="dot" />
+                      {'code' in it && it.code && <span className="oc">{it.code}</span>}
                       <span className="on">
                         {it.name}
                         {'star' in it && it.star && <span className="star"> ★</span>}
                       </span>
+                      {'credits' in it && it.credits != null && <span className="tc2">{it.credits} TC</span>}
                       {'semester' in it && it.semester && <span className="sem">{it.semester}</span>}
                     </div>
                   ))}

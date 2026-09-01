@@ -3,9 +3,14 @@ import type { Localized } from '@/lib/localized';
 export type CourseType = 'required' | 'elective' | 'practice';
 
 export interface SpecCourse {
+  /** Mã học phần theo Quyển chương trình 152 TC (7480204) */
+  code?: string;
   name: string;
+  /** Số tín chỉ */
+  credits?: number;
   semester?: string;
   star?: boolean;
+  /** required = Bắt buộc · elective = Tự chọn · practice = Thực tập & Khóa luận */
   type: CourseType;
 }
 
@@ -22,6 +27,18 @@ export interface Specialization {
   courses: SpecCourse[];
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Dữ liệu môn học từng định hướng — RÀ THEO Quyển chương trình BCSE 152 TC.
+//   • Mã + tên + số TC lấy đúng khung; BB (bắt buộc) / TC (tự chọn) theo khối:
+//     M2/M3/M4 bắt buộc → required; M2/M3 tự chọn (AET20xx…) → elective;
+//     M5.1 cốt lõi bắt buộc (CSE3040/3041/3021·AnninhTT/3045/3047·HDL/3048/3049)
+//     → required; M5.2 (CSE3050+, JPS…) → elective; CSE4001/4002/4050 → practice.
+//   • ★ = học phần đánh dấu (*) "cốt lõi định hướng" trong Quyển khung.
+//   • ⚠ Khung dùng LẶP mã cho 2 học phần khác nhau (giữ nguyên theo khung):
+//     CSE3047 = "Cấu trúc dữ liệu và giải thuật" (M4) VÀ "Thiết kế hệ thống số
+//     với HDL" (M5); CSE3021 = "Tiếng Anh chuyên ngành" (M3) VÀ "An ninh thông
+//     tin" (M5). Học kỳ bám lộ trình chuẩn (flow152).
+// ─────────────────────────────────────────────────────────────────────────────
 export const specializations: Specialization[] = [
   {
     id: 'software-engineering',
@@ -38,24 +55,24 @@ export const specializations: Specialization[] = [
     keySubjects: ['Công nghệ phần mềm', 'Web Development', 'Mobile Programming', 'Cloud Computing'],
     careers: ['Software Engineer', 'Full-stack Developer', 'DevOps Engineer'],
     courses: [
-      { name: 'Nhập môn lập trình', semester: 'Kỳ 1', type: 'required' },
-      { name: 'Lập trình hướng đối tượng', semester: 'Kỳ 2', type: 'required' },
-      { name: 'Cấu trúc dữ liệu & giải thuật', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Công nghệ phần mềm', semester: 'Kỳ 4', star: true, type: 'required' },
-      { name: 'Lập trình nâng cao', semester: 'Kỳ 5', type: 'elective' },
-      { name: 'Phát triển ứng dụng Web', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'Tương tác người & máy', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'Điện toán đám mây', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'Học theo dự án KH và KT (Web)', semester: 'Kỳ 5', type: 'elective' },
-      { name: 'Phát triển ứng dụng di động', semester: 'Kỳ 6', star: true, type: 'elective' },
-      { name: 'Phân tích & thiết kế hệ thống', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Phát triển ứng dụng nâng cao', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Đồ án (CNPM)', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Đảm bảo chất lượng phần mềm', semester: 'Kỳ 7', type: 'elective' },
-      { name: 'Đánh giá hiệu năng hệ thống', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Thực tập nghề nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Thực hành hướng nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Khóa luận tốt nghiệp', star: true, type: 'practice' },
+      { code: 'AET2014', name: 'Nhập môn lập trình', credits: 2, semester: 'Kỳ 1', type: 'required' },
+      { code: 'CSE3011', name: 'Lập trình hướng đối tượng', credits: 3, semester: 'Kỳ 2', type: 'required' },
+      { code: 'CSE3047', name: 'Cấu trúc dữ liệu và giải thuật', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'CSE3010', name: 'Lập trình nâng cao', credits: 3, semester: 'Kỳ 5', type: 'required' },
+      { code: 'CSE3052', name: 'Phát triển ứng dụng Web', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
+      { code: 'CSE3061', name: 'Tương tác người và máy', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
+      { code: 'CSE3059', name: 'Điện toán đám mây', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
+      { code: 'CSE3041', name: 'Công nghệ phần mềm', credits: 3, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3045', name: 'Học theo dự án khoa học và kỹ thuật', credits: 3, semester: 'Kỳ 6', star: true, type: 'required' },
+      { code: 'CSE3053', name: 'Phát triển ứng dụng di động', credits: 3, semester: 'Kỳ 6', star: true, type: 'elective' },
+      { code: 'CSE3065', name: 'Phân tích và thiết kế hệ thống', credits: 3, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'CSE3056', name: 'Phát triển ứng dụng nâng cao', credits: 3, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3077', name: 'Đảm bảo chất lượng phần mềm', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3066', name: 'Đánh giá hiệu năng hệ thống', credits: 3, semester: 'Kỳ 7', star: true, type: 'elective' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, semester: 'Kỳ 8', type: 'practice' },
     ],
   },
   {
@@ -73,21 +90,22 @@ export const specializations: Specialization[] = [
     keySubjects: ['Trí tuệ nhân tạo', 'Machine Learning', 'Computer Vision', 'Deep Learning'],
     careers: ['AI Engineer', 'Data Scientist', 'ML Engineer'],
     courses: [
-      { name: 'Xác suất – Thống kê', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Toán rời rạc', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Phân tích dữ liệu khoa học', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Khoa học dữ liệu', semester: 'Kỳ 5', type: 'elective' },
-      { name: 'Trí tuệ nhân tạo', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'XLTT âm thanh & hình ảnh', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'Học máy', semester: 'Kỳ 6', star: true, type: 'elective' },
-      { name: 'Tính toán song song', semester: 'Kỳ 6', star: true, type: 'elective' },
-      { name: 'Đồ án (DS & AI)', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Thị giác máy tính', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Các công cụ trong AI', semester: 'Kỳ 8', type: 'elective' },
-      { name: 'Vận trù học', semester: 'Kỳ 8', star: true, type: 'elective' },
-      { name: 'Thực tập nghề nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Thực hành hướng nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Khóa luận tốt nghiệp', star: true, type: 'practice' },
+      { code: 'CSE3004', name: 'Xác suất – Thống kê', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'CSE3003', name: 'Toán rời rạc', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'CSE3047', name: 'Cấu trúc dữ liệu và giải thuật', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'AET2013', name: 'Phân tích dữ liệu khoa học', credits: 2, semester: 'Kỳ 3', type: 'elective' },
+      { code: 'CSE3040', name: 'Khoa học dữ liệu', credits: 3, semester: 'Kỳ 5', type: 'required' },
+      { code: 'CSE3050', name: 'Trí tuệ nhân tạo', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
+      { code: 'CSE3063', name: 'Xử lý thông tin âm thanh và hình ảnh', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
+      { code: 'CSE3057', name: 'Học máy', credits: 3, semester: 'Kỳ 6', star: true, type: 'elective' },
+      { code: 'CSE3060', name: 'Tính toán song song', credits: 3, semester: 'Kỳ 6', star: true, type: 'elective' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3062', name: 'Thị giác máy tính', credits: 3, semester: 'Kỳ 7', star: true, type: 'elective' },
+      { code: 'CSE3064', name: 'Vận trù học', credits: 3, semester: 'Kỳ 8', star: true, type: 'elective' },
+      { code: 'CSE3051', name: 'Các công cụ trong AI', credits: 3, semester: 'Kỳ 8', type: 'elective' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, semester: 'Kỳ 8', type: 'practice' },
     ],
   },
   {
@@ -105,19 +123,19 @@ export const specializations: Specialization[] = [
     keySubjects: ['Hệ thống nhúng', 'IoT', 'Robotics', 'Sensor Networks'],
     careers: ['Embedded Engineer', 'IoT Developer', 'Robotics Engineer'],
     courses: [
-      { name: 'Thí nghiệm trong KHKT 1 (AVR)', semester: 'Kỳ 2', type: 'required' },
-      { name: 'Nhập môn hệ thống máy tính', semester: 'Kỳ 2', type: 'required' },
-      { name: 'Thí nghiệm trong KHKT 2 (ESP32, STM32)', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Kiến trúc máy tính', semester: 'Kỳ 3', type: 'required' },
-      { name: 'Nguyên lý hệ điều hành', semester: 'Kỳ 4', type: 'required' },
-      { name: 'Mạng máy tính & truyền thông', semester: 'Kỳ 5', type: 'required' },
-      { name: 'Phát triển ứng dụng Web', semester: 'Kỳ 5', star: true, type: 'elective' },
-      { name: 'Đồ án (Nhúng & IoT)', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Phát triển ứng dụng IoT', semester: 'Kỳ 7', type: 'elective' },
-      { name: 'Mạng cảm biến không dây', semester: 'Kỳ 7', type: 'elective' },
-      { name: 'Thực tập nghề nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Thực hành hướng nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Khóa luận tốt nghiệp', star: true, type: 'practice' },
+      { code: 'AET2015', name: 'Nhập môn hệ thống máy tính', credits: 2, semester: 'Kỳ 2', type: 'required' },
+      { code: 'AET2021', name: 'Thí nghiệm trong KH&KT 1', credits: 2, semester: 'Kỳ 2', type: 'elective' },
+      { code: 'CSE3047', name: 'Cấu trúc dữ liệu và giải thuật', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'CSE3032', name: 'Kiến trúc máy tính', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'AET2022', name: 'Thí nghiệm trong KH&KT 2', credits: 2, semester: 'Kỳ 3', type: 'elective' },
+      { code: 'CSE3033', name: 'Nguyên lý hệ điều hành', credits: 3, semester: 'Kỳ 4', type: 'required' },
+      { code: 'CSE3030', name: 'Mạng máy tính và truyền thông', credits: 3, semester: 'Kỳ 5', type: 'required' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3069', name: 'Phát triển ứng dụng IoT', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3070', name: 'Mạng cảm biến không dây', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, semester: 'Kỳ 8', type: 'practice' },
     ],
   },
   {
@@ -135,15 +153,16 @@ export const specializations: Specialization[] = [
     keySubjects: ['Thiết kế vi mạch', 'FPGA', 'SoC Design', 'Digital Signal Processing'],
     careers: ['IC Design Engineer', 'FPGA Engineer', 'Hardware Engineer'],
     courses: [
-      { name: 'Mạch logic & kỹ thuật số', semester: 'Kỳ 4', type: 'required' },
-      { name: 'Thiết kế luận lý số', semester: 'Kỳ 5', type: 'required' },
-      { name: 'Thiết kế hệ thống số với HDL', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Đồ án (TKVM)', semester: 'Kỳ 6', type: 'elective' },
-      { name: 'Thiết kế hệ thống SoC', semester: 'Kỳ 7', type: 'elective' },
-      { name: 'Thiết kế vi mạch số', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Thực tập nghề nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Thực hành hướng nghiệp', semester: 'Kỳ 6 – hè', type: 'practice' },
-      { name: 'Khóa luận tốt nghiệp', star: true, type: 'practice' },
+      { code: 'CSE3032', name: 'Kiến trúc máy tính', credits: 3, semester: 'Kỳ 3', type: 'required' },
+      { code: 'CSE3043', name: 'Mạch logic và kỹ thuật số', credits: 3, semester: 'Kỳ 4', type: 'required' },
+      { code: 'CSE3036', name: 'Thiết kế luận lý số', credits: 3, semester: 'Kỳ 5', type: 'required' },
+      { code: 'CSE3047', name: 'Thiết kế hệ thống số với HDL', credits: 3, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3078', name: 'Thiết kế vi mạch số', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, semester: 'Kỳ 8', type: 'practice' },
     ],
   },
   {
@@ -161,16 +180,20 @@ export const specializations: Specialization[] = [
     keySubjects: ['Fintech', 'Blockchain', 'Data Analytics', 'Kinh tế học'],
     careers: ['Fintech Developer', 'Blockchain Engineer', 'Quantitative Analyst'],
     courses: [
-      { name: 'Kinh tế học vi mô', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Kinh tế học vĩ mô', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Marketing', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Nguyên lý kế toán', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Công nghệ tài chính', semester: 'Kỳ 6', type: 'required' },
-      { name: 'Quản lý & phân tích dữ liệu tài chính', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Công nghệ tài chính & ứng dụng', semester: 'Kỳ 7', type: 'elective' },
-      { name: 'Lý thuyết tài chính tiền tệ', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Tài chính doanh nghiệp', semester: 'Kỳ 7', star: true, type: 'elective' },
-      { name: 'Học máy trong kinh tế & tài chính', semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, semester: 'Kỳ 6', type: 'required' },
+      { code: 'JPS3034', name: 'Kinh tế học vi mô', credits: 3, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'JPS3035', name: 'Kinh tế học vĩ mô', credits: 3, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'JPS3036', name: 'Marketing', credits: 2, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'JPS3038', name: 'Nguyên lý kế toán', credits: 2, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'CSE3042', name: 'Công nghệ tài chính', credits: 3, semester: 'Kỳ 6', type: 'elective' },
+      { code: 'CSE3054', name: 'Quản lý và phân tích dữ liệu tài chính', credits: 3, semester: 'Kỳ 7', star: true, type: 'elective' },
+      { code: 'CSE3055', name: 'Công nghệ tài chính và ứng dụng', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3071', name: 'Lý thuyết tài chính tiền tệ', credits: 2, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3072', name: 'Tài chính doanh nghiệp', credits: 2, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE3067', name: 'Học máy trong kinh tế và tài chính', credits: 3, semester: 'Kỳ 7', type: 'elective' },
+      { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4002', name: 'Thực hành hướng nghiệp', credits: 2, semester: 'Kỳ 6 – hè', type: 'practice' },
+      { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, semester: 'Kỳ 8', type: 'practice' },
     ],
   },
 ];
