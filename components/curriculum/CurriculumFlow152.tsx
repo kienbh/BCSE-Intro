@@ -521,13 +521,12 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits, directio
         <h3>5 Định hướng chuyên ngành</h3>
         <p className="lead">
           Sau 2 năm học nền chung, sinh viên chọn <b>một trong 5 định hướng</b> và hoàn thành lộ trình học
-          phần dưới đây (chọn đủ <b>21 TC tự chọn ngành</b>). <b>★</b> = học phần cốt lõi của định hướng.
+          phần dưới đây (chọn đủ <b>21 TC tự chọn ngành</b>).
         </p>
         <div className="cf-cat-legend">
           <span className="lg"><span className="dot req" /> Bắt buộc</span>
           <span className="lg"><span className="dot opt" /> Tự chọn</span>
           <span className="lg"><span className="dot prac" /> Thực tập &amp; Khóa luận</span>
-          <span className="lg"><span className="star">★</span> Môn cốt lõi</span>
         </div>
         <div className="cf-cat-grid">
           {(directions ?? electiveCatalog152.map((el) => ({
@@ -556,10 +555,7 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits, directio
                     <div className={`cf-cat-item t-${'type' in it ? it.type : 'elective'}`} key={j}>
                       <span className="dot" />
                       {'code' in it && it.code && <span className="oc">{it.code}</span>}
-                      <span className="on">
-                        {it.name}
-                        {'star' in it && it.star && <span className="star"> ★</span>}
-                      </span>
+                      <span className="on">{it.name}</span>
                       {'credits' in it && it.credits != null && <span className="tc2">{it.credits} TC</span>}
                       {'semester' in it && it.semester && <span className="sem">{it.semester}</span>}
                     </div>
