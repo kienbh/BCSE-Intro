@@ -561,7 +561,7 @@ type CompKey = 'I' | 'II' | 'III';
 const COMP_COLOR: Record<CompKey, string> = {
   I: 'var(--c-daicuong)',
   II: 'var(--c-nen)',
-  III: 'var(--summer)',
+  III: '#C62828',
 };
 function compKey(code: string): CompKey {
   if (code.startsWith('III')) return 'III';
