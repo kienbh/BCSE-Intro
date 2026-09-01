@@ -86,10 +86,18 @@ const SE_ELECTIVE: Flow152Elective = {
   ],
 };
 const IOT_ELECTIVE: Flow152Elective = {
-  group: 'IoT / Vi mạch (IC)',
+  group: 'Hệ thống nhúng & IoT',
   items: [
     { code: 'CSE3069', name: 'Phát triển ứng dụng IoT', credits: 3 },
     { code: 'CSE3070', name: 'Mạng cảm biến không dây', credits: 3 },
+    { code: 'CSE3063', name: 'Xử lý thông tin âm thanh và hình ảnh', credits: 3 },
+    { code: 'CSE3059', name: 'Điện toán đám mây', credits: 3 },
+  ],
+};
+const IC_ELECTIVE: Flow152Elective = {
+  group: 'Thiết kế vi mạch (IC)',
+  note: 'Nền cửa ngõ là các HP bắt buộc: Mạch logic & KT số (HK4) · Thiết kế luận lý số (HK5) · Thiết kế hệ thống số với HDL, SoC (HK6).',
+  items: [
     { code: 'CSE3078', name: 'Thiết kế vi mạch số', credits: 3 },
   ],
 };
@@ -115,6 +123,7 @@ export const electiveCatalog152: Flow152Elective[] = [
   AIDS_ELECTIVE,
   SE_ELECTIVE,
   IOT_ELECTIVE,
+  IC_ELECTIVE,
   FINTECH_ELECTIVE,
 ];
 
@@ -122,7 +131,7 @@ export const electiveCatalog152: Flow152Elective[] = [
 // danh mục đầy đủ bên dưới thay vì liệt kê ~30 học phần mỗi kỳ.
 const ELECTIVE_HINT: Flow152Elective = {
   group: 'Chọn học phần theo định hướng',
-  note: 'AI&DS · SE · IoT/IC · Fintech — xem danh mục đầy đủ ở mục “Tự chọn ngành theo định hướng” bên dưới ↓',
+  note: 'AI&DS · SE · IoT · Vi mạch (IC) · Fintech — xem danh mục đầy đủ ở mục “Tự chọn ngành theo định hướng” bên dưới ↓',
   items: [],
   compact: true,
 };
@@ -137,7 +146,7 @@ export const flow152: Flow152Term[] = [
       { code: 'FLF1107', name: 'Tiếng Anh B1', credits: 5, block: 'M1' },
       { code: 'VJU2031', name: 'Tiếng Nhật sơ cấp 1', credits: 3, block: 'M2' },
       { code: 'VJU2002', name: 'Giải tích 1', credits: 2, block: 'M2' },
-      { code: 'VJU2030', name: 'Đại số tuyến tính 1', credits: 3, block: 'M2' },
+      { code: 'VJU2030', name: 'Đại số tuyến tính 2', credits: 3, block: 'M2' },
       { code: 'VJU2005', name: 'Vật lý 1', credits: 2, block: 'M2' },
       { code: 'AET2014', name: 'Nhập môn lập trình', credits: 2, block: 'M2' },
       { code: 'VJU2012', name: 'Khoa học toàn cầu và môi trường', credits: 2, block: 'M2' },
@@ -270,10 +279,10 @@ export const yearBlocks152: YearBlock[] = [
           'Tin học cơ sở',
           'Tiếng Anh B1',
           'Giải tích 1',
-          'Đại số tuyến tính',
+          'Đại số tuyến tính 2',
           'Vật lý 1',
           'Nhập môn lập trình',
-          'Khoa học tự nhiên và môi trường',
+          'Khoa học toàn cầu và môi trường',
         ],
         elective: ['Tự chọn từ khối học phần thế kỷ 21'],
       },
@@ -315,9 +324,8 @@ export const yearBlocks152: YearBlock[] = [
         required: [
           'Lịch sử Đảng Cộng sản Việt Nam',
           'Phương pháp luận trong NCKH',
-          'Đồ án theo chuyên ngành',
           'Nguyên lý hệ điều hành',
-          'Nhập môn cơ sở dữ liệu và MySQL',
+          'Nhập môn cơ sở dữ liệu',
           'Phương pháp số',
           'Mạch logic và kỹ thuật số',
         ],
@@ -340,7 +348,6 @@ export const yearBlocks152: YearBlock[] = [
           'Thiết kế luận lý số',
           'Mạng máy tính và truyền thông',
           'Khoa học dữ liệu',
-          'Học theo dự án KH và KT',
         ],
         elective: [
           'Trí tuệ nhân tạo (*)',
@@ -355,10 +362,11 @@ export const yearBlocks152: YearBlock[] = [
         semester: 6,
         required: [
           'Thiết kế hệ thống số với HDL',
+          'Công nghệ phần mềm',
           'An ninh thông tin',
-          'Đồ án theo chuyên ngành',
-          'Lý thuyết trò chơi',
+          'Học theo dự án KH và KT',
           'Thiết kế hệ thống SoC',
+          'Đồ án theo chuyên ngành',
         ],
         elective: [
           'AI & DS: Học máy (*), Tính toán song song (*)',

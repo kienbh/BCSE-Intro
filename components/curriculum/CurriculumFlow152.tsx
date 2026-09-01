@@ -178,6 +178,7 @@ const CSS = `
 .cflow152 .cf-cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
 .cflow152 .cf-cat-col { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-se); border-radius: 10px; padding: 12px 14px 13px; box-shadow: var(--shadow); }
 .cflow152 .cf-cat-col h4 { font-size: 12.5px; font-weight: 800; color: var(--c-se); margin: 0 0 8px; letter-spacing: .01em; }
+.cflow152 .cf-cat-note { font-size: 11px; color: var(--ink-soft, #667); margin: 0 0 8px; line-height: 1.4; }
 .cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--ink); padding: 3px 0; border-top: 1px solid var(--line-soft); line-height: 1.35; }
 .cflow152 .cf-cat-item:first-of-type { border-top: none; }
 .cflow152 .cf-cat-item .oc { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--c-se); flex: none; min-width: 60px; }
@@ -485,6 +486,7 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
           {electiveCatalog152.map((el, i) => (
             <div className="cf-cat-col" key={i}>
               <h4>{el.group}</h4>
+              {el.note && <p className="cf-cat-note">{el.note}</p>}
               {el.items.map((it, j) => (
                 <div className="cf-cat-item" key={j}>
                   {it.code && <span className="oc">{it.code}</span>}
@@ -500,7 +502,7 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
       <footer className="cf-footer">
         Khung <b>hiện hành 152 TC</b> (mã thí điểm 7480204) — áp dụng cho các khóa tuyển sinh <b>2025 trở về trước</b>.
         Sơ đồ hiển thị <b>mã học phần, tên, số tín chỉ và khối M1–M5</b>; điều kiện tiên quyết ghi trên thẻ khi có.
-        Học phần tự chọn ngành (M5) gom theo <b>định hướng</b> (AI &amp; DS, SE, IoT/IC, Fintech); sinh viên chọn đủ số TC
+        Học phần tự chọn ngành (M5) gom theo <b>5 định hướng</b> (AI &amp; DS, SE, IoT, Vi mạch/IC, Fintech); sinh viên chọn đủ số TC
         tự chọn của từng khối. Lộ trình là <b>gợi ý chuẩn</b> — sinh viên điều chỉnh theo tư vấn học tập.
         Khóa 2026 trở đi áp dụng <b>khung điều chỉnh 135 TC</b> (chuyển tab để xem).
       </footer>
