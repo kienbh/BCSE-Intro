@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 import {
-  yearBlocks152,
-  yearBlocks135,
   programStructure152,
   programStructure135,
   coreRequired135,
@@ -12,20 +10,14 @@ import {
   graduation135,
   teachingMethods,
   internshipPartners,
-  type YearBlock,
 } from '@/data/curriculum';
 import { specializations } from '@/data/specializations';
+import CurriculumFlow from '@/components/curriculum/CurriculumFlow';
+import CurriculumFlow152 from '@/components/curriculum/CurriculumFlow152';
 import SectionTitle from '@/components/shared/SectionTitle';
-import { Briefcase, GraduationCap, BookOpen, Star, KeyRound } from 'lucide-react';
+import { Briefcase, GraduationCap, BookOpen, KeyRound } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { pickLocalized } from '@/lib/localized';
-
-const colorClasses: Record<string, { border: string; accent: string; bg: string }> = {
-  sky: { border: 'border-sky-500/30', accent: 'text-sky-400', bg: 'bg-sky-500/10' },
-  indigo: { border: 'border-indigo-500/30', accent: 'text-indigo-400', bg: 'bg-indigo-500/10' },
-  purple: { border: 'border-purple-500/30', accent: 'text-purple-400', bg: 'bg-purple-500/10' },
-  amber: { border: 'border-amber-500/30', accent: 'text-amber-400', bg: 'bg-amber-500/10' },
-};
 
 type Framework = '152' | '135';
 
@@ -33,75 +25,6 @@ export default function CurriculumContent() {
   const { t, lang } = useLang();
   const [fw, setFw] = useState<Framework>('152');
   const ps = fw === '135' ? programStructure135 : programStructure152;
-
-  const renderYearBoard = (blocks: YearBlock[]) => (
-    <div className="space-y-8 mb-16">
-      {blocks.map((block) => {
-        const c = colorClasses[block.color] || colorClasses.sky;
-        return (
-          <div key={block.year} className={`rounded-2xl border ${c.border} bg-surface-2/30 overflow-hidden`}>
-            <div className="p-5 border-b border-line/[0.04] flex items-center gap-4">
-              <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${c.bg} flex items-center justify-center`}>
-                <span className={`text-xl font-display font-bold ${c.accent}`}>{block.year}</span>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-ink">{t('curriculum.year')} {block.year} — {block.title}</h4>
-                <p className="text-xs text-ink-5">{block.titleEN} · {block.theme}</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-white/[0.04]">
-              {block.semesters.map((sem) => (
-                <div key={sem.semester} className="p-5">
-                  <h5 className="text-sm font-semibold text-ink mb-3 flex items-center gap-2">
-                    <span className={`w-6 h-6 rounded-lg ${c.bg} flex items-center justify-center text-xs ${c.accent} font-mono`}>
-                      {sem.semester}
-                    </span>
-                    {t('curriculum.semester')} {sem.semester}
-                    {sem.credits != null && <span className="text-[10px] text-ink-5 font-normal">· {sem.credits} TC</span>}
-                  </h5>
-
-                  {sem.note && (
-                    <p className="text-[10px] text-amber-400 bg-amber-500/10 border border-amber-500/20 rounded-lg px-2 py-1 mb-3 flex items-center gap-1">
-                      <Star className="w-3 h-3" /> {sem.note}
-                    </p>
-                  )}
-
-                  {sem.required.length > 0 && (
-                    <div className="mb-3">
-                      <p className="text-[10px] text-ink-5 uppercase tracking-wider mb-1.5">{t('curriculum.required')}</p>
-                      <ul className="space-y-1">
-                        {sem.required.map((s, i) => (
-                          <li key={i} className="text-xs text-ink-3 flex items-start gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-purple-400 mt-1.5 flex-shrink-0" />
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {sem.elective.length > 0 && (
-                    <div>
-                      <p className="text-[10px] text-ink-5 uppercase tracking-wider mb-1.5">{t('curriculum.elective')}</p>
-                      <ul className="space-y-1">
-                        {sem.elective.map((s, i) => (
-                          <li key={i} className="text-xs text-ink-5 flex items-start gap-1.5">
-                            <span className="w-1 h-1 rounded-full bg-emerald-400 mt-1.5 flex-shrink-0" />
-                            {s}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
 
   return (
     <div className="pt-20">
@@ -148,7 +71,9 @@ export default function CurriculumContent() {
               <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.plan135')}
               </h3>
-              {renderYearBoard(yearBlocks135)}
+              <div className="mb-16">
+                <CurriculumFlow />
+              </div>
 
               <h3 className="text-xl font-bold text-ink mb-2">{t('curriculum.core135')}</h3>
               <div className="flex flex-wrap gap-2 mb-16">
@@ -224,7 +149,9 @@ export default function CurriculumContent() {
               <h3 className="text-xl font-bold text-ink mb-6 flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.path')}
               </h3>
-              {renderYearBoard(yearBlocks152)}
+              <div className="mb-16">
+                <CurriculumFlow152 />
+              </div>
 
               <h3 className="text-xl font-bold text-ink mb-2">{t('curriculum.specializationsTitle')}</h3>
               <p className="text-xs text-ink-5 mb-4">{t('curriculum.specializationsNote')}</p>

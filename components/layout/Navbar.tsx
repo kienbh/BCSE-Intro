@@ -51,7 +51,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm text-ink-3 hover:text-ink transition-colors rounded-lg hover:bg-fill/5"
+                className="px-3 py-2 text-sm font-semibold text-ink-2 hover:text-ink transition-colors rounded-lg hover:bg-fill/5"
               >
                 {t(item.labelKey)}
               </Link>
@@ -98,7 +98,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-3 text-ink-3 hover:text-ink hover:bg-fill/5 rounded-lg transition-colors"
+                className="block px-4 py-3 font-semibold text-ink-2 hover:text-ink hover:bg-fill/5 rounded-lg transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {t(item.labelKey)}
