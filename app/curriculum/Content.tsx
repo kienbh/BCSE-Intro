@@ -12,8 +12,18 @@ import {
   internshipPartners,
 } from '@/data/curriculum';
 import { specializations } from '@/data/specializations';
+import type { Flow152Color } from '@/data/curriculum-152';
 import CurriculumFlow from '@/components/curriculum/CurriculumFlow';
 import CurriculumFlow152 from '@/components/curriculum/CurriculumFlow152';
+
+// Ánh xạ định hướng SV08 → màu rổ (khớp bảng màu 135 tái dùng ở CurriculumFlow152)
+const SPEC_COLOR: Record<string, Flow152Color> = {
+  'software-engineering': 'se',
+  'data-science-ai': 'ai',
+  'embedded-iot': 'iot',
+  'integrated-circuit': 'ic',
+  'financial-technology': 'ft',
+};
 import SectionTitle from '@/components/shared/SectionTitle';
 import { Briefcase, GraduationCap, BookOpen, KeyRound } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
@@ -146,52 +156,19 @@ export default function CurriculumContent() {
                 <CurriculumFlow152
                   creditBlocks={programStructure152.creditBlocks}
                   totalCredits={programStructure152.totalCredits}
+                  directions={specializations.map((s) => ({
+                    group: pickLocalized(s.name, lang),
+                    nameEN: s.nameEN,
+                    careers: s.careers,
+                    color: SPEC_COLOR[s.id],
+                    items: s.courses.map((c) => ({
+                      name: c.name,
+                      semester: c.semester,
+                      star: c.star,
+                      type: c.type,
+                    })),
+                  }))}
                 />
-              </div>
-
-              <h3 className="text-xl font-bold text-ink mb-2">{t('curriculum.specializationsTitle')}</h3>
-              <p className="text-xs text-ink-5 mb-4">{t('curriculum.specializationsNote')}</p>
-              <div className="flex flex-wrap gap-3 mb-6 text-[11px]">
-                <span className="inline-flex items-center gap-1.5 text-ink-4">
-                  <span className="w-2 h-2 rounded-full bg-purple-400" /> {t('curriculum.required')}
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-ink-4">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400" /> {t('curriculum.elective')}
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-ink-4">
-                  <span className="w-2 h-2 rounded-full bg-rose-400" /> {t('curriculum.legendPractice')}
-                </span>
-                <span className="text-ink-5">{t('curriculum.legendStar')}</span>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-                {specializations.map((spec) => {
-                  const dotColor = { required: 'bg-purple-400', elective: 'bg-emerald-400', practice: 'bg-rose-400' } as const;
-                  const textColor = { required: 'text-ink-2', elective: 'text-ink-3', practice: 'text-ink-3' } as const;
-                  return (
-                    <div key={spec.id} className="p-5 rounded-xl bg-surface-2/40 border border-line/[0.06]">
-                      <h4 className="text-sm font-bold text-ink mb-1">{pickLocalized(spec.name, lang)}</h4>
-                      <p className="text-xs text-sky-400 font-mono mb-2">{spec.nameEN}</p>
-                      <p className="text-xs text-ink-5 mb-3">{pickLocalized(spec.description, lang)}</p>
-                      <div className="flex flex-wrap gap-1 mb-4">
-                        {spec.careers.map((c) => (
-                          <span key={c} className="text-[10px] px-2 py-0.5 rounded-full bg-fill/5 text-ink-5">{c}</span>
-                        ))}
-                      </div>
-                      <ul className="space-y-1 border-t border-line/[0.04] pt-3">
-                        {spec.courses.map((course, i) => (
-                          <li key={i} className="text-[11px] flex items-start gap-1.5 leading-snug">
-                            <span className={`w-1 h-1 rounded-full ${dotColor[course.type]} mt-1.5 flex-shrink-0`} />
-                            <span className={`flex-1 ${textColor[course.type]}`}>
-                              {course.name}
-                              {course.star && <span className="text-amber-400"> *</span>}
-                              {course.semester && <span className="text-ink-6"> · {course.semester}</span>}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
               </div>
             </>
           )}

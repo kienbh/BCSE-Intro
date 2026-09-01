@@ -259,19 +259,9 @@ const CFLOW_CSS = `
 .cflow .cf-credits .cc-key.opt { color: var(--cc-opt); }
 .cflow .cf-credits .cc-key.opt .kdot { background: var(--cc-opt); border: 1px dashed var(--cc-opt); background: transparent; }
 .cflow .cf-cc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
-/* 3 thành phần I / II / III — khoanh nhóm, giữ khối con bên trong */
-.cflow .cf-cc-groups { display: flex; flex-direction: column; gap: 10px; }
-.cflow .cf-cc-group { border: 1px solid var(--line); border-left: 5px solid var(--gc, var(--accent));
-  border-radius: 10px; padding: 9px 11px 11px; background: color-mix(in srgb, var(--gc, var(--accent)) 4%, var(--surface)); }
-.cflow .cf-cc-ghead { display: flex; align-items: baseline; gap: 9px; margin-bottom: 9px; flex-wrap: wrap; }
-.cflow .cf-cc-ghead .gnum { font-weight: 800; font-size: 14px; color: var(--gc); letter-spacing: .05em;
-  background: color-mix(in srgb, var(--gc) 15%, transparent); border-radius: 6px; padding: 1px 10px; font-variant-numeric: tabular-nums; }
-.cflow .cf-cc-ghead .glabel { font-size: 13px; font-weight: 700; color: var(--ink); }
-.cflow .cf-cc-ghead .gtot { font-size: 11.5px; font-weight: 600; color: var(--ink-soft); margin-left: auto; }
-.cflow .cf-cc-ghead .gtot b { color: var(--gc); font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
-.cflow .cf-cc-ggrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
+/* Ô tô màu theo thành phần I / II / III — nhìn ra 3 nhóm mà vẫn giữ lưới gọn */
 .cflow .cf-cc-cell { border: 1px solid var(--line); border-left: 4px solid var(--gc, var(--accent)); border-radius: 8px;
-  padding: 7px 10px 8px; background: var(--surface); }
+  padding: 7px 10px 8px; background: color-mix(in srgb, var(--gc, var(--accent)) 6%, var(--surface)); }
 .cflow .cf-cc-cell .cc-code { font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--gc, var(--accent)); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
 .cflow .cf-cc-cell .cc-code .cc-tot { font-size: 15px; font-weight: 800; color: var(--ink); }
 .cflow .cf-cc-cell .cc-code .cc-tot small { font-size: 9px; font-weight: 600; color: var(--ink-soft); }
@@ -566,13 +556,8 @@ function printFlow(root: HTMLElement | null) {
   setTimeout(cleanup, 1500);
 }
 
-// ── Gom khối con I.x / II.x / III thành 3 THÀNH PHẦN (QĐ 2690 / Mẫu 952) ─────
+// ── Màu theo THÀNH PHẦN I / II / III (chỉ để tô ô, giữ lưới 7 cột) ───────────
 type CompKey = 'I' | 'II' | 'III';
-const COMP_LABEL: Record<CompKey, string> = {
-  I: 'Kiến thức chung & đại cương',
-  II: 'Kiến thức ngành',
-  III: 'Thực tập',
-};
 const COMP_COLOR: Record<CompKey, string> = {
   I: 'var(--c-daicuong)',
   II: 'var(--c-nen)',
@@ -609,52 +594,36 @@ function CreditBox({ blocks, total }: { blocks: CreditBlock[]; total?: number })
           )}
         </span>
       </p>
-      <div className="cf-cc-groups">
-        {(['I', 'II', 'III'] as const).map((g) => {
-          const gblocks = blocks.filter((b) => compKey(b.code) === g);
-          if (gblocks.length === 0) return null;
-          const gc = gblocks.reduce((s, b) => s + b.credits, 0);
-          const gr = gblocks.reduce((s, b) => s + (b.reqCredits ?? 0), 0);
-          const go = gblocks.reduce((s, b) => s + (b.optCredits ?? 0), 0);
+      <div className="cf-cc-grid">
+        {blocks.map((b) => {
+          const req = b.reqCredits ?? 0;
+          const opt = b.optCredits ?? 0;
           return (
-            <div className="cf-cc-group" key={g} style={{ ['--gc' as string]: COMP_COLOR[g] }}>
-              <div className="cf-cc-ghead">
-                <span className="gnum">{g}</span>
-                <span className="glabel">{COMP_LABEL[g]}</span>
-                <span className="gtot">
-                  <b>{gc}</b> TC{hasSplit && go > 0 ? ` · BB ${gr} · TC ${go}` : ''}
+            <div
+              className="cf-cc-cell"
+              key={b.code}
+              style={{ ['--gc' as string]: COMP_COLOR[compKey(b.code)] }}
+            >
+              <div className="cc-code">
+                <span>{b.code}</span>
+                <span className="cc-tot">
+                  {b.credits} <small>TC</small>
                 </span>
               </div>
-              <div className="cf-cc-ggrid">
-                {gblocks.map((b) => {
-                  const req = b.reqCredits ?? 0;
-                  const opt = b.optCredits ?? 0;
-                  return (
-                    <div className="cf-cc-cell" key={b.code}>
-                      <div className="cc-code">
-                        <span>{b.code}</span>
-                        <span className="cc-tot">
-                          {b.credits} <small>TC</small>
-                        </span>
-                      </div>
-                      <div className="cc-name">{b.name}</div>
-                      {hasSplit && (
-                        <div className="cc-split">
-                          <div className="cc-pill req">
-                            <span className="pn">{req}</span>
-                            <span className="pl">Bắt buộc</span>
-                          </div>
-                          <div className="cc-pill opt">
-                            <span className="pn">{opt}</span>
-                            <span className="pl">Tự chọn</span>
-                          </div>
-                        </div>
-                      )}
-                      {b.detail && <div className="cc-detail">{b.detail}</div>}
-                    </div>
-                  );
-                })}
-              </div>
+              <div className="cc-name">{b.name}</div>
+              {hasSplit && (
+                <div className="cc-split">
+                  <div className="cc-pill req">
+                    <span className="pn">{req}</span>
+                    <span className="pl">Bắt buộc</span>
+                  </div>
+                  <div className="cc-pill opt">
+                    <span className="pn">{opt}</span>
+                    <span className="pl">Tự chọn</span>
+                  </div>
+                </div>
+              )}
+              {b.detail && <div className="cc-detail">{b.detail}</div>}
             </div>
           );
         })}

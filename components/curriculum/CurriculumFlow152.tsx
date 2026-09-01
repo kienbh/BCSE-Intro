@@ -24,6 +24,7 @@ import {
   type Flow152Course,
   type Flow152Elective,
   type Flow152Term,
+  type Flow152Color,
 } from '@/data/curriculum-152';
 
 export interface CreditBlock {
@@ -34,9 +35,21 @@ export interface CreditBlock {
   optCredits?: number;
   detail?: string;
 }
+
+/** Một định hướng chuyên ngành (rổ đầy đủ: lộ trình môn theo kỳ, cốt lõi ★). */
+export interface Flow152Direction {
+  group: string;
+  nameEN?: string;
+  desc?: string;
+  careers?: string[];
+  color?: Flow152Color;
+  items: { name: string; semester?: string; star?: boolean; type: 'required' | 'elective' | 'practice' }[];
+}
 interface Props {
   creditBlocks?: CreditBlock[];
   totalCredits?: number;
+  /** Nếu truyền, mục "5 Định hướng chuyên ngành" dùng dữ liệu này (rổ đầy đủ). */
+  directions?: Flow152Direction[];
 }
 
 function printFlow(root: HTMLElement | null) {
@@ -193,11 +206,22 @@ const CSS = `
 .cflow152 .cf-cat-col { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--cat, var(--c-se)); border-radius: 10px; padding: 0 0 12px; box-shadow: var(--shadow); overflow: hidden; }
 .cflow152 .cf-cat-col h4 { font-size: 12.5px; font-weight: 800; color: var(--cat, var(--c-se)); margin: 0; padding: 10px 13px 9px; letter-spacing: .01em; background: var(--cat-bg, var(--c-se-bg)); border-bottom: 1px solid var(--line-soft); }
 .cflow152 .cf-cat-note { font-size: 10.5px; color: var(--ink-soft); margin: 8px 13px 4px; line-height: 1.4; }
-.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--ink); padding: 3px 13px; border-top: 1px solid var(--line-soft); line-height: 1.35; margin-top: 5px; }
-.cflow152 .cf-cat-item:first-of-type, .cflow152 .cf-cat-note + .cf-cat-item { border-top: none; margin-top: 8px; }
-.cflow152 .cf-cat-item .oc { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--cat, var(--c-se)); flex: none; min-width: 60px; }
+/* Chú giải loại học phần + sao cốt lõi */
+.cflow152 .cf-cat-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 14px; font-size: 11.5px; color: var(--ink-soft); }
+.cflow152 .cf-cat-legend .lg { display: inline-flex; align-items: center; gap: 6px; }
+.cflow152 .cf-cat-legend .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.cflow152 .cf-cat-legend .star, .cflow152 .cf-cat-item .star { color: #E8A93A; font-weight: 700; }
+.cflow152 .dot.req, .cflow152 .cf-cat-item.t-required .dot { background: #8B7CD8; }
+.cflow152 .dot.opt, .cflow152 .cf-cat-item.t-elective .dot { background: #3FB984; }
+.cflow152 .dot.prac, .cflow152 .cf-cat-item.t-practice .dot { background: #E36A88; }
+.cflow152 .cf-cat-en { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--cat, var(--c-se)); padding: 5px 13px 0; }
+.cflow152 .cf-cat-careers { display: flex; flex-wrap: wrap; gap: 4px; padding: 7px 13px 3px; }
+.cflow152 .cf-cat-careers .chip { font-size: 9px; padding: 1px 7px; border-radius: 999px; background: color-mix(in srgb, var(--cat, var(--c-se)) 12%, transparent); color: var(--cat, var(--c-se)); font-weight: 600; }
+.cflow152 .cf-cat-list { margin-top: 7px; }
+.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 7px; font-size: 11.5px; color: var(--ink); padding: 2.5px 13px; line-height: 1.35; }
+.cflow152 .cf-cat-item .dot { width: 6px; height: 6px; border-radius: 50%; flex: none; position: relative; top: 4px; }
 .cflow152 .cf-cat-item .on { flex: 1; }
-.cflow152 .cf-cat-item .ot { font-size: 10.5px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; flex: none; }
+.cflow152 .cf-cat-item .sem { font-family: "IBM Plex Mono", monospace; font-size: 9.5px; color: var(--ink-soft); flex: none; white-space: nowrap; }
 
 .cflow152 .cf-grad-box { border: 1.5px solid var(--grad); background: var(--grad-bg); border-radius: 9px; padding: 8px 10px 10px; margin-top: 4px; }
 .cflow152 .cf-grad-box .gh { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--grad); margin-bottom: 5px; }
@@ -376,7 +400,7 @@ function CreditBox({ blocks, total }: { blocks: CreditBlock[]; total?: number })
   );
 }
 
-export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props) {
+export default function CurriculumFlow152({ creditBlocks, totalCredits, directions }: Props) {
   const sems: Flow152Term[] = flow152;
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -491,29 +515,54 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
       </div>
 
       <section className="cf-catalog">
-        <h3>Tự chọn ngành theo định hướng — M5</h3>
+        <h3>5 Định hướng chuyên ngành</h3>
         <p className="lead">
-          Sau khi hoàn thành nền bắt buộc, sinh viên chọn <b>21 TC tự chọn ngành</b> theo một trong các
-          định hướng dưới đây (có thể kết hợp). Danh mục hiển thị đại diện — xem đầy đủ trong Quyển Khung.
+          Sau 2 năm học nền chung, sinh viên chọn <b>một trong 5 định hướng</b> và hoàn thành lộ trình học
+          phần dưới đây (chọn đủ <b>21 TC tự chọn ngành</b>). <b>★</b> = học phần cốt lõi của định hướng.
         </p>
+        <div className="cf-cat-legend">
+          <span className="lg"><span className="dot req" /> Bắt buộc</span>
+          <span className="lg"><span className="dot opt" /> Tự chọn</span>
+          <span className="lg"><span className="dot prac" /> Thực tập &amp; Khóa luận</span>
+          <span className="lg"><span className="star">★</span> Môn cốt lõi</span>
+        </div>
         <div className="cf-cat-grid">
-          {electiveCatalog152.map((el, i) => (
-            <div
-              className="cf-cat-col"
-              key={i}
-              style={el.color ? { ['--cat' as string]: `var(--c-${el.color === 'ft' ? 'fintech' : el.color})`, ['--cat-bg' as string]: `var(--c-${el.color === 'ft' ? 'fintech' : el.color}-bg)` } : undefined}
-            >
-              <h4>{el.group}</h4>
-              {el.note && <p className="cf-cat-note">{el.note}</p>}
-              {el.items.map((it, j) => (
-                <div className="cf-cat-item" key={j}>
-                  {it.code && <span className="oc">{it.code}</span>}
-                  <span className="on">{it.name}</span>
-                  {it.credits != null && <span className="ot">{it.credits} TC</span>}
+          {(directions ?? electiveCatalog152.map((el) => ({
+            group: el.group,
+            color: el.color,
+            items: el.items.map((it) => ({ name: it.code ? `${it.code} ${it.name}` : it.name, type: 'elective' as const })),
+          }))).map((d, i) => {
+            const cvar = d.color ? (d.color === 'ft' ? 'fintech' : d.color) : null;
+            return (
+              <div
+                className="cf-cat-col"
+                key={i}
+                style={cvar ? { ['--cat' as string]: `var(--c-${cvar})`, ['--cat-bg' as string]: `var(--c-${cvar}-bg)` } : undefined}
+              >
+                <h4>{d.group}</h4>
+                {'nameEN' in d && d.nameEN && <div className="cf-cat-en">{d.nameEN}</div>}
+                {'careers' in d && Array.isArray(d.careers) && d.careers.length > 0 && (
+                  <div className="cf-cat-careers">
+                    {d.careers.map((c) => (
+                      <span className="chip" key={c}>{c}</span>
+                    ))}
+                  </div>
+                )}
+                <div className="cf-cat-list">
+                  {d.items.map((it, j) => (
+                    <div className={`cf-cat-item t-${'type' in it ? it.type : 'elective'}`} key={j}>
+                      <span className="dot" />
+                      <span className="on">
+                        {it.name}
+                        {'star' in it && it.star && <span className="star"> ★</span>}
+                      </span>
+                      {'semester' in it && it.semester && <span className="sem">{it.semester}</span>}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          ))}
+              </div>
+            );
+          })}
         </div>
       </section>
 
