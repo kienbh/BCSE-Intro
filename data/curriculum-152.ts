@@ -67,6 +67,8 @@ export interface Flow152Term {
   summer?: Flow152Summer[];
   /** Nhãn kỳ hè (vd "☀ Kỳ hè (sau HK2)") */
   summerLabel?: string;
+  /** Học phần điều kiện — KHÔNG tính tín chỉ (GDTC, KNBT, GDQP-AN) */
+  conds?: string[];
   /** Kỳ tốt nghiệp (khóa luận) */
   grad?: boolean;
 }
@@ -166,6 +168,7 @@ export const flow152: Flow152Term[] = [
       { code: 'AET2014', name: 'Nhập môn lập trình', credits: 2, block: 'M2' },
       { code: 'VJU2012', name: 'Khoa học toàn cầu và môi trường', credits: 2, block: 'M2' },
     ],
+    conds: ['Giáo dục thể chất', 'Kỹ năng bổ trợ'],
   },
   {
     year: 'Năm 1',
@@ -174,6 +177,7 @@ export const flow152: Flow152Term[] = [
       { code: 'PEC1008', name: 'Kinh tế chính trị Mác – Lênin', credits: 2, block: 'M1', pre: 'PHI1006' },
       { code: 'FLF1108', name: 'Tiếng Anh B2', credits: 5, block: 'M1' },
       { code: 'VJU2032', name: 'Tiếng Nhật sơ cấp 2', credits: 2, block: 'M2', pre: 'VJU2031' },
+      { code: 'THL1057', name: 'Nhà nước và pháp luật đại cương', credits: 2, block: 'M1' },
       { code: 'AET2015', name: 'Nhập môn hệ thống máy tính', credits: 2, block: 'M2' },
       { code: 'VJU2006', name: 'Vật lý 2', credits: 2, block: 'M2' },
       { code: 'CSE3001', name: 'Giải tích 2', credits: 3, block: 'M3' },
@@ -190,6 +194,7 @@ export const flow152: Flow152Term[] = [
         ],
       },
     ],
+    conds: ['Giáo dục thể chất', 'Kỹ năng bổ trợ'],
     summerLabel: '☀ Kỳ hè (sau HK2)',
     summer: [{ code: '—', name: 'Giáo dục quốc phòng – an ninh', credits: 'ĐK' }],
   },
@@ -213,6 +218,7 @@ export const flow152: Flow152Term[] = [
         ],
       },
     ],
+    conds: ['Giáo dục thể chất', 'Kỹ năng bổ trợ'],
   },
   {
     year: 'Năm 2',
@@ -220,11 +226,13 @@ export const flow152: Flow152Term[] = [
     required: [
       { code: 'HIS1001', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, block: 'M1' },
       { code: 'VJU2001', name: 'Phương pháp luận nghiên cứu khoa học', credits: 2, block: 'M2' },
+      { code: 'CSE3041', name: 'Công nghệ phần mềm', credits: 3, block: 'M5', pre: 'CSE3011' },
       { code: 'CSE3033', name: 'Nguyên lý hệ điều hành', credits: 3, block: 'M4' },
       { code: 'CSE3012', name: 'Nhập môn cơ sở dữ liệu', credits: 3, block: 'M3' },
       { code: 'CSE3005', name: 'Phương pháp số', credits: 2, block: 'M3' },
       { code: 'CSE3043', name: 'Mạch logic và kỹ thuật số', credits: 3, block: 'M4' },
     ],
+    conds: ['Giáo dục thể chất', 'Giáo dục quốc phòng – an ninh (hè)'],
     electives: [
       {
         group: 'Tự chọn theo khối ngành (M3 · 2/6 TC)',
@@ -253,7 +261,6 @@ export const flow152: Flow152Term[] = [
     hk: 'Học kỳ 6',
     required: [
       { code: 'CSE3047', name: 'Thiết kế hệ thống số với HDL', credits: 3, block: 'M5' },
-      { code: 'CSE3041', name: 'Công nghệ phần mềm', credits: 3, block: 'M5', pre: 'CSE3011' },
       { code: 'CSE3021', name: 'An ninh thông tin', credits: 3, block: 'M5' },
       { code: 'CSE3045', name: 'Học theo dự án khoa học và kỹ thuật', credits: 3, block: 'M5' },
       { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3, block: 'M5' },

@@ -178,6 +178,8 @@ const CSS = `
 .cflow152 .cf-sec-req { background: var(--c-nen); color: #fff; }
 .cflow152 .cf-sec-opt { background: transparent; color: var(--c-coso); border: 1px dashed var(--c-coso); margin-top: 10px; }
 .cflow152 .cf-sec-summer { background: var(--summer); color: #fff; margin-top: 8px; }
+.cflow152 .cf-cond { margin-top: 8px; padding: 6px 9px; border: 1px dashed var(--line); border-radius: 7px; background: var(--surface); font-size: 10.5px; color: var(--ink-soft); line-height: 1.4; }
+.cflow152 .cf-cond-lb { display: block; font-family: "IBM Plex Mono", monospace; font-size: 9px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 2px; }
 
 .cflow152 .cf-opt-group { background: var(--c-coso-bg); border: 1px dashed var(--line); border-left: 3px solid var(--c-coso); border-radius: 7px; padding: 7px 10px 8px; }
 .cflow152 .cf-opt-group + .cf-opt-group { margin-top: 7px; }
@@ -492,6 +494,13 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits, directio
                 </>
               )}
 
+              {s.conds && s.conds.length > 0 && (
+                <div className="cf-cond">
+                  <span className="cf-cond-lb">Điều kiện · không tính TC</span>
+                  {s.conds.join(' · ')}
+                </div>
+              )}
+
               {s.summer && s.summer.length > 0 && (
                 <>
                   <div className="cf-sec-label cf-sec-summer">{s.summerLabel ?? '☀ Kỳ hè'}</div>
@@ -520,8 +529,9 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits, directio
       <section className="cf-catalog">
         <h3>5 Định hướng chuyên ngành</h3>
         <p className="lead">
-          Sau 2 năm học nền chung, sinh viên chọn <b>một trong 5 định hướng</b> và hoàn thành lộ trình học
-          phần dưới đây (chọn đủ <b>21 TC tự chọn ngành</b>).
+          Sinh viên <b>tham khảo</b> 5 định hướng chuyên ngành dưới đây. <b>Học phần bắt buộc</b> thì mọi
+          sinh viên đều phải học theo kế hoạch từng học kỳ; <b>học phần tự chọn</b> thì căn cứ định hướng
+          mình chọn để lấy cho phù hợp (đủ <b>21 TC tự chọn ngành</b>).
         </p>
         <div className="cf-cat-legend">
           <span className="lg"><span className="dot req" /> Bắt buộc</span>

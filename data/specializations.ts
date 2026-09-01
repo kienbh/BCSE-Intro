@@ -62,7 +62,7 @@ export const specializations: Specialization[] = [
       { code: 'CSE3052', name: 'Phát triển ứng dụng Web', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
       { code: 'CSE3061', name: 'Tương tác người và máy', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
       { code: 'CSE3059', name: 'Điện toán đám mây', credits: 3, semester: 'Kỳ 5', star: true, type: 'elective' },
-      { code: 'CSE3041', name: 'Công nghệ phần mềm', credits: 3, semester: 'Kỳ 6', type: 'required' },
+      { code: 'CSE3041', name: 'Công nghệ phần mềm', credits: 3, semester: 'Kỳ 4', type: 'required' },
       { code: 'CSE3045', name: 'Học theo dự án khoa học và kỹ thuật', credits: 3, semester: 'Kỳ 6', star: true, type: 'required' },
       { code: 'CSE3053', name: 'Phát triển ứng dụng di động', credits: 3, semester: 'Kỳ 6', star: true, type: 'elective' },
       { code: 'CSE3065', name: 'Phân tích và thiết kế hệ thống', credits: 3, semester: 'Kỳ 6', type: 'elective' },
