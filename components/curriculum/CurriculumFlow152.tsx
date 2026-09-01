@@ -17,10 +17,40 @@
  * `.cflow152` tối giản, cùng token.
  */
 
+import { useRef } from 'react';
 import {
   yearBlocks152,
   type YearBlock,
 } from '@/data/curriculum';
+
+export interface CreditBlock {
+  code: string;
+  name: string;
+  credits: number;
+  detail?: string;
+}
+interface Props {
+  creditBlocks?: CreditBlock[];
+  totalCredits?: number;
+}
+
+function printFlow(root: HTMLElement | null) {
+  if (!root) {
+    window.print();
+    return;
+  }
+  const body = document.body;
+  root.classList.add('cf-printing');
+  body.classList.add('cflow-printing');
+  const cleanup = () => {
+    root.classList.remove('cf-printing');
+    body.classList.remove('cflow-printing');
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  window.print();
+  setTimeout(cleanup, 1500);
+}
 
 // ── Phân loại khối M1–M5 theo màu (ánh xạ tinh thần 135: đại cương/toán/cơ sở/
 //    cốt lõi/chuyên ngành). 152 chia theo M1–M5; ta gán màu gần nghĩa nhất. ──
@@ -137,10 +167,56 @@ const CSS = `
 .cflow152 .cf-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
 .cflow152 .cf-footer b { color: var(--ink); }
 
+/* ── Hộp tích lũy tín chỉ theo khối (đóng khung rõ ràng cho SV) ─────────── */
+.cflow152 .cf-credits { border: 1.5px solid var(--accent); border-radius: 11px; padding: 12px 14px 13px;
+  margin: 18px 0 26px; background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: var(--shadow); }
+.cflow152 .cf-credits .cc-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--accent); margin: 0 0 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.cflow152 .cf-credits .cc-total { font-size: 12px; font-weight: 800; color: var(--ink); letter-spacing: 0; text-transform: none; }
+.cflow152 .cf-credits .cc-total b { color: var(--accent); font-size: 15px; font-variant-numeric: tabular-nums; }
+.cflow152 .cf-cc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
+.cflow152 .cf-cc-cell { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px;
+  padding: 7px 10px; background: var(--surface); }
+.cflow152 .cf-cc-cell .cc-code { font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.cflow152 .cf-cc-cell .cc-cr { font-size: 20px; font-weight: 800; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cflow152 .cf-cc-cell .cc-cr small { font-size: 10px; font-weight: 600; color: var(--ink-soft); }
+.cflow152 .cf-cc-cell .cc-name { font-size: 10.5px; color: var(--ink); margin-top: 1px; line-height: 1.25; }
+.cflow152 .cf-cc-cell .cc-detail { font-size: 9px; color: var(--ink-soft); margin-top: 2px; line-height: 1.3; }
+
+/* ── IN / XUẤT PDF — 4 kỳ / trang, A4 ngang ──────────────────────────── */
 @media print {
-  .cflow152 .cf-toolbar { display: none; }
-  .cflow152 .cf-board { min-width: 0; }
-  .cflow152 .cf-course, .cflow152 .cf-term-head { box-shadow: none; }
+  body.cflow-printing * { visibility: hidden !important; }
+  body.cflow-printing .cflow152.cf-printing,
+  body.cflow-printing .cflow152.cf-printing * { visibility: visible !important; }
+  body.cflow-printing .cflow152.cf-printing {
+    position: absolute !important; left: 0; top: 0; width: 100%;
+    padding: 0 !important; margin: 0 !important; background: #fff !important;
+  }
+}
+@page { size: A4 landscape; margin: 7mm; }
+
+@media print {
+  .cflow152.cf-printing { color: #000 !important; }
+  .cflow152.cf-printing .cf-toolbar { display: none !important; }
+  .cflow152.cf-printing .cf-header { border-color: #000; padding-bottom: 8px; margin-bottom: 6px; }
+  .cflow152.cf-printing .cf-h1 { font-size: 17px; }
+  .cflow152.cf-printing .cf-sub { font-size: 11px; }
+  .cflow152.cf-printing .cf-meta { font-size: 10px; margin-top: 6px; gap: 4px 14px; }
+  .cflow152.cf-printing .cf-legend { font-size: 9px; gap: 4px 10px; margin: 4px 0 8px; }
+
+  .cflow152.cf-printing .cf-credits { border-color: #444; background: #fff; box-shadow: none; margin: 8px 0 10px; break-inside: avoid; }
+  .cflow152.cf-printing .cf-cc-cell { border-color: #999; background: #fff; box-shadow: none; }
+
+  .cflow152.cf-printing .cf-board-scroll { overflow: visible !important; }
+  .cflow152.cf-printing .cf-board {
+    display: grid !important; grid-template-columns: repeat(4, 1fr) !important;
+    min-width: 0 !important; width: 100% !important; gap: 7px !important; align-items: start;
+  }
+  .cflow152.cf-printing .cf-term:nth-child(5) { break-before: page; }
+  .cflow152.cf-printing .cf-term { break-inside: avoid; }
+  .cflow152.cf-printing .cf-course, .cflow152.cf-printing .cf-term-head { box-shadow: none !important; }
+  .cflow152.cf-printing .cf-course { break-inside: avoid; }
+  .cflow152.cf-printing .cf-term-head { position: static !important; }
 }
 @media (prefers-reduced-motion: reduce) { .cflow152 * { transition: none !important; } }
 `;
@@ -184,11 +260,12 @@ function flatten(blocks: YearBlock[]): FlatSem[] {
   return out;
 }
 
-export default function CurriculumFlow152() {
+export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props) {
   const sems = flatten(yearBlocks152);
+  const rootRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="cflow152">
+    <div className="cflow152" ref={rootRef}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       <header className="cf-header">
@@ -205,8 +282,31 @@ export default function CurriculumFlow152() {
         </div>
       </header>
 
+      {creditBlocks && creditBlocks.length > 0 && (
+        <div className="cf-credits">
+          <p className="cc-title">
+            <span>Tích lũy tín chỉ theo khối học phần</span>
+            <span className="cc-total">
+              Tổng cần tích lũy: <b>{totalCredits}</b> tín chỉ
+            </span>
+          </p>
+          <div className="cf-cc-grid">
+            {creditBlocks.map((b) => (
+              <div className="cf-cc-cell" key={b.code}>
+                <div className="cc-code">{b.code}</div>
+                <div className="cc-cr">
+                  {b.credits} <small>TC</small>
+                </div>
+                <div className="cc-name">{b.name}</div>
+                {b.detail && <div className="cc-detail">{b.detail}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="cf-toolbar">
-        <button className="cf-tool" type="button" onClick={() => window.print()}>
+        <button className="cf-tool" type="button" onClick={() => printFlow(rootRef.current)}>
           ⎙ In / Xuất PDF
         </button>
       </div>

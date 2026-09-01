@@ -13,6 +13,7 @@
  * KHÔNG có nút đổi theme (nav SV08 lo). CÓ nút "⎙ In / Xuất PDF" (window.print).
  */
 
+import { useRef } from 'react';
 import {
   KIND,
   BLK,
@@ -237,10 +238,82 @@ const CFLOW_CSS = `
 
 .cflow .cf-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
 
+/* ── Hộp tích lũy tín chỉ theo khối (đóng khung rõ ràng cho SV) ─────────── */
+.cflow .cf-credits { border: 1.5px solid var(--accent); border-radius: 11px; padding: 12px 14px 13px;
+  margin: 18px 0 26px; background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: var(--shadow); }
+.cflow .cf-credits .cc-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--accent); margin: 0 0 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.cflow .cf-credits .cc-total { font-size: 12px; font-weight: 800; color: var(--ink); letter-spacing: 0; text-transform: none; }
+.cflow .cf-credits .cc-total b { color: var(--accent); font-size: 15px; font-variant-numeric: tabular-nums; }
+.cflow .cf-cc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.cflow .cf-cc-cell { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px;
+  padding: 7px 10px; background: var(--surface); }
+.cflow .cf-cc-cell .cc-code { font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--accent); font-variant-numeric: tabular-nums; }
+.cflow .cf-cc-cell .cc-cr { font-size: 20px; font-weight: 800; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.cflow .cf-cc-cell .cc-cr small { font-size: 10px; font-weight: 600; color: var(--ink-soft); }
+.cflow .cf-cc-cell .cc-name { font-size: 10.5px; color: var(--ink); margin-top: 1px; line-height: 1.25; }
+.cflow .cf-cc-cell .cc-detail { font-size: 9px; color: var(--ink-soft); margin-top: 2px; line-height: 1.3; }
+
+/* ── Chỉ hiển thị khi IN (tiêu đề mỗi trang PDF) ──────────────────────── */
+.cflow .cf-print-only { display: none; }
+
+/* ── IN / XUẤT PDF — 4 kỳ / trang, A4 ngang ──────────────────────────── */
 @media print {
-  .cflow .cf-toolbar { display: none; }
-  .cflow .cf-board { min-width: 0; }
-  .cflow .cf-course, .cflow .cf-term-head, .cflow .cf-note { box-shadow: none; }
+  /* Chỉ in phần sơ đồ đang được yêu cầu in; ẩn toàn bộ chrome SV08 */
+  body.cflow-printing * { visibility: hidden !important; }
+  body.cflow-printing .cflow.cf-printing,
+  body.cflow-printing .cflow.cf-printing * { visibility: visible !important; }
+  body.cflow-printing .cflow.cf-printing {
+    position: absolute !important; left: 0; top: 0; width: 100%;
+    padding: 0 !important; margin: 0 !important; background: #fff !important;
+  }
+}
+@page { size: A4 landscape; margin: 7mm; }
+
+@media print {
+  .cflow.cf-printing { color: #000 !important; }
+  .cflow.cf-printing .cf-toolbar { display: none !important; }
+  .cflow.cf-printing .cf-print-only { display: block; }
+
+  /* Header gọn lại khi in */
+  .cflow.cf-printing .cf-header { border-color: #000; padding-bottom: 8px; margin-bottom: 6px; }
+  .cflow.cf-printing .cf-h1 { font-size: 17px; }
+  .cflow.cf-printing .cf-sub { font-size: 11px; }
+  .cflow.cf-printing .cf-meta { font-size: 10px; margin-top: 6px; gap: 4px 14px; }
+  .cflow.cf-printing .cf-legend { font-size: 9px; gap: 4px 10px; margin: 4px 0 8px; }
+
+  /* Hộp tín chỉ: nền trắng, viền in rõ */
+  .cflow.cf-printing .cf-credits { border-color: #444; background: #fff; box-shadow: none; margin: 8px 0 10px; break-inside: avoid; }
+  .cflow.cf-printing .cf-cc-cell { border-color: #999; background: #fff; box-shadow: none; }
+
+  /* BOARD: 4 cột / trang. In 2 trang, mỗi trang 4 kỳ. */
+  .cflow.cf-printing .cf-board-scroll { overflow: visible !important; }
+  .cflow.cf-printing .cf-board {
+    display: grid !important; grid-template-columns: repeat(4, 1fr) !important;
+    min-width: 0 !important; width: 100% !important; gap: 7px !important;
+    align-items: start;
+  }
+  /* Kỳ 5 (phần tử thứ 5) bắt đầu TRANG MỚI -> 1-4 ở trang 1, 5-8 ở trang 2 */
+  .cflow.cf-printing .cf-term:nth-child(5) { break-before: page; }
+  /* Nhãn "trang 2/2" chèn trước kỳ 5 */
+  .cflow.cf-printing .cf-term { break-inside: avoid; }
+
+  .cflow.cf-printing .cf-course,
+  .cflow.cf-printing .cf-term-head,
+  .cflow.cf-printing .cf-note,
+  .cflow.cf-printing .cf-branch,
+  .cflow.cf-printing .cf-strip { box-shadow: none !important; }
+  .cflow.cf-printing .cf-course { break-inside: avoid; }
+  .cflow.cf-printing .cf-term-head { position: static !important; }
+
+  /* Strip đại cương + mô đun + note: mỗi cụm sang trang mới, không cắt giữa */
+  .cflow.cf-printing .cf-strip { break-before: page; break-inside: avoid; margin-top: 0; }
+  .cflow.cf-printing .cf-branches { break-before: page; }
+  .cflow.cf-printing .cf-branch-scroll { overflow: visible !important; }
+  .cflow.cf-printing .cf-branch-clusters { min-width: 0 !important; }
+  .cflow.cf-printing .cf-dc-scroll { overflow: visible !important; }
+  .cflow.cf-printing .cf-dc-grid { min-width: 0 !important; }
+  .cflow.cf-printing .cf-notes { break-before: page; }
 }
 @media (prefers-reduced-motion: reduce) { .cflow * { transition: none !important; } }
 `;
@@ -423,10 +496,43 @@ function BranchCard({ bkey }: { bkey: BranchKey }) {
   );
 }
 
+// ── Kiểu dữ liệu khối tín chỉ (truyền từ Content.tsx) ────────────────────────
+export interface CreditBlock {
+  code: string;
+  name: string;
+  credits: number;
+  detail?: string;
+}
+interface CurriculumFlowProps {
+  creditBlocks?: CreditBlock[];
+  totalCredits?: number;
+}
+
+// In: bọc phần đang in bằng class để CSS @media print chỉ hiện sơ đồ này.
+function printFlow(root: HTMLElement | null) {
+  if (!root) {
+    window.print();
+    return;
+  }
+  const body = document.body;
+  root.classList.add('cf-printing');
+  body.classList.add('cflow-printing');
+  const cleanup = () => {
+    root.classList.remove('cf-printing');
+    body.classList.remove('cflow-printing');
+    window.removeEventListener('afterprint', cleanup);
+  };
+  window.addEventListener('afterprint', cleanup);
+  window.print();
+  // Dự phòng cho trình duyệt không bắn afterprint
+  setTimeout(cleanup, 1500);
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
-export default function CurriculumFlow() {
+export default function CurriculumFlow({ creditBlocks, totalCredits }: CurriculumFlowProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   return (
-    <div className="cflow">
+    <div className="cflow" ref={rootRef}>
       <style dangerouslySetInnerHTML={{ __html: CFLOW_CSS }} />
 
       <header className="cf-header">
@@ -443,11 +549,34 @@ export default function CurriculumFlow() {
         </div>
       </header>
 
+      {creditBlocks && creditBlocks.length > 0 && (
+        <div className="cf-credits">
+          <p className="cc-title">
+            <span>Tích lũy tín chỉ theo khối học phần</span>
+            <span className="cc-total">
+              Tổng cần tích lũy: <b>{totalCredits}</b> tín chỉ
+            </span>
+          </p>
+          <div className="cf-cc-grid">
+            {creditBlocks.map((b) => (
+              <div className="cf-cc-cell" key={b.code}>
+                <div className="cc-code">{b.code}</div>
+                <div className="cc-cr">
+                  {b.credits} <small>TC</small>
+                </div>
+                <div className="cc-name">{b.name}</div>
+                {b.detail && <div className="cc-detail">{b.detail}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="cf-toolbar">
         <button
           className="cf-tool"
           type="button"
-          onClick={() => window.print()}
+          onClick={() => printFlow(rootRef.current)}
         >
           ⎙ In / Xuất PDF
         </button>

@@ -54,17 +54,7 @@ export default function CurriculumContent() {
             {fw === '135' ? t('curriculum.fwNewNote') : t('curriculum.fwOldNote')}
           </p>
 
-          <div className={`grid grid-cols-2 ${ps.creditBlocks.length > 5 ? 'md:grid-cols-4 xl:grid-cols-7' : 'md:grid-cols-5'} gap-3 mb-6`}>
-            {ps.creditBlocks.map((block) => (
-              <div key={block.code} className="p-4 rounded-xl bg-surface-2/60 border border-line/[0.06] text-center">
-                <span className="text-xs font-mono text-sky-400">{block.code}</span>
-                <p className="text-2xl font-display font-bold text-ink mt-1">{block.credits}</p>
-                <p className="text-[11px] text-ink-5 mt-1">{block.name}</p>
-                <p className="text-[9px] text-ink-6 mt-0.5">{block.detail}</p>
-              </div>
-            ))}
-          </div>
-          <p className="text-xs text-ink-6 text-center mb-16">{ps.partnerNote} · {ps.englishLevel}</p>
+          <p className="text-xs text-ink-6 text-center mb-12">{ps.partnerNote} · {ps.englishLevel}</p>
 
           {fw === '135' ? (
             <>
@@ -72,7 +62,10 @@ export default function CurriculumContent() {
                 <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.plan135')}
               </h3>
               <div className="mb-16">
-                <CurriculumFlow />
+                <CurriculumFlow
+                  creditBlocks={programStructure135.creditBlocks}
+                  totalCredits={programStructure135.totalCredits}
+                />
               </div>
 
               <h3 className="text-xl font-bold text-ink mb-2">{t('curriculum.core135')}</h3>
@@ -150,7 +143,10 @@ export default function CurriculumContent() {
                 <BookOpen className="w-5 h-5 text-sky-400" /> {t('curriculum.path')}
               </h3>
               <div className="mb-16">
-                <CurriculumFlow152 />
+                <CurriculumFlow152
+                  creditBlocks={programStructure152.creditBlocks}
+                  totalCredits={programStructure152.totalCredits}
+                />
               </div>
 
               <h3 className="text-xl font-bold text-ink mb-2">{t('curriculum.specializationsTitle')}</h3>
