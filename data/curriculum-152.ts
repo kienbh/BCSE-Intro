@@ -144,15 +144,6 @@ export const electiveCatalog152: Flow152Elective[] = [
   FINTECH_ELECTIVE,
 ];
 
-// Con trỏ GỌN dùng trong cột kỳ chuyên ngành (HK5–HK7): chỉ 1 dòng, trỏ xuống
-// danh mục đầy đủ bên dưới thay vì liệt kê ~30 học phần mỗi kỳ.
-const ELECTIVE_HINT: Flow152Elective = {
-  group: 'Chọn học phần theo định hướng',
-  note: 'AI&DS · SE · IoT · Vi mạch (IC) · Fintech — xem danh mục đầy đủ ở mục “Tự chọn ngành theo định hướng” bên dưới ↓',
-  items: [],
-  compact: true,
-};
-
 export const flow152: Flow152Term[] = [
   {
     year: 'Năm 1',
@@ -254,7 +245,18 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3030', name: 'Mạng máy tính và truyền thông', credits: 3, block: 'M4' },
       { code: 'CSE3040', name: 'Khoa học dữ liệu', credits: 3, block: 'M5' },
     ],
-    electives: [ELECTIVE_HINT],
+    electives: [
+      {
+        group: 'Tự chọn theo định hướng — chọn 1–2 HP (★ = cốt lõi)',
+        items: [
+          { code: 'CSE3050', name: 'Trí tuệ nhân tạo ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3063', name: 'XLTT âm thanh và hình ảnh ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3052', name: 'Phát triển ứng dụng Web ★ (SE)', credits: 3 },
+          { code: 'CSE3061', name: 'Tương tác người và máy ★ (SE)', credits: 3 },
+          { code: 'CSE3059', name: 'Điện toán đám mây ★ (SE)', credits: 3 },
+        ],
+      },
+    ],
   },
   {
     year: 'Năm 3',
@@ -266,7 +268,24 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3, block: 'M5' },
       { code: 'CSE3049', name: 'Đồ án theo chuyên ngành (theo định hướng SV chọn)', credits: 2, block: 'M5' },
     ],
-    electives: [ELECTIVE_HINT],
+    electives: [
+      {
+        group: 'Tự chọn theo định hướng — chọn 3–4 HP (★ = cốt lõi)',
+        items: [
+          { code: 'CSE3057', name: 'Học máy ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3060', name: 'Tính toán song song ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3068', name: 'Lý thuyết trò chơi ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3053', name: 'Phát triển ứng dụng di động ★ (SE)', credits: 3 },
+          { code: 'CSE3065', name: 'Phân tích và thiết kế hệ thống (SE)', credits: 3 },
+          { code: 'CSE3056', name: 'Phát triển ứng dụng nâng cao (SE)', credits: 3 },
+          { code: 'CSE3042', name: 'Công nghệ tài chính (Fintech)', credits: 3 },
+          { code: 'JPS3034', name: 'Kinh tế học vi mô (Fintech)', credits: 3 },
+          { code: 'JPS3035', name: 'Kinh tế học vĩ mô (Fintech)', credits: 3 },
+          { code: 'JPS3036', name: 'Marketing (Fintech)', credits: 2 },
+          { code: 'JPS3038', name: 'Nguyên lý kế toán (Fintech)', credits: 2 },
+        ],
+      },
+    ],
     summerLabel: '☀ Kỳ hè (sau HK6)',
     summer: [
       { code: 'CSE4001', name: 'Thực tập nghề nghiệp', credits: 3 },
@@ -277,13 +296,40 @@ export const flow152: Flow152Term[] = [
     year: 'Năm 4',
     hk: 'Học kỳ 7',
     required: [],
-    electives: [ELECTIVE_HINT],
+    electives: [
+      {
+        group: 'Toàn bộ tự chọn theo định hướng — chọn 3–4 HP (KHÔNG có HP bắt buộc)',
+        items: [
+          { code: 'CSE3062', name: 'Thị giác máy tính ★ (AI&DS)', credits: 3 },
+          { code: 'CSE3078', name: 'Thiết kế vi mạch số ★ (Vi mạch)', credits: 3 },
+          { code: 'CSE3069', name: 'Phát triển ứng dụng IoT (Nhúng & IoT)', credits: 3 },
+          { code: 'CSE3070', name: 'Mạng cảm biến không dây (Nhúng & IoT)', credits: 3 },
+          { code: 'CSE3077', name: 'Đảm bảo chất lượng phần mềm (SE)', credits: 3 },
+          { code: 'CSE3066', name: 'Đánh giá hiệu năng hệ thống ★ (SE)', credits: 3 },
+          { code: 'CSE3054', name: 'Quản lý và phân tích dữ liệu tài chính ★ (Fintech)', credits: 3 },
+          { code: 'CSE3055', name: 'Công nghệ tài chính và ứng dụng (Fintech)', credits: 3 },
+          { code: 'CSE3071', name: 'Lý thuyết tài chính tiền tệ ★ (Fintech)', credits: 2 },
+          { code: 'CSE3072', name: 'Tài chính doanh nghiệp ★ (Fintech)', credits: 2 },
+          { code: 'CSE3067', name: 'Học máy trong kinh tế và tài chính (Fintech)', credits: 3 },
+        ],
+      },
+    ],
   },
   {
     year: 'Năm 4',
     hk: 'Học kỳ 8',
     required: [
       { code: 'CSE4050', name: 'Khóa luận tốt nghiệp', credits: 10, block: 'M5' },
+    ],
+    electives: [
+      {
+        group: 'Tự chọn khác',
+        items: [
+          { code: 'CSE3058', name: 'Toán kỹ thuật', credits: 3 },
+          { code: 'CSE3064', name: 'Vận trù học ★', credits: 3 },
+          { code: 'CSE3051', name: 'Các công cụ trong AI', credits: 3 },
+        ],
+      },
     ],
     grad: true,
   },
