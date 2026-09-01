@@ -19,9 +19,12 @@
 
 import { useRef } from 'react';
 import {
-  yearBlocks152,
-  type YearBlock,
-} from '@/data/curriculum';
+  flow152,
+  electiveCatalog152,
+  type Flow152Course,
+  type Flow152Elective,
+  type Flow152Term,
+} from '@/data/curriculum-152';
 
 export interface CreditBlock {
   code: string;
@@ -54,30 +57,15 @@ function printFlow(root: HTMLElement | null) {
   setTimeout(cleanup, 1500);
 }
 
-// ── Phân loại khối M1–M5 theo màu (ánh xạ tinh thần 135: đại cương/toán/cơ sở/
-//    cốt lõi/chuyên ngành). 152 chia theo M1–M5; ta gán màu gần nghĩa nhất. ──
-type MBlock = 'm1' | 'm2' | 'm3' | 'm4' | 'm5';
+// ── Phân loại khối M1–M5 theo màu (khối lấy trực tiếp từ dữ liệu flow152). ──
+type MBlock = 'M1' | 'M2' | 'M3' | 'M4' | 'M5';
 const M_META: Record<MBlock, { c: string; bg: string; badge: string }> = {
-  m1: { c: 'var(--c-daicuong)', bg: 'var(--c-daicuong-bg)', badge: 'M1' },
-  m2: { c: 'var(--c-toan)', bg: 'var(--c-toan-bg)', badge: 'M2' },
-  m3: { c: 'var(--c-coso)', bg: 'var(--c-coso-bg)', badge: 'M3' },
-  m4: { c: 'var(--c-nen)', bg: 'var(--c-nen-bg)', badge: 'M4' },
-  m5: { c: 'var(--c-se)', bg: 'var(--c-se-bg)', badge: 'M5' },
+  M1: { c: 'var(--c-daicuong)', bg: 'var(--c-daicuong-bg)', badge: 'M1' },
+  M2: { c: 'var(--c-toan)', bg: 'var(--c-toan-bg)', badge: 'M2' },
+  M3: { c: 'var(--c-coso)', bg: 'var(--c-coso-bg)', badge: 'M3' },
+  M4: { c: 'var(--c-nen)', bg: 'var(--c-nen-bg)', badge: 'M4' },
+  M5: { c: 'var(--c-se)', bg: 'var(--c-se-bg)', badge: 'M5' },
 };
-
-// Năm (0-based) → khối chủ đạo của các HK trong năm đó (theo cấu trúc 152:
-// Năm1 = chung/lĩnh vực, Năm2 = khối/nhóm ngành, Năm3–4 = ngành).
-const YEAR_BLOCK: MBlock[] = ['m1', 'm3', 'm5', 'm5'];
-
-// Một số học phần lý luận chính trị / ngoại ngữ luôn thuộc M1 dù ở năm 2–4.
-const M1_KEYWORDS = [
-  'Mác', 'Lênin', 'xã hội khoa học', 'Lịch sử Đảng', 'Hồ Chí Minh',
-  'Tiếng Anh', 'Tiếng Nhật', 'Phương pháp luận',
-];
-function blockFor(name: string, yearIdx: number): MBlock {
-  if (M1_KEYWORDS.some((k) => name.includes(k))) return 'm1';
-  return YEAR_BLOCK[yearIdx] ?? 'm5';
-}
 
 const CSS = `
 .cflow152 {
@@ -137,7 +125,7 @@ const CSS = `
 .cflow152 .cf-sw { width: 13px; height: 13px; border-radius: 3px; flex: none; border: 1px solid rgba(0,0,0,.12); }
 
 .cflow152 .cf-board-scroll { overflow-x: auto; padding-bottom: 8px; }
-.cflow152 .cf-board { display: grid; grid-template-columns: repeat(8, minmax(150px, 1fr)); gap: 12px; min-width: 1360px; }
+.cflow152 .cf-board { display: grid; grid-template-columns: repeat(8, minmax(200px, 1fr)); gap: 14px; min-width: 1720px; }
 .cflow152 .cf-term { display: flex; flex-direction: column; gap: 9px; }
 .cflow152 .cf-term-head { position: sticky; top: 0; text-align: center; padding: 8px 6px; border-radius: 8px;
   background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); z-index: 2; }
@@ -146,11 +134,17 @@ const CSS = `
 .cflow152 .cf-term-head .tc { font-size: 11px; color: var(--ink-soft); margin-top: 2px; }
 
 .cflow152 .cf-course { position: relative; background: var(--surface); border: 1px solid var(--line);
-  border-left: 4px solid var(--kc, var(--line)); border-radius: 8px; padding: 6px 9px 7px;
+  border-left: 4px solid var(--kc, var(--line)); border-radius: 8px; padding: 8px 11px 9px;
   box-shadow: var(--shadow); transition: transform .12s, box-shadow .12s; display: flex;
-  justify-content: space-between; align-items: flex-start; gap: 6px; }
+  flex-direction: column; gap: 3px; }
 .cflow152 .cf-course:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.35); }
-.cflow152 .cf-course .name { font-size: 12px; line-height: 1.3; color: var(--ink); }
+.cflow152 .cf-course .code { font-size: 10.5px; font-weight: 700; letter-spacing: .04em;
+  font-variant-numeric: tabular-nums; color: var(--kc, var(--accent)); }
+.cflow152 .cf-course .name { font-size: 12.5px; line-height: 1.32; color: var(--ink); font-weight: 500; }
+.cflow152 .cf-course .foot { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin-top: 2px; }
+.cflow152 .cf-course .tc { font-size: 10.5px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.cflow152 .cf-course .pre { font-size: 9.5px; color: var(--ink-soft); line-height: 1.3; margin-top: 1px; }
+.cflow152 .cf-course .pre b { color: var(--kc, var(--accent)); font-variant-numeric: tabular-nums; font-weight: 700; }
 .cflow152 .cf-badge { font-size: 9px; font-weight: 700; letter-spacing: .04em; padding: 2px 6px;
   border-radius: 4px; background: var(--kbg, var(--line-soft)); color: var(--kc, var(--ink-soft)); flex: none; }
 
@@ -159,11 +153,36 @@ const CSS = `
 .cflow152 .cf-sec-opt { background: transparent; color: var(--c-coso); border: 1px dashed var(--c-coso); margin-top: 10px; }
 .cflow152 .cf-sec-summer { background: var(--summer); color: #fff; margin-top: 8px; }
 
-.cflow152 .cf-opt-group { background: var(--c-coso-bg); border: 1px dashed var(--line); border-left: 3px solid var(--c-coso); border-radius: 7px; padding: 6px 9px; }
-.cflow152 .cf-opt-item { font-size: 11.5px; color: var(--ink); padding: 1px 0; line-height: 1.35; }
+.cflow152 .cf-opt-group { background: var(--c-coso-bg); border: 1px dashed var(--line); border-left: 3px solid var(--c-coso); border-radius: 7px; padding: 7px 10px 8px; }
+.cflow152 .cf-opt-group + .cf-opt-group { margin-top: 7px; }
+.cflow152 .cf-opt-gtitle { font-size: 10.5px; font-weight: 800; letter-spacing: .02em; color: var(--c-coso); margin-bottom: 5px; }
+.cflow152 .cf-opt-gnote { font-size: 9.5px; font-weight: 500; color: var(--ink-soft); letter-spacing: 0; text-transform: none; }
+.cflow152 .cf-opt-item { display: flex; align-items: baseline; gap: 6px; font-size: 11px; color: var(--ink); padding: 2px 0; line-height: 1.32; }
+.cflow152 .cf-opt-item .oc { font-size: 9.5px; font-weight: 700; letter-spacing: .03em; font-variant-numeric: tabular-nums; color: var(--c-coso); flex: none; min-width: 52px; }
+.cflow152 .cf-opt-item .on { flex: 1; }
+.cflow152 .cf-opt-item .ot { font-size: 9.5px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; flex: none; }
 
 .cflow152 .cf-note-inline { font-size: 10.5px; color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 6px; padding: 4px 7px; margin-top: 4px; line-height: 1.35; }
+
+/* Con trỏ gọn tự chọn trong cột kỳ (không lặp danh mục) */
+.cflow152 .cf-opt-hint { font-size: 10.5px; color: var(--c-coso); background: var(--c-coso-bg);
+  border: 1px dashed var(--c-coso); border-radius: 7px; padding: 6px 9px; line-height: 1.4; }
+.cflow152 .cf-opt-hint b { color: var(--c-coso); font-weight: 800; display: block; margin-bottom: 2px; }
+.cflow152 .cf-opt-hint span { color: var(--ink-soft); font-size: 9.5px; }
+
+/* Danh mục tự chọn theo định hướng — hiển thị MỘT LẦN dưới bảng */
+.cflow152 .cf-catalog { margin-top: 34px; }
+.cflow152 .cf-catalog > h3 { font-size: 16px; margin: 0 0 4px; letter-spacing: -.01em; color: var(--ink); }
+.cflow152 .cf-catalog > .lead { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 16px; line-height: 1.55; }
+.cflow152 .cf-cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+.cflow152 .cf-cat-col { background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--c-se); border-radius: 10px; padding: 12px 14px 13px; box-shadow: var(--shadow); }
+.cflow152 .cf-cat-col h4 { font-size: 12.5px; font-weight: 800; color: var(--c-se); margin: 0 0 8px; letter-spacing: .01em; }
+.cflow152 .cf-cat-item { display: flex; align-items: baseline; gap: 8px; font-size: 12px; color: var(--ink); padding: 3px 0; border-top: 1px solid var(--line-soft); line-height: 1.35; }
+.cflow152 .cf-cat-item:first-of-type { border-top: none; }
+.cflow152 .cf-cat-item .oc { font-size: 10.5px; font-weight: 700; letter-spacing: .02em; font-variant-numeric: tabular-nums; color: var(--c-se); flex: none; min-width: 60px; }
+.cflow152 .cf-cat-item .on { flex: 1; }
+.cflow152 .cf-cat-item .ot { font-size: 10.5px; font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; flex: none; }
 
 .cflow152 .cf-grad-box { border: 1.5px solid var(--grad); background: var(--grad-bg); border-radius: 9px; padding: 8px 10px 10px; margin-top: 4px; }
 .cflow152 .cf-grad-box .gh { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--grad); margin-bottom: 5px; }
@@ -243,47 +262,45 @@ const CSS = `
   .cflow152.cf-printing .cf-course, .cflow152.cf-printing .cf-term-head { box-shadow: none !important; }
   .cflow152.cf-printing .cf-course { break-inside: avoid; }
   .cflow152.cf-printing .cf-term-head { position: static !important; }
+  .cflow152.cf-printing .cf-catalog { break-before: page; }
+  .cflow152.cf-printing .cf-cat-col { break-inside: avoid; box-shadow: none; }
 }
 @media (prefers-reduced-motion: reduce) { .cflow152 * { transition: none !important; } }
 `;
 
-function CourseChip({ name, block }: { name: string; block: MBlock }) {
-  const m = M_META[block];
+function CourseChip({ course }: { course: Flow152Course }) {
+  const m = M_META[course.block];
   return (
     <div className="cf-course" style={{ ['--kc' as string]: m.c, ['--kbg' as string]: m.bg }}>
-      <span className="name">{name}</span>
-      <span className="cf-badge">{m.badge}</span>
+      <span className="code">{course.code}</span>
+      <span className="name">{course.name}</span>
+      <div className="foot">
+        <span className="tc">{course.credits} TC</span>
+        <span className="cf-badge">{m.badge}</span>
+      </div>
+      {course.pre && (
+        <div className="pre">Tiên quyết: <b>{course.pre}</b></div>
+      )}
     </div>
   );
 }
 
-type FlatSem = {
-  yr: string;
-  hk: string;
-  yearIdx: number;
-  required: string[];
-  elective: string[];
-  note?: string;
-  isGrad: boolean;
-};
-
-function flatten(blocks: YearBlock[]): FlatSem[] {
-  const out: FlatSem[] = [];
-  blocks.forEach((b, yearIdx) => {
-    b.semesters.forEach((s) => {
-      const isGrad = s.required.some((r) => /Khóa luận/i.test(r));
-      out.push({
-        yr: `Năm ${b.year}`,
-        hk: `Học kỳ ${s.semester}`,
-        yearIdx,
-        required: s.required,
-        elective: s.elective,
-        note: s.note,
-        isGrad,
-      });
-    });
-  });
-  return out;
+function ElectiveGroup({ el }: { el: Flow152Elective }) {
+  return (
+    <div className="cf-opt-group">
+      <div className="cf-opt-gtitle">
+        {el.group}
+        {el.note && <span className="cf-opt-gnote"> · {el.note}</span>}
+      </div>
+      {el.items.map((it, j) => (
+        <div className="cf-opt-item" key={j}>
+          {it.code && <span className="oc">{it.code}</span>}
+          <span className="on">{it.name}</span>
+          {it.credits != null && <span className="ot">{it.credits}</span>}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function CreditBox({ blocks, total }: { blocks: CreditBlock[]; total?: number }) {
@@ -345,7 +362,7 @@ function CreditBox({ blocks, total }: { blocks: CreditBlock[]; total?: number })
 }
 
 export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props) {
-  const sems = flatten(yearBlocks152);
+  const sems: Flow152Term[] = flow152;
   const rootRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -388,65 +405,104 @@ export default function CurriculumFlow152({ creditBlocks, totalCredits }: Props)
 
       <div className="cf-board-scroll">
         <div className="cf-board">
-          {sems.map((s, i) => (
+          {sems.map((s, i) => {
+            const reqTC = s.required.reduce((a, c) => a + c.credits, 0);
+            return (
             <div className="cf-term" key={i}>
               <div className="cf-term-head">
-                <div className="yr">{s.yr}</div>
+                <div className="yr">{s.year}</div>
                 <div className="hk">{s.hk}</div>
                 <div className="tc">
-                  {s.isGrad ? 'Tốt nghiệp' : s.required.length > 0 ? `${s.required.length} HP bắt buộc` : 'Chuyên ngành'}
+                  {s.grad ? 'Tốt nghiệp' : s.required.length > 0 ? `${s.required.length} HP · ${reqTC} TC bắt buộc` : 'Chuyên ngành (tự chọn)'}
                 </div>
               </div>
 
-              {s.required.length > 0 && !s.isGrad && (
+              {s.required.length > 0 && !s.grad && (
                 <>
                   <div className="cf-sec-label cf-sec-req">Bắt buộc</div>
-                  {s.required.map((name, j) => (
-                    <CourseChip name={name} block={blockFor(name, s.yearIdx)} key={j} />
+                  {s.required.map((c, j) => (
+                    <CourseChip course={c} key={j} />
                   ))}
                 </>
               )}
 
-              {s.isGrad && (
+              {s.grad && (
                 <div className="cf-grad-box">
                   <div className="gh">Tốt nghiệp · 10 TC</div>
-                  <div className="gn">Khóa luận tốt nghiệp</div>
+                  <div className="gn">CSE4050 — Khóa luận tốt nghiệp</div>
                 </div>
               )}
 
-              {s.elective.length > 0 && (
+              {s.electives && s.electives.length > 0 && (
                 <>
                   <div className="cf-sec-label cf-sec-opt">Tự chọn</div>
-                  <div className="cf-opt-group">
-                    {s.elective.map((e, j) => (
-                      <div className="cf-opt-item" key={j}>{e}</div>
-                    ))}
-                  </div>
+                  {s.electives.map((el, j) =>
+                    el.compact ? (
+                      // Con trỏ gọn (không lặp lại toàn bộ danh mục trong cột kỳ)
+                      <div className="cf-opt-hint" key={j}>
+                        <b>{el.group}</b>
+                        {el.note && <span> · {el.note}</span>}
+                      </div>
+                    ) : (
+                      <ElectiveGroup el={el} key={j} />
+                    )
+                  )}
                 </>
               )}
 
-              {s.note && <div className="cf-note-inline">{s.note}</div>}
-
-              {/* Kỳ hè sau HK6: thực tập nghề nghiệp (152 ghi trong note HK6) */}
-              {s.hk === 'Học kỳ 6' && (
+              {s.summer && s.summer.length > 0 && (
                 <>
                   <div className="cf-sec-label cf-sec-summer">☀ Kỳ hè (sau HK6)</div>
-                  <div className="cf-course" style={{ ['--kc' as string]: 'var(--summer)', ['--kbg' as string]: 'color-mix(in srgb, var(--summer) 18%, transparent)' }}>
-                    <span className="name">Thực tập nghề nghiệp + Thực hành hướng nghiệp</span>
-                    <span className="cf-badge" style={{ background: 'var(--summer)', color: '#fff' }}>KỲ HÈ</span>
-                  </div>
+                  {s.summer.map((c, j) => (
+                    <div
+                      key={j}
+                      className="cf-course"
+                      style={{ ['--kc' as string]: 'var(--summer)', ['--kbg' as string]: 'color-mix(in srgb, var(--summer) 18%, transparent)' }}
+                    >
+                      <span className="code" style={{ color: 'var(--summer)' }}>{c.code}</span>
+                      <span className="name">{c.name}</span>
+                      <div className="foot">
+                        <span className="tc">{c.credits} TC</span>
+                        <span className="cf-badge" style={{ background: 'var(--summer)', color: '#fff' }}>KỲ HÈ</span>
+                      </div>
+                    </div>
+                  ))}
                 </>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
+      <section className="cf-catalog">
+        <h3>Tự chọn ngành theo định hướng — M5</h3>
+        <p className="lead">
+          Sau khi hoàn thành nền bắt buộc, sinh viên chọn <b>21 TC tự chọn ngành</b> theo một trong các
+          định hướng dưới đây (có thể kết hợp). Danh mục hiển thị đại diện — xem đầy đủ trong Quyển Khung.
+        </p>
+        <div className="cf-cat-grid">
+          {electiveCatalog152.map((el, i) => (
+            <div className="cf-cat-col" key={i}>
+              <h4>{el.group}</h4>
+              {el.items.map((it, j) => (
+                <div className="cf-cat-item" key={j}>
+                  {it.code && <span className="oc">{it.code}</span>}
+                  <span className="on">{it.name}</span>
+                  {it.credits != null && <span className="ot">{it.credits} TC</span>}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       <footer className="cf-footer">
         Khung <b>hiện hành 152 TC</b> (mã thí điểm 7480204) — áp dụng cho các khóa tuyển sinh <b>2025 trở về trước</b>.
-        Sơ đồ hiển thị <b>tên học phần theo học kỳ</b>; mã học phần, số tín chỉ chi tiết và điều kiện tiên quyết xem trong
-        Quyển Khung chương trình. Học phần tự chọn hiển thị đại diện theo định hướng. Lộ trình là <b>gợi ý chuẩn</b> —
-        sinh viên điều chỉnh theo tư vấn học tập. Khóa 2026 trở đi áp dụng <b>khung điều chỉnh 135 TC</b> (chuyển tab để xem).
+        Sơ đồ hiển thị <b>mã học phần, tên, số tín chỉ và khối M1–M5</b>; điều kiện tiên quyết ghi trên thẻ khi có.
+        Học phần tự chọn ngành (M5) gom theo <b>định hướng</b> (AI &amp; DS, SE, IoT/IC, Fintech); sinh viên chọn đủ số TC
+        tự chọn của từng khối. Lộ trình là <b>gợi ý chuẩn</b> — sinh viên điều chỉnh theo tư vấn học tập.
+        Khóa 2026 trở đi áp dụng <b>khung điều chỉnh 135 TC</b> (chuyển tab để xem).
       </footer>
     </div>
   );
