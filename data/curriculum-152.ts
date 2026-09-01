@@ -82,7 +82,6 @@ const AIDS_ELECTIVE: Flow152Elective = {
     { code: 'CSE3062', name: 'Thị giác máy tính', credits: 3 },
     { code: 'CSE3063', name: 'Xử lý thông tin âm thanh và hình ảnh', credits: 3 },
     { code: 'CSE3064', name: 'Vận trù học', credits: 3 },
-    { code: 'CSE3067', name: 'Học máy trong kinh tế và tài chính', credits: 3 },
     { code: 'CSE3068', name: 'Lý thuyết trò chơi', credits: 3 },
     { code: 'CSE3051', name: 'Các công cụ trong AI', credits: 3 },
   ],
@@ -107,14 +106,11 @@ const IOT_ELECTIVE: Flow152Elective = {
   items: [
     { code: 'CSE3069', name: 'Phát triển ứng dụng IoT', credits: 3 },
     { code: 'CSE3070', name: 'Mạng cảm biến không dây', credits: 3 },
-    { code: 'CSE3063', name: 'Xử lý thông tin âm thanh và hình ảnh', credits: 3 },
-    { code: 'CSE3059', name: 'Điện toán đám mây', credits: 3 },
   ],
 };
 const IC_ELECTIVE: Flow152Elective = {
   group: 'Thiết kế vi mạch (IC)',
   color: 'ic',
-  note: 'Nền cửa ngõ là các HP bắt buộc: Mạch logic & KT số (HK4) · Thiết kế luận lý số (HK5) · Thiết kế hệ thống số với HDL, SoC (HK6).',
   items: [
     { code: 'CSE3078', name: 'Thiết kế vi mạch số', credits: 3 },
   ],
@@ -261,7 +257,7 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3021', name: 'An ninh thông tin', credits: 3, block: 'M5' },
       { code: 'CSE3045', name: 'Học theo dự án khoa học và kỹ thuật', credits: 3, block: 'M5' },
       { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3, block: 'M5' },
-      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, block: 'M5' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành (theo định hướng SV chọn)', credits: 2, block: 'M5' },
     ],
     electives: [ELECTIVE_HINT],
     summerLabel: '☀ Kỳ hè (sau HK6)',
