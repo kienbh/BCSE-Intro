@@ -5,12 +5,14 @@ import type { YearBlock } from './curriculum';
 export const programStructure152 = {
   totalCredits: 152,
   majorCode: '7480204',
+  // reqCredits = bắt buộc, optCredits = tự chọn (cộng lại = credits).
+  // Tổng: BB 121 + TC 31 = 152. (M5: BB 20 + Thực tập 5 + Tốt nghiệp 10 = 35 BB, TC 21)
   creditBlocks: [
-    { code: 'M1', name: 'Kiến thức chung', credits: 26, detail: 'Đại cương (16) + Ngoại ngữ (10)' },
-    { code: 'M2', name: 'Kiến thức theo lĩnh vực', credits: 30, detail: 'Bắt buộc (22) + Tự chọn (8/78)' },
-    { code: 'M3', name: 'Kiến thức theo khối ngành', credits: 22, detail: 'Bắt buộc (20) + Tự chọn (2/4)' },
-    { code: 'M4', name: 'Kiến thức theo nhóm ngành', credits: 18, detail: 'Bắt buộc (18)' },
-    { code: 'M5', name: 'Kiến thức ngành', credits: 56, detail: 'Bắt buộc (20) + Tự chọn (21/86) + Thực tập (5) + Tốt nghiệp (10)' },
+    { code: 'M1', name: 'Kiến thức chung', credits: 26, reqCredits: 26, optCredits: 0, detail: 'Đại cương (16) + Ngoại ngữ (10)' },
+    { code: 'M2', name: 'Kiến thức theo lĩnh vực', credits: 30, reqCredits: 22, optCredits: 8, detail: 'Tự chọn 8/78 TC' },
+    { code: 'M3', name: 'Kiến thức theo khối ngành', credits: 22, reqCredits: 20, optCredits: 2, detail: 'Tự chọn 2/4 TC' },
+    { code: 'M4', name: 'Kiến thức theo nhóm ngành', credits: 18, reqCredits: 18, optCredits: 0, detail: 'Toàn bộ bắt buộc' },
+    { code: 'M5', name: 'Kiến thức ngành', credits: 56, reqCredits: 35, optCredits: 21, detail: 'Cốt lõi 20 + Thực tập 5 + Tốt nghiệp 10; Tự chọn 21/86' },
   ],
   degreeTitle: 'Cử nhân Khoa học và Kỹ thuật Máy tính',
   degreeTitleEN: 'Bachelor of Computer Science and Engineering (Honors Program)',

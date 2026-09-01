@@ -62,6 +62,8 @@ const CFLOW_CSS = `
   --c-fintech: #1F7A8C; --c-fintech-bg: #E0F0F3;
   --c-totnghiep: #1B2A4A; --c-totnghiep-bg: #E7EAF0;
   --grad: #6D28D9; --grad-bg: #F3EEFC;
+  /* BB (bắt buộc) = xanh lá đậm; TC (tự chọn) = cam — LIGHT */
+  --cc-req: #167C4A; --cc-opt: #B45309;
 }
 
 /* DARK — theo hệ thống (SV08 mặc định dark khi chưa set data-theme) */
@@ -79,6 +81,7 @@ const CFLOW_CSS = `
   --c-fintech: #56AEC0; --c-fintech-bg: #16292d;
   --c-totnghiep: #C8D1E0; --c-totnghiep-bg: #202836;
   --grad: #B79CF5; --grad-bg: #241A40;
+  --cc-req: #52D191; --cc-opt: #F0A868;
 }
 /* DARK — data-theme tường minh */
 :root[data-theme="dark"] .cflow {
@@ -95,6 +98,7 @@ const CFLOW_CSS = `
   --c-fintech: #56AEC0; --c-fintech-bg: #16292d;
   --c-totnghiep: #C8D1E0; --c-totnghiep-bg: #202836;
   --grad: #B79CF5; --grad-bg: #241A40;
+  --cc-req: #52D191; --cc-opt: #F0A868;
 }
 /* LIGHT — data-theme tường minh (khớp :root[data-theme="light"] bản gốc) */
 :root[data-theme="light"] .cflow {
@@ -111,6 +115,7 @@ const CFLOW_CSS = `
   --c-fintech: #1F7A8C; --c-fintech-bg: #E0F0F3;
   --c-totnghiep: #1B2A4A; --c-totnghiep-bg: #E7EAF0;
   --grad: #6D28D9; --grad-bg: #F3EEFC;
+  --cc-req: #167C4A; --cc-opt: #B45309;
 }
 
 .cflow { color: var(--ink); line-height: 1.5; }
@@ -243,28 +248,48 @@ const CFLOW_CSS = `
   margin: 18px 0 26px; background: color-mix(in srgb, var(--accent) 5%, var(--surface)); box-shadow: var(--shadow); }
 .cflow .cf-credits .cc-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
   color: var(--accent); margin: 0 0 10px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-.cflow .cf-credits .cc-total { font-size: 12px; font-weight: 800; color: var(--ink); letter-spacing: 0; text-transform: none; }
-.cflow .cf-credits .cc-total b { color: var(--accent); font-size: 15px; font-variant-numeric: tabular-nums; }
-.cflow .cf-cc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; }
+.cflow .cf-credits .cc-total { font-size: 12px; font-weight: 700; color: var(--ink-soft); letter-spacing: 0; text-transform: none; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.cflow .cf-credits .cc-total .cc-tot-n { color: var(--ink); font-weight: 800; }
+.cflow .cf-credits .cc-total .cc-tot-n b { color: var(--accent); font-size: 15px; font-variant-numeric: tabular-nums; }
+/* chú giải BB / TC ở tiêu đề */
+.cflow .cf-credits .cc-key { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; }
+.cflow .cf-credits .cc-key .kdot { width: 11px; height: 11px; border-radius: 3px; flex: none; }
+.cflow .cf-credits .cc-key.req { color: var(--cc-req); }
+.cflow .cf-credits .cc-key.req .kdot { background: var(--cc-req); }
+.cflow .cf-credits .cc-key.opt { color: var(--cc-opt); }
+.cflow .cf-credits .cc-key.opt .kdot { background: var(--cc-opt); border: 1px dashed var(--cc-opt); background: transparent; }
+.cflow .cf-cc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 8px; }
 .cflow .cf-cc-cell { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 8px;
-  padding: 7px 10px; background: var(--surface); }
-.cflow .cf-cc-cell .cc-code { font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--accent); font-variant-numeric: tabular-nums; }
-.cflow .cf-cc-cell .cc-cr { font-size: 20px; font-weight: 800; color: var(--ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
-.cflow .cf-cc-cell .cc-cr small { font-size: 10px; font-weight: 600; color: var(--ink-soft); }
-.cflow .cf-cc-cell .cc-name { font-size: 10.5px; color: var(--ink); margin-top: 1px; line-height: 1.25; }
-.cflow .cf-cc-cell .cc-detail { font-size: 9px; color: var(--ink-soft); margin-top: 2px; line-height: 1.3; }
+  padding: 7px 10px 8px; background: var(--surface); }
+.cflow .cf-cc-cell .cc-code { font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--accent); font-variant-numeric: tabular-nums; display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.cflow .cf-cc-cell .cc-code .cc-tot { font-size: 15px; font-weight: 800; color: var(--ink); }
+.cflow .cf-cc-cell .cc-code .cc-tot small { font-size: 9px; font-weight: 600; color: var(--ink-soft); }
+.cflow .cf-cc-cell .cc-name { font-size: 11px; font-weight: 600; color: var(--ink); margin-top: 2px; line-height: 1.25; }
+.cflow .cf-cc-cell .cc-split { display: flex; gap: 5px; margin-top: 6px; }
+.cflow .cf-cc-cell .cc-pill { flex: 1; border-radius: 6px; padding: 3px 6px; text-align: center; line-height: 1.1; }
+.cflow .cf-cc-cell .cc-pill .pn { font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; display: block; }
+.cflow .cf-cc-cell .cc-pill .pl { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.cflow .cf-cc-cell .cc-pill.req { background: color-mix(in srgb, var(--cc-req) 16%, transparent); color: var(--cc-req); }
+.cflow .cf-cc-cell .cc-pill.opt { background: transparent; color: var(--cc-opt); border: 1px dashed var(--cc-opt); }
+.cflow .cf-cc-cell .cc-detail { font-size: 9px; color: var(--ink-soft); margin-top: 5px; line-height: 1.3; }
 
 /* ── Chỉ hiển thị khi IN (tiêu đề mỗi trang PDF) ──────────────────────── */
 .cflow .cf-print-only { display: none; }
 
 /* ── IN / XUẤT PDF — 4 kỳ / trang, A4 ngang ──────────────────────────── */
 @media print {
-  /* Chỉ in phần sơ đồ đang được yêu cầu in; ẩn toàn bộ chrome SV08 */
-  body.cflow-printing * { visibility: hidden !important; }
-  body.cflow-printing .cflow.cf-printing,
-  body.cflow-printing .cflow.cf-printing * { visibility: visible !important; }
+  /* CHỐNG TRANG TRẮNG THỪA: visibility:hidden vẫn chiếm chiều cao -> mọi phần
+     KHÔNG chứa sơ đồ đang in đều display:none để chiều cao tài liệu co lại. */
+  body.cflow-printing *:not(:has(.cflow.cf-printing)):not(.cflow.cf-printing):not(.cflow.cf-printing *) {
+    display: none !important;
+  }
+  body.cflow-printing,
+  body.cflow-printing :has(.cflow.cf-printing) {
+    display: block !important; height: auto !important; min-height: 0 !important;
+    margin: 0 !important; padding: 0 !important; background: #fff !important;
+  }
   body.cflow-printing .cflow.cf-printing {
-    position: absolute !important; left: 0; top: 0; width: 100%;
+    position: static !important; width: 100% !important;
     padding: 0 !important; margin: 0 !important; background: #fff !important;
   }
 }
@@ -501,6 +526,8 @@ export interface CreditBlock {
   code: string;
   name: string;
   credits: number;
+  reqCredits?: number;
+  optCredits?: number;
   detail?: string;
 }
 interface CurriculumFlowProps {
@@ -528,6 +555,65 @@ function printFlow(root: HTMLElement | null) {
   setTimeout(cleanup, 1500);
 }
 
+// ── Hộp tích lũy tín chỉ theo khối — tách rõ BẮT BUỘC / TỰ CHỌN ──────────────
+function CreditBox({ blocks, total }: { blocks: CreditBlock[]; total?: number }) {
+  const sumReq = blocks.reduce((s, b) => s + (b.reqCredits ?? 0), 0);
+  const sumOpt = blocks.reduce((s, b) => s + (b.optCredits ?? 0), 0);
+  const hasSplit = blocks.some((b) => b.reqCredits != null || b.optCredits != null);
+  return (
+    <div className="cf-credits">
+      <p className="cc-title">
+        <span>Tích lũy tín chỉ theo khối học phần</span>
+        <span className="cc-total">
+          <span className="cc-tot-n">
+            Tổng: <b>{total}</b> TC
+          </span>
+          {hasSplit && (
+            <>
+              <span className="cc-key req">
+                <span className="kdot" /> Bắt buộc {sumReq}
+              </span>
+              <span className="cc-key opt">
+                <span className="kdot" /> Tự chọn {sumOpt}
+              </span>
+            </>
+          )}
+        </span>
+      </p>
+      <div className="cf-cc-grid">
+        {blocks.map((b) => {
+          const req = b.reqCredits ?? 0;
+          const opt = b.optCredits ?? 0;
+          return (
+            <div className="cf-cc-cell" key={b.code}>
+              <div className="cc-code">
+                <span>{b.code}</span>
+                <span className="cc-tot">
+                  {b.credits} <small>TC</small>
+                </span>
+              </div>
+              <div className="cc-name">{b.name}</div>
+              {hasSplit && (
+                <div className="cc-split">
+                  <div className="cc-pill req">
+                    <span className="pn">{req}</span>
+                    <span className="pl">Bắt buộc</span>
+                  </div>
+                  <div className="cc-pill opt">
+                    <span className="pn">{opt}</span>
+                    <span className="pl">Tự chọn</span>
+                  </div>
+                </div>
+              )}
+              {b.detail && <div className="cc-detail">{b.detail}</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
 export default function CurriculumFlow({ creditBlocks, totalCredits }: CurriculumFlowProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -550,26 +636,7 @@ export default function CurriculumFlow({ creditBlocks, totalCredits }: Curriculu
       </header>
 
       {creditBlocks && creditBlocks.length > 0 && (
-        <div className="cf-credits">
-          <p className="cc-title">
-            <span>Tích lũy tín chỉ theo khối học phần</span>
-            <span className="cc-total">
-              Tổng cần tích lũy: <b>{totalCredits}</b> tín chỉ
-            </span>
-          </p>
-          <div className="cf-cc-grid">
-            {creditBlocks.map((b) => (
-              <div className="cf-cc-cell" key={b.code}>
-                <div className="cc-code">{b.code}</div>
-                <div className="cc-cr">
-                  {b.credits} <small>TC</small>
-                </div>
-                <div className="cc-name">{b.name}</div>
-                {b.detail && <div className="cc-detail">{b.detail}</div>}
-              </div>
-            ))}
-          </div>
-        </div>
+        <CreditBox blocks={creditBlocks} total={totalCredits} />
       )}
 
       <div className="cf-toolbar">

@@ -6,14 +6,16 @@ import type { YearBlock } from './curriculum';
 export const programStructure135 = {
   totalCredits: 135,
   majorCode: '7480101',
+  // reqCredits = bắt buộc, optCredits = tự chọn (cộng lại = credits).
+  // Tổng: BB 107 + TC 28 = 135.
   creditBlocks: [
-    { code: 'I.1', name: 'Khối ĐHQGHN', credits: 26, detail: 'Lý luận chính trị + Tiếng Anh + Nhập môn ĐHQGHN' },
-    { code: 'I.2', name: 'Đại cương ĐHVN', credits: 15, detail: 'Bắt buộc (7) + Tự chọn (8)' },
-    { code: 'I.3', name: 'Toán & KH cơ bản', credits: 20, detail: 'Giải tích, ĐSTT, Vật lý, Toán rời rạc, XS–TK, Nhập môn lập trình' },
-    { code: 'II.1', name: 'Cơ sở ngành', credits: 18, detail: 'Bắt buộc (16) + Ngoại ngữ chuyên ngành (2)' },
-    { code: 'II.2', name: 'Cốt lõi ngành', credits: 41, detail: 'Bắt buộc (23) + Tự chọn 5 mô đun (18)' },
-    { code: 'II.3', name: 'Tốt nghiệp', credits: 10, detail: 'Khóa luận hoặc Dự án TN + 2 học phần' },
-    { code: 'III', name: 'Thực tập', credits: 5, detail: 'Thực tập nghề nghiệp — kỳ hè sau HK6' },
+    { code: 'I.1', name: 'Khối ĐHQGHN', credits: 26, reqCredits: 26, optCredits: 0, detail: 'Lý luận chính trị + Tiếng Anh + Nhập môn ĐHQGHN' },
+    { code: 'I.2', name: 'Đại cương ĐHVN', credits: 15, reqCredits: 7, optCredits: 8, detail: 'Đại cương ĐHVN' },
+    { code: 'I.3', name: 'Toán & KH cơ bản', credits: 20, reqCredits: 20, optCredits: 0, detail: 'Giải tích, ĐSTT, Vật lý, Toán rời rạc, XS–TK, Nhập môn lập trình' },
+    { code: 'II.1', name: 'Cơ sở ngành', credits: 18, reqCredits: 16, optCredits: 2, detail: 'Bắt buộc 16 + Ngoại ngữ chuyên ngành 2 (chọn 1)' },
+    { code: 'II.2', name: 'Cốt lõi ngành', credits: 41, reqCredits: 23, optCredits: 18, detail: 'Cốt lõi bắt buộc + tự chọn 5 mô đun' },
+    { code: 'II.3', name: 'Tốt nghiệp', credits: 10, reqCredits: 10, optCredits: 0, detail: 'Khóa luận hoặc Dự án TN + 2 học phần' },
+    { code: 'III', name: 'Thực tập', credits: 5, reqCredits: 5, optCredits: 0, detail: 'Thực tập nghề nghiệp — kỳ hè sau HK6' },
   ],
   degreeTitle: 'Cử nhân Khoa học và Kỹ thuật Máy tính',
   degreeTitleEN: 'Bachelor of Computer Science and Engineering',
