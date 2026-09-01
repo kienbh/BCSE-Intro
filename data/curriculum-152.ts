@@ -198,7 +198,6 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3012', name: 'Nhập môn cơ sở dữ liệu', credits: 3, block: 'M3' },
       { code: 'CSE3005', name: 'Phương pháp số', credits: 2, block: 'M3' },
       { code: 'CSE3043', name: 'Mạch logic và kỹ thuật số', credits: 3, block: 'M4' },
-      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, block: 'M5' },
     ],
     electives: [
       {
@@ -232,6 +231,7 @@ export const flow152: Flow152Term[] = [
       { code: 'CSE3021', name: 'An ninh thông tin', credits: 3, block: 'M5' },
       { code: 'CSE3045', name: 'Học theo dự án khoa học và kỹ thuật', credits: 3, block: 'M5' },
       { code: 'CSE3048', name: 'Thiết kế hệ thống SoC', credits: 3, block: 'M5' },
+      { code: 'CSE3049', name: 'Đồ án theo chuyên ngành', credits: 2, block: 'M5' },
     ],
     electives: [ELECTIVE_HINT],
     summer: [
